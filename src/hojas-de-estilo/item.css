@@ -1,0 +1,17 @@
+.contenedorDerechoItem, .contenedorIzquierdoItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+@media (min-width: 576px) {
+    .contenedorIzquierdoItem{
+        justify-content: left;
+    
+    }
+}
+
+.lblInput{
+    width: 100%;
+    text-align: center;
+}

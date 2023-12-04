@@ -1,23 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import Item from './componentes/Item'
+import { arregloProducto } from './js/objetos';
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container-sm">
+    {arregloProducto.map((producto, index) => (
+        <Item key={index} objetoProducto= {producto} />
+      ))}
     </div>
   );
 }
