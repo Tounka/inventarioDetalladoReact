@@ -2,16 +2,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 
 }
+
 @media (min-width: 576px) {
     .contenedorIzquierdoItem{
         justify-content: left;
     
     }
 }
-
+h2{
+    font-size: 1.5em;
+    margin: 10px 0;
+}
 .lblInput{
     width: 100%;
+    color: #009FB5;
     text-align: center;
+    
+}
+.instanciaInput{
+    border-bottom: 2px solid #009FB5;
+    margin: 2px;
 }

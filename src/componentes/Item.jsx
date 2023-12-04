@@ -54,12 +54,14 @@ function Item ({objetoProducto}){
       
     return(
         
-        <div className="d-flex row">
+        <div className="d-flex row ">
+            
             <div className="contenedorIzquierdoItem col-sm-7 ">
                 <h2>{objetoProducto.nombre
                 }</h2>
             </div>
             <div className="contenedorDerechoItem col-sm-5 ">
+            <div className="instanciaInput"></div>
                 <div className="contenedorInputsItems container-fluid row" id={objetoProducto.id}>
 
                     {objetoProducto.cantidadPorCajas !== 0 ? (
@@ -72,7 +74,7 @@ function Item ({objetoProducto}){
                       
                     {objetoProducto.cantidadPorBolsa !== 0 ?(
                     <div className="col ">
-                        <label htmlFor="bolsa" className="form-label lblInput">Bolsas</label>
+                        <label htmlFor="bolsa" className="form-label lblInput">Paquetes</label>
                         <input type="number" className="form-control" id={`bolsa${objetoProducto.id}`} placeholder="Bolsas" onChange={modificarCantidad} value={bolsaValue}/>
                     </div>
                     )
