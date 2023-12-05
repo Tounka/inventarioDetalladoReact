@@ -54,7 +54,7 @@ function Item ({objetoProducto}){
       
     return(
         
-        <div className="d-flex row ">
+        <div className="d-flex row contenedor">
             
             <div className="contenedorIzquierdoItem col-sm-7 ">
                 <h2>{objetoProducto.nombre

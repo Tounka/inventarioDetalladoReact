@@ -1,0 +1,31 @@
+.contenedorBtnFlotante{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    background-color: #11a37e97;
+
+    position: fixed;
+    top: 10px;
+    left: 0;
+    cursor: pointer;
+
+}
+.iconoPrint{
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.56);
+}
+@media (min-width: 576px) {
+    .contenedorBtnFlotante{
+        width: 70px;
+        height: 70px;
+      
+    
+    }
+    .iconoPrint{
+        font-size: 60px;
+    }
+}

@@ -5,7 +5,10 @@
     
 
 }
-
+.contenedorItem{
+    padding: 10px 0;
+    border-bottom: 2px solid #00a0b54e;
+}
 @media (min-width: 576px) {
     .contenedorIzquierdoItem{
         justify-content: left;
