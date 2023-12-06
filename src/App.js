@@ -4,16 +4,20 @@ import Item from './componentes/Item'
 import Separador from './componentes/Separador'
 import BtnImprimir from './componentes/BtnFlotante'
 import InputID from './componentes/InputID'
+import Footer from './componentes/Footer'
 import {  arregloProducto,
   arregloContenedoresProducto,
   arregloDesechablesProducto,
   arregloOperacional } from './js/objetos';
+import { useState } from 'react';
 
 function App() {
-  
+  const [nombre, setNombre] = useState ('');
+  const [cdp, setCdp] = useState ('');
   return (
+    <>
     <div className="container-sm">
-      <InputID />
+      <InputID setNombre={setNombre} setCdp={setCdp}/>
 
       <Separador titulo="Contenedores" />
 
@@ -36,8 +40,13 @@ function App() {
           <Item key={index} objetoProducto= {producto} />
       ))}
 
-        <BtnImprimir nombre='Hector Castillo' cdp='Renacimiento'/>
-    </div>
+        <BtnImprimir nombre={nombre} cdp={cdp}/>
+
+      </div>
+      <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS, Es Solo Un Formato Digital Creado Para Facilitar Los Inventarios Detallados en CDP, La Pagina No Almacena Ningún Tipo De Dato.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 
+    
+    </>
+    
   );
 }
 

@@ -53,7 +53,7 @@ function BtnImprimir(props) {
         
     
         pdfDoc.setFontSize(16);
-        const textToCenterNombre = 'Hecho por ' +props.nombre +' en ' + props.cdp;
+        const textToCenterNombre = props.nombre +', ' + props.cdp;
         const startTextoNombre = (pdfDoc.internal.pageSize.width - pdfDoc.getTextDimensions(textToCenterNombre).w) / 2;
         pdfDoc.text(textToCenterNombre, startTextoNombre, 28);
 
