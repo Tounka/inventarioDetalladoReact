@@ -1,7 +1,7 @@
-import React from "react";
-import { FaPrint } from "react-icons/fa";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+import React from 'react';
+import { FaPrint } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import '../hojas-de-estilo/BtnFlotante.css';
 import { arregloProducto, arregloContenedoresProducto, arregloDesechablesProducto, arregloOperacional } from '../js/objetos';
 
@@ -18,13 +18,18 @@ function BtnImprimir(props) {
         const tableRows = [];
 
         const arregloListasItems = [arregloContenedoresProducto, arregloProducto, arregloDesechablesProducto, arregloOperacional];
-        let n = 0;
+        
         arregloListasItems.forEach(arreglo => {
             tableRows.push(['', '', '']);
-            n++;
+            
             arreglo.forEach(itemArreglo => {
-                tableRows.push([itemArreglo.nombre, itemArreglo.cantidad, itemArreglo.cantidadCritica]);
+                let textoRecomendacion = ""
+                if (itemArreglo.cantidadCritica > itemArreglo.cantidad ){
+                    textoRecomendacion = "Critico";
+                }
+                tableRows.push([itemArreglo.nombre, itemArreglo.cantidad, textoRecomendacion]);
             });
+         
         });
 
         pdfDoc.autoTable({
@@ -32,13 +37,13 @@ function BtnImprimir(props) {
             body: tableRows,
             columnStyles: {
                 0: { cellWidth: columnWidths[0] },
-                1: { cellWidth: columnWidths[1], halign: "center" },
-                2: { cellWidth: columnWidths[2], halign: "center" },
+                1: { cellWidth: columnWidths[1], halign: 'center' },
+                2: { cellWidth: columnWidths[2], halign: 'center' },
             },
             styles: {
                 cellPadding: 1,
                 lineWidth: .3, // Ancho del borde
-                lineColor: "#000000", // Color del borde
+                lineColor: '#000000', // Color del borde
             },
             margin: { top: 40 },
             theme: 'grid',
@@ -57,14 +62,23 @@ function BtnImprimir(props) {
         const startTextoNombre = (pdfDoc.internal.pageSize.width - pdfDoc.getTextDimensions(textToCenterNombre).w) / 2;
         pdfDoc.text(textToCenterNombre, startTextoNombre, 28);
 
-      
-
-        pdfDoc.output('dataurlnewwindow');
+        const fechaActual = new Date();
+        const mes = fechaActual.getMonth() ; // Los meses en JavaScript son indexados desde 0
+        const dia = fechaActual.getDate();
+        const meses = [
+            'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO',
+            'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'
+          ];
+        pdfDoc.title = 'UALA';
+        const nombreDocumento = 'Inventario_Detallado_'  + props.cdp + '_' + dia + '_DE_' + meses[mes] + '.pdf'
+        pdfDoc.save(nombreDocumento);
+        
     }
 
     return (
-        <div className="contenedorBtnFlotante" onClick={imprimir}>
-            <FaPrint className="iconoPrint" />
+        
+        <div className='contenedorBtnFlotante' onClick={() => (props.nombre && props.cdp !== "") ? imprimir() : alert("Ingresa Tu Nombre y El CDP En El Que Estás")}>    
+            <FaPrint className='iconoPrint' />
         </div>
     );
 }

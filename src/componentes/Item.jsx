@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import '../hojas-de-estilo/item.css'
 
 function Item ({objetoProducto}){
-    const [cajaValue, setCajaValue] = useState(0);
-    const [bolsaValue, setBolsaValue] = useState(0);
-    const [unidadesValue, setUnidadesValue] = useState(0);
+    const [cajaValue, setCajaValue] = useState(0.0);
+    const [bolsaValue, setBolsaValue] = useState(0.0);
+    const [unidadesValue, setUnidadesValue] = useState(0.0);
 
 
     const modificarCantidad = () => {
@@ -40,7 +40,7 @@ function Item ({objetoProducto}){
           }
         setUnidadesValue(eliminarCerosALaIzquierda(idUnidades.value))
 
-        const cantidadUnidades = parseInt(idUnidades.value);
+        const cantidadUnidades = parseFloat(idUnidades.value);
         arregloCantidades[2] = cantidadUnidades;
 
         const cantidadTotal = arregloCantidades[0] + arregloCantidades[1]+ arregloCantidades[2];
@@ -67,7 +67,7 @@ function Item ({objetoProducto}){
                     {objetoProducto.cantidadPorCajas !== 0 ? (
                         <div className="col">
                           <label htmlFor="caja" className="form-label lblInput">Caja</label>
-                          <input type="number" className="form-control" id={`caja${objetoProducto.id}`} placeholder="Caja" onChange={modificarCantidad} value={cajaValue} />
+                          <input type="number" className="form-control" id={`caja${objetoProducto.id}`} placeholder="Caja" onChange={modificarCantidad} value={cajaValue} min={0} />
 
                         </div>
                       ) : null}
@@ -75,14 +75,14 @@ function Item ({objetoProducto}){
                     {objetoProducto.cantidadPorBolsa !== 0 ?(
                     <div className="col ">
                         <label htmlFor="bolsa" className="form-label lblInput">Paquetes</label>
-                        <input type="number" className="form-control" id={`bolsa${objetoProducto.id}`} placeholder="Bolsas" onChange={modificarCantidad} value={bolsaValue}/>
+                        <input type="number" className="form-control" id={`bolsa${objetoProducto.id}`} placeholder="Bolsas" onChange={modificarCantidad} value={bolsaValue} min={0} />
                     </div>
                     )
                     :null}
 
                     <div className="col ">
                         <label htmlFor="unidades" className="form-label lblInput">Unidades</label>
-                        <input type="number" className="form-control" id={`unidades${objetoProducto.id}`} placeholder="Unidades" onChange={modificarCantidad} value={unidadesValue}/>
+                        <input type="number" className="form-control" id={`unidades${objetoProducto.id}`} placeholder="Unidades" onChange={modificarCantidad} value={unidadesValue} min={0} />
                     </div>
                 </div>
             </div>
