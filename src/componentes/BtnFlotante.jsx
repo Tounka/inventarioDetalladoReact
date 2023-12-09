@@ -59,7 +59,7 @@ function BtnImprimir(props) {
 
       
 
-        pdfDoc.output('dataurlnewwindow');
+        pdfDoc.output('dataurlnewwindow',  { filename: 'InventarioCDP' });
     }
 
     return (
