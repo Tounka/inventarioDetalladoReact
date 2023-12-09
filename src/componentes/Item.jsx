@@ -21,21 +21,21 @@ function Item ({objetoProducto}){
             if (valor === "0") {
                 return valor;
             }
-            // De lo contrario, eliminar ceros a la izquierda
+            
             return valor.replace(/^0+/, '');
         };
 
         if (idCajas) {
             
             setCajaValue(eliminarCerosALaIzquierda(idCajas.value));
-          let cantidadCajas = objetoProducto.cantidadPorCajas * parseInt(idCajas.value);
-          // Aquí podrías redondear o truncar según tus necesidades
+          let cantidadCajas = objetoProducto.cantidadPorCajas * parseFloat(idCajas.value);
+         
           arregloCantidades[0] = cantidadCajas;
         }
         if (idBolsas) {
             setBolsaValue(eliminarCerosALaIzquierda(idBolsas.value));
-            let cantidadBolsas = objetoProducto.cantidadPorBolsa * parseInt(idBolsas.value);
-            // Aquí podrías redondear o truncar según tus necesidades
+            let cantidadBolsas = objetoProducto.cantidadPorBolsa * parseFloat(idBolsas.value);
+            
             arregloCantidades[1] = cantidadBolsas;
           }
         setUnidadesValue(eliminarCerosALaIzquierda(idUnidades.value))
