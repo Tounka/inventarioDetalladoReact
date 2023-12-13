@@ -1,0 +1,17 @@
+.contenedorTop{
+    min-height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+.contenedorScore{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+.score,.timer{
+    font-weight: bold;
+}

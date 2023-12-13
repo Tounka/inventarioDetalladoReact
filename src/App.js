@@ -1,48 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-import Item from './componentes/Item'
-import Separador from './componentes/Separador'
-import BtnImprimir from './componentes/BtnFlotante'
-import InputID from './componentes/InputID'
 import Footer from './componentes/Footer'
-import {  arregloProducto,
-  arregloContenedoresProducto,
-  arregloDesechablesProducto,
-  arregloOperacional } from './js/objetos';
-import { useState } from 'react';
+import PaginaInventarioDetallado from './Paginas/PaginaInventarioDetallado'
+import PaginaMcHoot from './Paginas/PaginaMcHoot';
+import NotFound from './Paginas/NotFound'
+
+import { BrowserRouter , Route, Routes} from 'react-router-dom';
+
 
 function App() {
-  const [nombre, setNombre] = useState ('');
-  const [cdp, setCdp] = useState ('');
+
   return (
     <>
-    <div className="container-sm">
-      <InputID setNombre={setNombre} setCdp={setCdp}/>
+      <BrowserRouter>
+        <Routes>
+            <Route path='/inventarioDetallado' element={<PaginaInventarioDetallado />}></Route>
+            <Route path='/McHoot' element={<PaginaMcHoot />}></Route>
+            <Route path='*' element={<NotFound />}></Route>
+        </Routes>
 
-      <Separador titulo="Contenedores" />
-
-      {arregloContenedoresProducto.map((producto, index) => (
-          <Item key={index} objetoProducto= {producto} />
-        ))}
-      <Separador titulo="Producto" />
+        
+      </BrowserRouter>
       
-      {arregloProducto.map((producto, index) => (
-          <Item key={index} objetoProducto= {producto} />
-        ))}
-      <Separador titulo="Desechables" />
-      
-      {arregloDesechablesProducto.map((producto, index) => (
-          <Item key={index} objetoProducto= {producto} />
-        ))}
-      <Separador titulo="Operacionales" />
-      
-      {arregloOperacional.map((producto, index) => (
-          <Item key={index} objetoProducto= {producto} />
-      ))}
 
-        <BtnImprimir nombre={nombre} cdp={cdp}/>
-
-      </div>
       <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS, Es Solo Un Formato Digital Creado Para Facilitar Los Inventarios Detallados en CDP, La Pagina No Almacena Ningún Tipo De Dato.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 
     
     </>

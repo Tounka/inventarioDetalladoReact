@@ -1,0 +1,9 @@
+.textoTitular{
+    background-color: #DB011C;
+
+    color: white;
+    user-select: none;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
