@@ -21,10 +21,37 @@ const preguntasCocina =[
         respuestaCorrecta: '4'
     },
     {
-        pregunta: 'Cuanto es la tanda maxima de carne 4/1? ',
-        respuestas: ['6','8', '4', 'Ninguna'],
-        respuestaCorrecta: '4'
+        pregunta: 'Cual es la temperatura interna de calidad de la carne? ',
+        respuestas: ['140°F a 150°F','155°F a 170°F', '355°F a 360°F', '360°F a 370°F'],
+        respuestaCorrecta: '155°F a 170°F'
     }
 ]
+const preguntasServicio =[
+    {
+        pregunta: "Que es R2P y cual es su tiempo? ",
+        respuestas: ['Ready to Present, 90 segundos','Ready to Present, 120 segundos', 'Response to Protect , 90 segundos', 'Response to Protect , 120 segundos'],
+        respuestaCorrecta: 'Ready to Present, 90 segundos'
 
+    },
+    {
+        pregunta: 'Cual es la temperatura de la freidora de papas fritas? ',
+        respuestas: ['335°F','425°F', '360°F', '385°F'],
+        respuestaCorrecta: '335°F'
+    },
+    {
+        pregunta: 'Cual es el tiempo de vida de la papa HB? ',
+        respuestas: ['5 minutos','10 minutos', '15 minutos', '20 minutos (es esta)'],
+        respuestaCorrecta: '10 minutos'
+    },
+    {
+        pregunta: 'En este orden (Servilletas, Catsup, Jalapeño) en menu regular cuanto se debe poner de cada item? ',
+        respuestas: ['3 - 2 - 1','1 - 2 - 3', '3 - 2 - 2', 'Solo se pone cuando el cliente lo solicita'],
+        respuestaCorrecta: '3 - 2 - 1'
+    },
+    {
+        pregunta: 'Cuantos McTrios pueden ir como máximo por charola? ',
+        respuestas: ['2','1', '3', 'Pueden ir los que sea, siempre y cuando quepan.'],
+        respuestaCorrecta: '2'
+    }
+]
 export default preguntasCocina;

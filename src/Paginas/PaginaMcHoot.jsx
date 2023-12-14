@@ -20,7 +20,9 @@ function PaginaMcHoot() {
             <TopMcHoot score={scoreFinal} 
        
              />
-            <Pregunta 
+            {
+                numPregunta <= 3
+                ?<Pregunta 
                 scoreFinal={scoreFinal}
                 setScoreFinal={setScoreFinal}
                 numPregunta={numPregunta}
@@ -29,6 +31,9 @@ function PaginaMcHoot() {
                 pregunta={preguntasCocina[numPregunta].pregunta} 
                 respuestas={preguntasCocina[numPregunta].respuestas} 
                 respuestaCorrecta={preguntasCocina[numPregunta].respuestaCorrecta}/>
+                :<h2>Haz terminado</h2> //hacer componente para pantalla terminada
+            }
+            
 
             <FooterPregunta numPregunta={numPregunta}  />
             

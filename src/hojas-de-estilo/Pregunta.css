@@ -12,6 +12,7 @@
     flex-direction: column;
     
 }
+
 .respuestas{
     
 }
@@ -30,7 +31,8 @@
 
 .resp{
     color: white;
-    padding: 10px;
+    padding: 5vh;
+    
     text-align: center;
     -webkit-box-shadow: 3px 3px 1px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 3px 3px 1px 0px rgba(0,0,0,0.75);
@@ -38,6 +40,9 @@
     
     transition: .3s;
     cursor: pointer;
+
+    font-weight: bold;
+    font-size: 18px;
     
 }
 .resp:hover{
