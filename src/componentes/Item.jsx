@@ -57,8 +57,7 @@ function Item ({objetoProducto}){
         <div className="d-flex row contenedor">
             
             <div className="contenedorIzquierdoItem col-sm-7 ">
-                <h2>{objetoProducto.nombre
-                }</h2>
+                <h2>{objetoProducto.nombre}</h2>
             </div>
             <div className="contenedorDerechoItem col-sm-5 ">
             <div className="instanciaInput"></div>

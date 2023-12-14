@@ -1,4 +1,17 @@
 .numPregunta{
     text-align: center;
     margin: 30px 0;
+
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+
+}
+
+.subtexto{
+    color: black;
+    font-size: .8em;
 }

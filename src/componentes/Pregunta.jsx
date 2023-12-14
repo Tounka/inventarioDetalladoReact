@@ -18,16 +18,16 @@ function Pregunta({pregunta, respuestas, respuestaCorrecta, setNumPregunta, numP
     const [textoRespuesta, setTextoRespuesta] = useState(['Correcto', 'La respuesta es: ', 'Ganaste puntos :D']);
     const [ordenPreguntas, setOrdenPreguntas] = useState(generarNumerosAleatorios);
     const validarRespuesta = (index) =>{
-        
+        let valorPorPregunta = 100;
         if (respuestas[index] === respuestaCorrecta){
-            scoreFinal+=100
+            scoreFinal+=valorPorPregunta
             setScoreFinal(scoreFinal)
             
             const textoRespuestaEstado = 'La respuesta es correcta es: '+respuestaCorrecta;
-            setTextoRespuesta(['Incorrecto',textoRespuestaEstado, 'Ganaste Puntos :D' ])
+            setTextoRespuesta(['Correcto',textoRespuestaEstado, 'Ganaste Puntos :D' ])
             
         }else{
-            scoreFinal-=100
+            scoreFinal-=(valorPorPregunta/2)
             setScoreFinal(scoreFinal)
             const textoRespuestaEstado = 'La respuesta es correcta es: '+respuestaCorrecta;
             setTextoRespuesta(['Incorrecto',textoRespuestaEstado, 'Perdiste Puntos :(' ])
@@ -44,23 +44,23 @@ function Pregunta({pregunta, respuestas, respuestaCorrecta, setNumPregunta, numP
                 <h3>{pregunta}</h3>
             </div>
             <div className="respuestas row container-fluid g-2">
-                <div className="posibleRespuesta  col-6">
+                <div className="posibleRespuesta  col-sm-6">
 
                     <div className="resp resp0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[0])}>
                         {respuestas[ordenPreguntas[0]]}
                     </div>
                 </div>
-                <div className="posibleRespuesta  col-6">
+                <div className="posibleRespuesta  col-sm-6">
                     <div className="resp resp1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[1])}>
                        {respuestas[ordenPreguntas[1]]} 
                     </div>
                 </div>
-                <div className="posibleRespuesta  col-6">
+                <div className="posibleRespuesta  col-sm-6">
                     <div className="resp resp2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[2])}>
                        {respuestas[ordenPreguntas[2]]} 
                     </div>
                 </div>
-                <div className="posibleRespuesta  col-6">
+                <div className="posibleRespuesta  col-sm-6">
                     <div className="resp resp3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[3])}>
                        {respuestas[ordenPreguntas[3]]} 
                     </div>

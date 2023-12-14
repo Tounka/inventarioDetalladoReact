@@ -1,9 +1,10 @@
 .textoTitular{
     background-color: #DB011C;
-
+    min-height: 10vh;
     color: white;
     user-select: none;
     padding: 20px 0;
     display: flex;
     justify-content: center;
+    margin: 0;
 }

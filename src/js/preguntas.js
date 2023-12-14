@@ -54,4 +54,22 @@ const preguntasServicio =[
         respuestaCorrecta: '2'
     }
 ]
-export default preguntasCocina;
+const todasLasPreguntas = [preguntasServicio,preguntasCocina]
+
+const crearListadoDePreguntas = (todasLasPreguntas) => {
+    let listadoDePreguntas = [];
+    todasLasPreguntas.forEach(lista => {
+            lista.forEach(pregunta =>{
+                listadoDePreguntas.push(pregunta);
+            });
+    });
+    function shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+    }
+    shuffle(listadoDePreguntas);
+    console.log(listadoDePreguntas);
+    return listadoDePreguntas;
+};
+ let listadoDePreguntas = crearListadoDePreguntas(todasLasPreguntas);
+
+export default listadoDePreguntas;

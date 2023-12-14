@@ -45,3 +45,9 @@
   justify-content: center;
   color: brown;
 }
+.paginaMinH{
+  min-height: 100vh;
+ 
+
+
+}
