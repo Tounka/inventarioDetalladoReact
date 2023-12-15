@@ -1,92 +1,90 @@
-import React, {useState} from "react";
-import '../hojas-de-estilo/Pregunta.css'
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal } from 'react-bootstrap';
+import '../hojas-de-estilo/Pregunta.css';
 
+function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder}) {
 
+  const generarNumerosAleatorios = () => {
+    let listaOriginal = [0, 1, 2, 3];
 
-function Pregunta({pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal}){
+    for (let i = listaOriginal.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [listaOriginal[i], listaOriginal[j]] = [listaOriginal[j], listaOriginal[i]];
+    }
+    return listaOriginal;
+  }
+
+  const [textoRespuesta, setTextoRespuesta] = useState(['Correcto', 'La respuesta es: ', 'Ganaste puntos :D']);
+  const [ordenPreguntas, setOrdenPreguntas] = useState(generarNumerosAleatorios);
+  const [showModal, setShowModal] = useState(false);
+
+  const validarRespuesta = (index) => {
     
-    const generarNumerosAleatorios = ()=>{
-        let listaOriginal = [0, 1, 2, 3];
+    if (respuestas[index] === respuestaCorrecta) {
+      setScoreFinal(prevScore => prevScore + valorPregunta);
 
-        for (let i = listaOriginal.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [listaOriginal[i], listaOriginal[j]] = [listaOriginal[j], listaOriginal[i]];
-          }
-        return listaOriginal;
+      const textoRespuestaEstado = 'La respuesta es correcta es: ' + respuestaCorrecta;
+      setTextoRespuesta(['Correcto', textoRespuestaEstado, 'Ganaste Puntos :D'])
+    } else {
+      setScoreFinal(prevScore => prevScore - (valorPregunta / 2));
+      setShowModal(true);
+
+      const textoRespuestaEstado = 'La respuesta es correcta es: ' + respuestaCorrecta;
+      setTextoRespuesta(['Incorrecto', textoRespuestaEstado, 'Perdiste Puntos :('])
     }
+      
+    setNumPregunta(prevNum => prevNum + 1);
+    setOrdenPreguntas(generarNumerosAleatorios);
 
-    const [textoRespuesta, setTextoRespuesta] = useState(['Correcto', 'La respuesta es: ', 'Ganaste puntos :D']);
-    const [ordenPreguntas, setOrdenPreguntas] = useState(generarNumerosAleatorios);
-    const validarRespuesta = (index) =>{
-        let valorPorPregunta = 100;
-        if (respuestas[index] === respuestaCorrecta){
-            scoreFinal+=valorPorPregunta
-            setScoreFinal(scoreFinal)
-            
-            const textoRespuestaEstado = 'La respuesta es correcta es: '+respuestaCorrecta;
-            setTextoRespuesta(['Correcto',textoRespuestaEstado, 'Ganaste Puntos :D' ])
-            
-        }else{
-            scoreFinal-=(valorPorPregunta/2)
-            setScoreFinal(scoreFinal)
-            const textoRespuestaEstado = 'La respuesta es correcta es: '+respuestaCorrecta;
-            setTextoRespuesta(['Incorrecto',textoRespuestaEstado, 'Perdiste Puntos :(' ])
-        }
-        numPregunta++
-        setNumPregunta(numPregunta)
-        setOrdenPreguntas(generarNumerosAleatorios)
-    }
+    setSegundoPoder(true);
+    setValorPregunta(100);
+  }
 
-    return(
-        <div className="contenedorPregunta container">
-            
-            <div className="pregunta row">
-                <h3>{pregunta}</h3>
-            </div>
-            <div className="respuestas row container-fluid g-2">
-                <div className="posibleRespuesta  col-sm-6">
+  const handleCloseModal = () => setShowModal(false);
 
-                    <div className="resp resp0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[0])}>
-                        {respuestas[ordenPreguntas[0]]}
-                    </div>
-                </div>
-                <div className="posibleRespuesta  col-sm-6">
-                    <div className="resp resp1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[1])}>
-                       {respuestas[ordenPreguntas[1]]} 
-                    </div>
-                </div>
-                <div className="posibleRespuesta  col-sm-6">
-                    <div className="resp resp2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[2])}>
-                       {respuestas[ordenPreguntas[2]]} 
-                    </div>
-                </div>
-                <div className="posibleRespuesta  col-sm-6">
-                    <div className="resp resp3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>validarRespuesta(ordenPreguntas[3])}>
-                       {respuestas[ordenPreguntas[3]]} 
-                    </div>
-                </div>
-            </div>
-
-            
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h2 class="modal-title textoModalRespuesta" id="staticBackdropLabel">{textoRespuesta[0]}</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <h3> {textoRespuesta[1]} </h3>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">{textoRespuesta[2]}</button>
-              </div>
-            </div>
+  return (
+    <div className="contenedorPregunta container">
+      <div className="pregunta row">
+        <h3>{pregunta}</h3>
+      </div>
+      <div className="respuestas row container-fluid g-2">
+        <div className="posibleRespuesta  col-sm-6">
+          <div className="resp resp0" onClick={() => validarRespuesta(ordenPreguntas[0])}>
+            {respuestas[ordenPreguntas[0]]}
           </div>
         </div>
+        <div className="posibleRespuesta  col-sm-6">
+          <div className="resp resp1" onClick={() => validarRespuesta(ordenPreguntas[1])}>
+            {respuestas[ordenPreguntas[1]]}
+          </div>
         </div>
-    );
+        <div className="posibleRespuesta  col-sm-6">
+          <div className="resp resp2" onClick={() => validarRespuesta(ordenPreguntas[2])}>
+            {respuestas[ordenPreguntas[2]]}
+          </div>
+        </div>
+        <div className="posibleRespuesta  col-sm-6">
+          <div className="resp resp3" onClick={() => validarRespuesta(ordenPreguntas[3])}>
+            {respuestas[ordenPreguntas[3]]}
+          </div>
+        </div>
+      </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{textoRespuesta[0]}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h3>{textoRespuesta[1]}</h3>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handleCloseModal}>Cerrar</button>
+          <button className="btn btn-primary" onClick={handleCloseModal}>{textoRespuesta[2]}</button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default Pregunta;

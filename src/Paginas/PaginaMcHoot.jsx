@@ -14,7 +14,9 @@ import { useState } from "react";
 
 function PaginaMcHoot() {
 
-    
+    const [valorPregunta, setValorPregunta] = useState(100)
+    const [segundoPoder, setSegundoPoder] = useState(false)
+
     const [scoreFinal,setScoreFinal] = useState(0);
     const [numPregunta,setNumPregunta] = useState(0);
 
@@ -35,17 +37,22 @@ function PaginaMcHoot() {
                     setScoreFinal={setScoreFinal}
                     numPregunta={numPregunta}
                     setNumPregunta={setNumPregunta}  
+                    segundoPoder={segundoPoder}
+                    setSegundoPoder={setSegundoPoder}
                     
                     pregunta={todasLasPreguntas[numPregunta].pregunta} 
                     respuestas={todasLasPreguntas[numPregunta].respuestas} 
-                    respuestaCorrecta={todasLasPreguntas[numPregunta].respuestaCorrecta}/>
+                    respuestaCorrecta={todasLasPreguntas[numPregunta].respuestaCorrecta}
+                    valorPregunta={valorPregunta}
+                    setValorPregunta = {setValorPregunta}
+                    />
                 </>
     
                 :<PantallaFinalizada score={scoreFinal}  /> //hacer componente para pantalla terminada
             }
             
 
-            <FooterPregunta numPregunta={numPregunta}  />
+            <FooterPregunta numPregunta={numPregunta} setSegundoPoder={setSegundoPoder} setValorPregunta = {setValorPregunta} />
      </div>
         
             

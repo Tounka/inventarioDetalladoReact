@@ -16,7 +16,7 @@ function PantallaFinalizada({score}){
     
     return(
         
-        <div className="contenedorPantallaFinalizada container-md">
+        <div className="contenedorPantallaFinalizada container-fluid">
             <div className="contenedorTextoPPuntaje">
                 <p>McPuntos</p>
                 <p>{score}</p>
