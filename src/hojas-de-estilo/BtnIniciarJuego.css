@@ -1,0 +1,27 @@
+.contenedorBtnIniciarJuego{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    
+}
+.contenedorBoton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px;
+    cursor: pointer;
+}
+.textoIniciarPartida{
+    font-weight: bold;
+    
+    font-size: 1.2em;
+    width: 100%;
+    text-align: center;
+    background: #FFC700;
+    color: blue;
+    margin: 0;
+
+}

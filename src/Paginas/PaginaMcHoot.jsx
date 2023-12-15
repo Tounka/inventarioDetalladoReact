@@ -1,63 +1,69 @@
-import React  from "react";
+import React, { useState } from "react";
 import TituloPrincipal from "../componentes/TituloPagina";
 import TopMcHoot from "../componentes/TopMcHoot";
 import Pregunta from "../componentes/Pregunta";
 import FooterPregunta from "../componentes/FooterPregunta";
 import PantallaFinalizada from "../componentes/PartidaFinalizada";
-
 import todasLasPreguntas from "../js/preguntas";
-
-
-
-import { useState } from "react";
-
+import BtnIniciarJuego from "../componentes/BtnIniciarJuego";
 
 function PaginaMcHoot() {
+  const [iniciarJuego, setIniciarJuego] = useState(false);
+  const [segundos, setSegundos] = useState(5 * 60);
+  const [valorPregunta, setValorPregunta] = useState(100);
+  const [segundoPoder, setSegundoPoder] = useState(false);
+  const [scoreFinal, setScoreFinal] = useState(0);
+  const [numPregunta, setNumPregunta] = useState(0);
 
-    const [valorPregunta, setValorPregunta] = useState(100)
-    const [segundoPoder, setSegundoPoder] = useState(false)
+  const handleIniciarJuego = () => {
+    setIniciarJuego(true);
+  };
 
-    const [scoreFinal,setScoreFinal] = useState(0);
-    const [numPregunta,setNumPregunta] = useState(0);
-
-
-
-    return(
-        
+  return (
     <div className="contenedorPaginaMcHoot paginaMinH">
-        <TituloPrincipal textoTitulo='McHoot!' />
-         
-            {
-                numPregunta <= 3
-                ?
-                <>
-                    <TopMcHoot score={scoreFinal} />
-                    <Pregunta 
-                    scoreFinal={scoreFinal}
-                    setScoreFinal={setScoreFinal}
-                    numPregunta={numPregunta}
-                    setNumPregunta={setNumPregunta}  
-                    segundoPoder={segundoPoder}
-                    setSegundoPoder={setSegundoPoder}
-                    
-                    pregunta={todasLasPreguntas[numPregunta].pregunta} 
-                    respuestas={todasLasPreguntas[numPregunta].respuestas} 
-                    respuestaCorrecta={todasLasPreguntas[numPregunta].respuestaCorrecta}
-                    valorPregunta={valorPregunta}
-                    setValorPregunta = {setValorPregunta}
-                    />
-                </>
-    
-                :<PantallaFinalizada score={scoreFinal}  /> //hacer componente para pantalla terminada
-            }
-            
+      <TituloPrincipal textoTitulo="McHoot!" />
 
-            <FooterPregunta numPregunta={numPregunta} setSegundoPoder={setSegundoPoder} setValorPregunta = {setValorPregunta} />
-     </div>
+      {!iniciarJuego ? (
+        <BtnIniciarJuego funcionBtn = {handleIniciarJuego} />
         
-            
-       
-     
-    );
+      ) : (
+        <>
+          {numPregunta <= 3 && segundos > 0 ? (
+            <>
+              <TopMcHoot
+                score={scoreFinal}
+                segundos={segundos}
+                setSegundos={setSegundos}
+              />
+              <Pregunta
+                scoreFinal={scoreFinal}
+                setScoreFinal={setScoreFinal}
+                numPregunta={numPregunta}
+                setNumPregunta={setNumPregunta}
+                segundoPoder={segundoPoder}
+                setSegundoPoder={setSegundoPoder}
+                pregunta={todasLasPreguntas[numPregunta].pregunta}
+                respuestas={todasLasPreguntas[numPregunta].respuestas}
+                respuestaCorrecta={
+                  todasLasPreguntas[numPregunta].respuestaCorrecta
+                }
+                valorPregunta={valorPregunta}
+                setValorPregunta={setValorPregunta}
+              />
+            </>
+          ) : (
+            <PantallaFinalizada score={scoreFinal} />
+          )}
+
+          <FooterPregunta
+            numPregunta={numPregunta}
+            setSegundoPoder={setSegundoPoder}
+            setValorPregunta={setValorPregunta}
+          />
+        </>
+      )}
+    </div>
+  );
 }
+
 export default PaginaMcHoot;

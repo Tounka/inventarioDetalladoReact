@@ -37,7 +37,7 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
     setNumPregunta(prevNum => prevNum + 1);
     setOrdenPreguntas(generarNumerosAleatorios);
 
-    setSegundoPoder(true);
+    setSegundoPoder(false);
     setValorPregunta(100);
   }
 
@@ -50,7 +50,7 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
     else{
         const probabilidad = Math.random();
 
-        if (probabilidad < 0.35) {
+        if (probabilidad < .35) {
           
             return "respuestaIncorrecta";
         } else {
