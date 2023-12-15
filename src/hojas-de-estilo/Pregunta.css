@@ -30,6 +30,10 @@
     background-color: #0a6789 ;
 }
 
+.respuestaIncorrecta{
+    background-color: black;
+}
+
 .resp{
     display: flex;
     justify-content: center;

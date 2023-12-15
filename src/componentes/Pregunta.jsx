@@ -43,6 +43,24 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
 
   const handleCloseModal = () => setShowModal(false);
 
+  const segundoPoderFuncion = (respesta) => {
+    if(respuestas[respesta] === respuestaCorrecta){
+        return "";
+    }
+    else{
+        const probabilidad = Math.random();
+
+        if (probabilidad < 0.35) {
+          
+            return "respuestaIncorrecta";
+        } else {
+          // En caso contrario, el evento no ocurre
+            return "";
+        }
+        
+    }
+  }
+
   return (
     <div className="contenedorPregunta container">
       <div className="pregunta row">
@@ -50,22 +68,22 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
       </div>
       <div className="respuestas row container-fluid g-2">
         <div className="posibleRespuesta  col-sm-6">
-          <div className="resp resp0" onClick={() => validarRespuesta(ordenPreguntas[0])}>
+          <div className={`resp resp0 ${segundoPoder ? segundoPoderFuncion(ordenPreguntas[0]) : ''}`}  onClick={() => validarRespuesta(ordenPreguntas[0])}>
             {respuestas[ordenPreguntas[0]]}
           </div>
         </div>
         <div className="posibleRespuesta  col-sm-6">
-          <div className="resp resp1" onClick={() => validarRespuesta(ordenPreguntas[1])}>
+          <div className={`resp resp1 ${segundoPoder ? segundoPoderFuncion(ordenPreguntas[1]) : ''}`} onClick={() => validarRespuesta(ordenPreguntas[1])}>
             {respuestas[ordenPreguntas[1]]}
           </div>
         </div>
         <div className="posibleRespuesta  col-sm-6">
-          <div className="resp resp2" onClick={() => validarRespuesta(ordenPreguntas[2])}>
+          <div className={`resp resp2 ${segundoPoder ? segundoPoderFuncion(ordenPreguntas[2]) : ''}`} onClick={() => validarRespuesta(ordenPreguntas[2])}>
             {respuestas[ordenPreguntas[2]]}
           </div>
         </div>
         <div className="posibleRespuesta  col-sm-6">
-          <div className="resp resp3" onClick={() => validarRespuesta(ordenPreguntas[3])}>
+          <div className={`resp resp3 ${segundoPoder ? segundoPoderFuncion(ordenPreguntas[3]) : ''}`} onClick={() => validarRespuesta(ordenPreguntas[3])}>
             {respuestas[ordenPreguntas[3]]}
           </div>
         </div>
