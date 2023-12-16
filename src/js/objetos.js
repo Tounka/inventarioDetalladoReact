@@ -6,7 +6,21 @@ function Item(id, nombre,cantidadPorCajas,cantidadPorBolsa, cantidad ,cantidadCr
     this.cantidad = cantidad;
     this.cantidadCritica = cantidadCritica;
   }
-const BaseDeHelado= new Item('BDHelado', 'Base de Helado' ,9,   0,18);
+  const CucharasSundae= new Item('CucharaS', 'Cuchara Sundae' ,0,200,   0,75);
+  const CucharasMcFlurry= new Item('CucharasMcF', 'Cuchara Mcflurry' ,0,200,   0,75);
+  const Popotes= new Item('Popotes', 'Popotes' ,0,205,   0,50);
+  const ServilletaCono= new Item('ServilletaCono', 'Servilletas Cono' ,0,0,   0,4);
+  
+  const arregloDesechablesProducto = [CucharasSundae, CucharasMcFlurry, Popotes, ServilletaCono];
+
+const Conos= new Item('Conos', 'Conos' ,576,0,   0,250);
+const VasoMcFlurry= new Item('VMcFlurry', 'Vasos McFlurry' ,0,50,  0,50);
+const VasoSundae= new Item('VSunsae', 'Vasos Sundae' ,0,50,   0,50);
+const VasoMalteada= new Item('VMalteada', 'Vasos Malteada' ,0,64,   0,20);
+
+const arregloContenedoresProducto = [VasoMcFlurry, VasoSundae,VasoMalteada,  Conos];
+
+const BaseDeHelado= new Item('BDHelado', 'Base de Helado' ,9,0 ,  0,18);
 const Leche= new Item('Leche', 'Leche' ,0,0,   0,1);
 const Mms= new Item('Mms', 'M&Ms' ,0,0,   0,20);
 const Oreo= new Item('Oreo', 'Oreo' ,0,0,   0,20);
@@ -16,19 +30,7 @@ const Caramelo= new Item('Caramelo', 'Caramelo' ,0,0,   0,2);
 
 const arregloProducto = [BaseDeHelado, Leche, Mms, Oreo, Chocolate, Fresa, Caramelo];
 
-const Conos= new Item('Conos', 'Conos' ,576,0,   0,250);
-const VasoMcFlurry= new Item('VMcFlurry', 'Vasos McFlurry' ,0,50,  0,50);
-const VasoSundae= new Item('VSunsae', 'Vasos Sundae' ,0,50,   0,50);
-const VasoMalteada= new Item('VMalteada', 'Vasos Malteada' ,0,64,   0,20);
 
-const arregloContenedoresProducto = [VasoMcFlurry, VasoSundae,VasoMalteada,  Conos];
-
-const CucharasSundae= new Item('CucharaS', 'Cuchara Sundae' ,0,200,   0,75);
-const CucharasMcFlurry= new Item('CucharasMcF', 'Cuchara Mcflurry' ,0,200,   0,75);
-const Popotes= new Item('Popotes', 'Popotes' ,0,205,   0,50);
-const ServilletaCono= new Item('ServilletaCono', 'Servilletas Cono' ,0,0,   0,4);
-
-const arregloDesechablesProducto = [CucharasSundae, CucharasMcFlurry, Popotes, ServilletaCono];
 
 const RolloTermico= new Item('RolloTermico', 'Rollo Térmico' ,0,0,   0,5);
 const PapelCafe= new Item('PapelCafe', 'Papel Cafe' ,0,0,   0,1);
