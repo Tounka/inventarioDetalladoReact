@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal } from 'react-bootstrap';
 import '../hojas-de-estilo/Pregunta.css';
+import sonidoMal from "../img/bu.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
+import sonidoBien from "../img/mcFantastico.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
 
 function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder}) {
 
@@ -19,19 +21,31 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
   const [ordenPreguntas, setOrdenPreguntas] = useState(generarNumerosAleatorios);
   const [showModal, setShowModal] = useState(false);
 
+
+  const reproducirSonido = (sonidoAusar) => {
+    
+    const audio = new Audio(sonidoAusar);
+    audio.pause();
+    audio.play();
+  };
+
   const validarRespuesta = (index) => {
     
     if (respuestas[index] === respuestaCorrecta) {
+      reproducirSonido(sonidoBien)
       setScoreFinal(prevScore => prevScore + valorPregunta);
 
       const textoRespuestaEstado = 'La respuesta es correcta es: ' + respuestaCorrecta;
       setTextoRespuesta(['Correcto', textoRespuestaEstado, 'Ganaste Puntos :D'])
+      
     } else {
+      reproducirSonido(sonidoMal)
       setScoreFinal(prevScore => prevScore - (valorPregunta / 2));
       setShowModal(true);
 
       const textoRespuestaEstado = 'La respuesta es correcta es: ' + respuestaCorrecta;
       setTextoRespuesta(['Incorrecto', textoRespuestaEstado, 'Perdiste Puntos :('])
+      
     }
       
     setNumPregunta(prevNum => prevNum + 1);
@@ -42,24 +56,25 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
   }
 
   const handleCloseModal = () => setShowModal(false);
-
+  
   const segundoPoderFuncion = (respesta) => {
-    if(respuestas[respesta] === respuestaCorrecta){
-        return "";
+    let resultado = "";
+    
+    if (segundoPoder && respuestas[respesta] !== respuestaCorrecta) {
+      const probabilidad = Math.random();
+      
+      if (probabilidad < 1) {
+        resultado = "respuestaIncorrecta";
+      }
+     
+        // Se establece segundoPoder como false aquí
     }
-    else{
-        const probabilidad = Math.random();
 
-        if (probabilidad < .35) {
-          
-            return "respuestaIncorrecta";
-        } else {
-          // En caso contrario, el evento no ocurre
-            return "";
-        }
-        
-    }
+
+    
+    return resultado;
   }
+
 
   return (
     <div className="contenedorPregunta container">

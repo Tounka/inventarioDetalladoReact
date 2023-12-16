@@ -7,10 +7,12 @@ import PantallaFinalizada from "../componentes/PartidaFinalizada";
 import todasLasPreguntas from "../js/preguntas";
 import BtnIniciarJuego from "../componentes/BtnIniciarJuego";
 
+
 function PaginaMcHoot() {
   const [iniciarJuego, setIniciarJuego] = useState(false);
   const [segundos, setSegundos] = useState(5 * 60);
   const [valorPregunta, setValorPregunta] = useState(100);
+
   const [segundoPoder, setSegundoPoder] = useState(false);
   const [scoreFinal, setScoreFinal] = useState(0);
   const [numPregunta, setNumPregunta] = useState(0);
@@ -24,7 +26,11 @@ function PaginaMcHoot() {
       <TituloPrincipal textoTitulo="McHoot!" />
 
       {!iniciarJuego ? (
-        <BtnIniciarJuego funcionBtn = {handleIniciarJuego} />
+        <>
+            <BtnIniciarJuego funcionBtn = {handleIniciarJuego} />
+            
+        </>
+
         
       ) : (
         <>

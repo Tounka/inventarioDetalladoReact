@@ -20,6 +20,7 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta }) {
       }
       if(poder === "poder2"){
         setSegundoPoder(true)
+        
       }
       
 
@@ -51,6 +52,8 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta }) {
         
         <FaQuestion />
       </button>
+
+      
 
       {/* Agrega más botones según sea necesario para otros poderes */}
 
