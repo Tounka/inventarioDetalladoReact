@@ -13,6 +13,7 @@ function PaginaMcHoot() {
   const [segundos, setSegundos] = useState(5 * 60);
   const [valorPregunta, setValorPregunta] = useState(100);
 
+  const [tercerPoder, setTercerPoder] = useState(false);
   const [segundoPoder, setSegundoPoder] = useState(false);
   const [scoreFinal, setScoreFinal] = useState(0);
   const [numPregunta, setNumPregunta] = useState(0);
@@ -46,8 +47,12 @@ function PaginaMcHoot() {
                 setScoreFinal={setScoreFinal}
                 numPregunta={numPregunta}
                 setNumPregunta={setNumPregunta}
+
                 segundoPoder={segundoPoder}
                 setSegundoPoder={setSegundoPoder}
+                tercerPoder={tercerPoder}
+                setTercerPoder={setTercerPoder}
+
                 pregunta={todasLasPreguntas[numPregunta].pregunta}
                 respuestas={todasLasPreguntas[numPregunta].respuestas}
                 respuestaCorrecta={
@@ -63,6 +68,10 @@ function PaginaMcHoot() {
 
           <FooterPregunta
             numPregunta={numPregunta}
+            setNumPregunta={setNumPregunta}
+            
+            tercerPoder={tercerPoder}
+            setTercerPoder={setTercerPoder}
             setSegundoPoder={setSegundoPoder}
             setValorPregunta={setValorPregunta}
           />

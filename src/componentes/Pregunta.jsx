@@ -5,7 +5,7 @@ import '../hojas-de-estilo/Pregunta.css';
 import sonidoMal from "../img/bu.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
 import sonidoBien from "../img/mcFantastico.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
 
-function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder}) {
+function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder, setTercerPoder, tercerPoder}) {
 
   const generarNumerosAleatorios = () => {
     let listaOriginal = [0, 1, 2, 3];
@@ -20,6 +20,7 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
   const [textoRespuesta, setTextoRespuesta] = useState(['Correcto', 'La respuesta es: ', 'Ganaste puntos :D']);
   const [ordenPreguntas, setOrdenPreguntas] = useState(generarNumerosAleatorios);
   const [showModal, setShowModal] = useState(false);
+
 
 
   const reproducirSonido = (sonidoAusar) => {
@@ -47,7 +48,9 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
       setTextoRespuesta(['Incorrecto', textoRespuestaEstado, 'Perdiste Puntos :('])
       
     }
-      
+    
+    
+
     setNumPregunta(prevNum => prevNum + 1);
     setOrdenPreguntas(generarNumerosAleatorios);
 
