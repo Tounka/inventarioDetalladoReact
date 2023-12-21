@@ -11,12 +11,15 @@ import BtnIniciarJuego from "../componentes/BtnIniciarJuego";
 function PaginaMcHoot() {
   const [iniciarJuego, setIniciarJuego] = useState(false);
   const [segundos, setSegundos] = useState(5 * 60);
-  const [valorPregunta, setValorPregunta] = useState(100);
 
+  const [valorPregunta, setValorPregunta] = useState(100);
   const [tercerPoder, setTercerPoder] = useState(false);
   const [segundoPoder, setSegundoPoder] = useState(false);
+
   const [scoreFinal, setScoreFinal] = useState(0);
+
   const [numPregunta, setNumPregunta] = useState(0);
+  const [contadorPregunta, setContadorPregunta] = useState(0);
 
   const handleIniciarJuego = () => {
     setIniciarJuego(true);
@@ -35,7 +38,7 @@ function PaginaMcHoot() {
         
       ) : (
         <>
-          {numPregunta <= 3 && segundos > 0 ? (
+          {contadorPregunta <= 3 && segundos > 0 ? (
             <>
               <TopMcHoot
                 score={scoreFinal}
@@ -47,6 +50,8 @@ function PaginaMcHoot() {
                 setScoreFinal={setScoreFinal}
                 numPregunta={numPregunta}
                 setNumPregunta={setNumPregunta}
+                contadorPregunta = {contadorPregunta}
+                setContadorPregunta = {setContadorPregunta}
 
                 segundoPoder={segundoPoder}
                 setSegundoPoder={setSegundoPoder}
@@ -69,7 +74,9 @@ function PaginaMcHoot() {
           <FooterPregunta
             numPregunta={numPregunta}
             setNumPregunta={setNumPregunta}
-            
+            contadorPregunta = {contadorPregunta}
+            setContadorPregunta = {setContadorPregunta}
+
             tercerPoder={tercerPoder}
             setTercerPoder={setTercerPoder}
             setSegundoPoder={setSegundoPoder}

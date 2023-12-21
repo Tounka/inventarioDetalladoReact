@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../hojas-de-estilo/FooterPregunta.css';
 import { FaFire, FaQuestion, FaExchangeAlt  } from "react-icons/fa";
 
-function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTercerPoder,tercerPoder, setNumPregunta}) {
+function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTercerPoder,tercerPoder, setNumPregunta, contadorPregunta,  setContadorPregunta}) {
   // Estado para rastrear el uso de cada poder
   const [poderesUsados, setPoderesUsados] = useState({
     poder1: false,
@@ -24,7 +24,9 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTer
         
       }
       if(poder === "poder3"){
-        setNumPregunta(prevNum => prevNum+1);
+        
+        setNumPregunta(prevNum => prevNum + 1);
+        
         
       }
       
@@ -71,7 +73,7 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTer
 
       {/* Agrega más botones según sea necesario para otros poderes */}
 
-      <h2 className="numPregunta"> {numPregunta + 1} / 15 </h2>
+      <h2 className="numPregunta"> {contadorPregunta + 1} / 15 </h2>
     </div>
   );
 }

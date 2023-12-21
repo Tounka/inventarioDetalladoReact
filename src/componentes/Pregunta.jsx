@@ -5,7 +5,7 @@ import '../hojas-de-estilo/Pregunta.css';
 import sonidoMal from "../img/bu.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
 import sonidoBien from "../img/mcFantastico.mp3"; // Asegúrate de proporcionar la ruta correcta al archivo de sonido
 
-function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder, setTercerPoder, tercerPoder}) {
+function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, numPregunta, scoreFinal, setScoreFinal,valorPregunta, setValorPregunta, setSegundoPoder, segundoPoder, setTercerPoder, tercerPoder,  contadorPregunta,  setContadorPregunta}) {
 
   const generarNumerosAleatorios = () => {
     let listaOriginal = [0, 1, 2, 3];
@@ -33,14 +33,20 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
   const validarRespuesta = (index) => {
     
     if (respuestas[index] === respuestaCorrecta) {
-      reproducirSonido(sonidoBien)
+      if(segundoPoder || tercerPoder || valorPregunta > 100){
+        reproducirSonido(sonidoBien)
+      }
+      
       setScoreFinal(prevScore => prevScore + valorPregunta);
 
       const textoRespuestaEstado = 'La respuesta es correcta es: ' + respuestaCorrecta;
       setTextoRespuesta(['Correcto', textoRespuestaEstado, 'Ganaste Puntos :D'])
       
     } else {
-      reproducirSonido(sonidoMal)
+      if(segundoPoder || tercerPoder || valorPregunta > 100){
+        reproducirSonido(sonidoMal)
+      }
+      
       setScoreFinal(prevScore => prevScore - (valorPregunta / 2));
       setShowModal(true);
 
@@ -50,8 +56,11 @@ function Pregunta({ pregunta, respuestas, respuestaCorrecta, setNumPregunta, num
     }
     
     
-
+    setContadorPregunta(prevContNum => prevContNum +1 )
     setNumPregunta(prevNum => prevNum + 1);
+    
+
+
     setOrdenPreguntas(generarNumerosAleatorios);
 
     setSegundoPoder(false);
