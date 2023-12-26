@@ -1,5 +1,5 @@
 import './App.css';
-import Footer from './componentes/Footer'
+
 import PaginaInventarioDetallado from './Paginas/PaginaInventarioDetallado'
 import PaginaMcHoot from './Paginas/PaginaMcHoot';
 import NotFound from './Paginas/NotFound'
@@ -20,7 +20,7 @@ function App() {
     </BrowserRouter>
 
 
-      <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS, Es Solo Un Formato Digital Creado Para Facilitar Los Inventarios Detallados en CDP, La Pagina No Almacena Ningún Tipo De Dato.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 
+      
     
     </>
     

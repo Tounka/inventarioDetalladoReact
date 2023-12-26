@@ -6,7 +6,7 @@ import FooterPregunta from "../componentes/FooterPregunta";
 import PantallaFinalizada from "../componentes/PartidaFinalizada";
 import todasLasPreguntas from "../js/preguntas";
 import BtnIniciarJuego from "../componentes/BtnIniciarJuego";
-
+import Footer from '../componentes/Footer'
 
 function PaginaMcHoot() {
   const [iniciarJuego, setIniciarJuego] = useState(false);
@@ -38,7 +38,7 @@ function PaginaMcHoot() {
         
       ) : (
         <>
-          {contadorPregunta <= 3 && segundos > 0 ? (
+          {contadorPregunta <= 14 && segundos > 0 ? (
             <>
               <TopMcHoot
                 score={scoreFinal}
@@ -65,7 +65,7 @@ function PaginaMcHoot() {
                 }
                 valorPregunta={valorPregunta}
                 setValorPregunta={setValorPregunta}
-              />
+              /> 
             </>
           ) : (
             <PantallaFinalizada score={scoreFinal} />
@@ -84,6 +84,8 @@ function PaginaMcHoot() {
           />
         </>
       )}
+
+    <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 
     </div>
   );
 }

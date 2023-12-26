@@ -10,7 +10,16 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTer
     poder3:false,
     // Agrega más poderes según sea necesario
   });
-
+  const contador = 0;
+  const manejarNumPreguntas = () =>{
+    if(contadorPregunta<15){
+      return(contadorPregunta + 1)
+    }else{
+      return(contadorPregunta)
+    }
+    
+    
+  }
   // Función para manejar el uso de un poder específico
   const manejarPoder = (poder) => {
     // Verificar si el poder ya ha sido usado
@@ -73,7 +82,7 @@ function FooterPregunta({ numPregunta, setSegundoPoder, setValorPregunta, setTer
 
       {/* Agrega más botones según sea necesario para otros poderes */}
 
-      <h2 className="numPregunta"> {contadorPregunta + 1} / 15 </h2>
+      <h2 className="numPregunta"> {manejarNumPreguntas()} / 15 </h2>
     </div>
   );
 }
