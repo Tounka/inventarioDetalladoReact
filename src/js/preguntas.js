@@ -144,7 +144,7 @@ const preguntasServicio =[
         respuestaCorrecta: 'Salto pequeño y venta cruzada'
     },
     {
-        pregunta: 'Que pinzas usamos para las papas HB? ',
+        pregunta: 'Que pinzas usamos para las papas HB ya fritas? ',
         respuestas: ['Azules','Rojas', 'Plateadas', 'La pala de plástico gris'],
         respuestaCorrecta: 'Plateadas'
     },
