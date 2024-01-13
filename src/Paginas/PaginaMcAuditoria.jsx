@@ -3,8 +3,10 @@ import '../hojas-de-estilo/base.css'
 function PaginaMcAuditoria(){
 
     return(
-        <div className="container-sm bggeen">
+        <div className="container-sm contenedorPrincipal">
             <h1>McAuditoria</h1>
+
+            
         </div>
         
     );
