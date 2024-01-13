@@ -1,4 +1,4 @@
-const objetosJS = [
+export const preguntaAuditoria = [
     { pregunta: "PLAGA a menos de 3mts", puntos: 5, id: "FS1" },
     { pregunta: "Temperatura de carnes 155F", puntos: 5, id: "FS2" },
     { pregunta: "Temperatura de pollo 165F", puntos: 5, id: "FS3" },
@@ -30,6 +30,6 @@ const objetosJS = [
     { pregunta: "Los Gtes conocen los síntomas de enfermedades de los Crew", puntos: 5, id: "FS29" },
     { pregunta: "Certificados de Seguridad de la Comida de Crew y Gtes.", puntos: 5, id: "FS30" },
     { pregunta: "Listas de Seguridad de la Comida, últimos 60 Dias, sin errores, uso de Tablet.", puntos: 5, id: "FS31" },
-    { pregunta: "Informe mÃ¡s reciente del servicio de Inspecciono/Vigilancia Sanitaria", puntos: 5, id: "FS32" }
+    { pregunta: "Informe mas reciente del servicio de Inspecciono/Vigilancia Sanitaria", puntos: 5, id: "FS32" }
     
 ]
