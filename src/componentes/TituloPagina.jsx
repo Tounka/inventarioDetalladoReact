@@ -5,4 +5,5 @@ function TituloPrincipal({textoTitulo}){
         <h1 className="textoTitular"> {textoTitulo} </h1>
     );
 }
+
 export default TituloPrincipal;

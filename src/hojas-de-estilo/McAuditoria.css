@@ -4,3 +4,14 @@
 .tablePId, .tablePPuntos{
  text-align: center;
 }
+
+@media print{
+    .contenedorPrincipal{
+        width: 100% !important;
+        
+    }
+    .contenedorPrincipal * {
+        font-size: 10px !important;
+    }
+    
+}
