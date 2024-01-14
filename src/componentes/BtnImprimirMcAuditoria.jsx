@@ -1,47 +1,61 @@
 import React from "react";
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { preguntaAuditoria } from '../js/objetosAuditoria.js';
 
 const BtnImprimirMcAuditoria = ({ componenteImprimir }) => {
-    const sacarDate = () => {
-        const fecha = new Date();
+  const sacarDate = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
+    const anio = fecha.getFullYear();
+    const hora = fecha.getHours();
+    const minutos = fecha.getMinutes();
+    return `${dia}/${mes}/${anio} - ${hora}:${minutos}`;
+  };
 
-        const dia = fecha.getDate();
-        const mes = fecha.getMonth() + 1; // Se suma 1 ya que los meses comienzan desde 0
-        const anio = fecha.getFullYear();
-        const hora = fecha.getHours();
-        const minutos = fecha.getMinutes();
+  const imprimir = () => {
+    const pdfDoc = new jsPDF({
+      format: 'a4',
+    });
 
-        // Retornar el string formateado
-        return `${dia}/${mes}/${anio} - ${hora}:${minutos}`;
-    };
+    const totalWidth = pdfDoc.internal.pageSize.getWidth();
+    const title = `Auditoria: ${sacarDate()}`;
+    const startXTitle = (totalWidth - pdfDoc.getTextWidth(title)) / 2;
 
-    const imprimir = () => {
-        const pdfDoc = new jsPDF({
-            format: [210, 320],
-        });
+    pdfDoc.text(title, startXTitle, 12);
 
-        const totalWidth = pdfDoc.internal.pageSize.getWidth();
-        const title = `Auditoria : ${sacarDate()}`;
+    const dateFormatted = sacarDate();
 
-        // Calcular la posición inicial para centrar el título
-        const startXTitle = (totalWidth - pdfDoc.getTextWidth(title)) / 2;
+    const dataCopy = preguntaAuditoria.map((pregunta) => {
+      const preguntaCopy = { ...pregunta };
+      if (preguntaCopy.RespuestaNegativa !== "") {
+        preguntaCopy.pregunta += "\n" + preguntaCopy.RespuestaNegativa;
+      }
+      return preguntaCopy;
+    });
 
-        // Agregar el título centrado
-        pdfDoc.text(title, startXTitle, 12);
+    const columnas = [
+      { header: 'ID', dataKey: 'id' },
+      { header: 'Pregunta', dataKey: 'pregunta' },
+      { header: 'Puntos', dataKey: 'puntos' }
+    ];
 
-        // Agregar la fecha debajo del título
-        const dateFormatted = sacarDate();
+    pdfDoc.autoTable({
+      head: [columnas.map(col => col.header)],
+      body: dataCopy.map(pregunta => [ pregunta.id, pregunta.pregunta, pregunta.puntos]),
+      startY: 20,
+      styles: {
+        fontSize: 10,
+      },
+    });
 
-        // Agregar la tabla
-        pdfDoc.autoTable({ html: '.tablaAuditoria', startY: 20 });
+    pdfDoc.save(`Auditoria(${dateFormatted}).pdf`);
+  };
 
-        // Guardar el PDF
-        pdfDoc.save(`Auditoria(${dateFormatted}).pdf`);
-    };
-
-    return (
-        <button type="button" className="btn btn-secondary" onClick={imprimir}>Imprimir</button>
-    );
+  return (
+    <button type="button" className="btn btn-secondary" onClick={imprimir}>Imprimir</button>
+  );
 };
 
 export default BtnImprimirMcAuditoria;

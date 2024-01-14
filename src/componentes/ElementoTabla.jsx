@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import '../hojas-de-estilo/ElementoTabla.css'
 
-const ElementoTabla = ({ switchPregunta, className, funcionOnclick, texto }) => {
-
+const ElementoTabla = ({ switchPregunta, className, funcionOnclick, texto, preguntaAuditoria}) => {
+    
     return (
         <td
             className={`${className} ${

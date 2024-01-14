@@ -6,7 +6,7 @@ import {preguntaAuditoria as preguntas} from '../js/objetosAuditoria'
 import FilaTablaMcAuditoria from '../componentes/FTablaMcAuditoria.jsx'
 import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
-    const [puntaje, setPuntaje] = useState(0);
+    const [puntaje, setPuntaje] = useState(94);
    
     return(
         <>

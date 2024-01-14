@@ -9,7 +9,7 @@ const ElementoTabla = ({ switchPregunta, className, texto, preguntaAuditoria, id
     setValue(inputValue);
 
     preguntaAuditoria.forEach(item => {
-      if (item.id === id) {
+      if (item.id === id ) {
         item.RespuestaNegativa = inputValue;
       }
     });

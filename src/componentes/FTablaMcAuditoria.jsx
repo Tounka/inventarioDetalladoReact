@@ -9,16 +9,19 @@ const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, pregu
         const fila = e.currentTarget.closest('tr'); // Obtener la fila actual
         const elementoPregunta = fila.querySelector('.tablePPregunta'); // Buscar dentro de la fila
         
-
-
-        setSwitchPregunta(!switchPregunta);
+        const respuestaNegativa = preguntaAuditoria.find(item => item.id === id)?.RespuestaNegativa;
+        if(respuestaNegativa === ''){
+            setSwitchPregunta(!switchPregunta);
+        }
+        
         if (!isNaN(puntos)){
-            if (switchPregunta) {
-                setPuntaje(puntaje + puntos);
-            } else {
+            if (switchPregunta ) {
                 setPuntaje(puntaje - puntos);
+            }else{
+                setPuntaje(puntaje + puntos);
             }
         }
+        
  
 
  
@@ -28,9 +31,9 @@ const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, pregu
 
     return (
         <tr key={id}>
-            <ElementoTablaStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePId align-middle`} funcionOnclick={validar} texto={id} />
-            <ElementoTablaInputStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePPregunta`} texto={pregunta} preguntaAuditoria={preguntaAuditoria} id={id} />
-            <ElementoTablaStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePPuntos align-middle`} funcionOnclick={validar} texto={puntos} />
+            <ElementoTablaStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePId align-middle`} funcionOnclick={validar} texto={id}  preguntaAuditoria={preguntaAuditoria} />
+            <ElementoTablaInputStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePPregunta`} texto={pregunta} preguntaAuditoria={preguntaAuditoria} id={id}  />
+            <ElementoTablaStyled switchPregunta={switchPregunta} setSwitchPregunta={setSwitchPregunta} className={`tablePPuntos align-middle`} funcionOnclick={validar} texto={puntos} preguntaAuditoria={preguntaAuditoria} />
         </tr>
     );
 };
