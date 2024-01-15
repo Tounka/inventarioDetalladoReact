@@ -68,7 +68,7 @@ const preguntasCocina =[
     {
         pregunta: 'Cuantos disparos de salsa bigMac lleva una Club-House? ',
         respuestas: ['3','2', '1', 'No lleva salsa bigMac, es CBO'],
-        respuestaCorrecta: '2'
+        respuestaCorrecta: '3'
     },
     {
         pregunta: 'Al descongelar el pan cuanto es si tiempo de vida? ',
