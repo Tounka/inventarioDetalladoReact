@@ -58,7 +58,7 @@ const preguntasCocina =[
     {
         pregunta: 'Cual es la temperatura de la maquina de helados? ',
         respuestas: ['34°F a 40°F','36°F a 40°F', '33°F a 37°F', '33°F a 43°F'],
-        respuestaCorrecta: '3 tiras'
+        respuestaCorrecta: '34°F a 40°F'
     },
     {
         pregunta: 'Cuantos quesos tiene una cuarto de libra doble? ',
