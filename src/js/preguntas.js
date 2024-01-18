@@ -3,6 +3,7 @@ const preguntasCocina =[
         pregunta: "Cual es la temperatura inferior de la parrilla principal?",
         respuestas: ['350°F','425°F', '360°F', 'Ninguna'],
         respuestaCorrecta: '350°F'
+        
 
     },
     {

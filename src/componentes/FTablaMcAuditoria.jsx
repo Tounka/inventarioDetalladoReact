@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ElementoTablaStyled from '../componentes/ElementoTabla.jsx';
 import ElementoTablaInputStyled from '../componentes/ElementoTablaInputStyled.jsx';
 
-const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, preguntaAuditoria }) => {
+const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, preguntaAuditoria, setNumPreguntasCorrectas, numPreguntasCorrectas }) => {
     const [switchPregunta, setSwitchPregunta] = useState(true);
 
     const validar = (e) => {
@@ -13,12 +13,14 @@ const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, pregu
         if(respuestaNegativa === ''){
             setSwitchPregunta(!switchPregunta);
         }
-        
+   
         if (!isNaN(puntos)){
             if (switchPregunta ) {
                 setPuntaje(puntaje - puntos);
+                setNumPreguntasCorrectas(numPreguntasCorrectas + 1)
             }else{
                 setPuntaje(puntaje + puntos);
+                setNumPreguntasCorrectas(numPreguntasCorrectas - 1)
             }
         }
         

@@ -7,7 +7,12 @@ import FilaTablaMcAuditoria from '../componentes/FTablaMcAuditoria.jsx'
 import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
     const [puntaje, setPuntaje] = useState(94);
-   
+    const [numPreguntasCorrectas, setNumPreguntasCorrectas] = useState(0);
+    
+    const calcularPorcentaje = () => {
+        return (numPreguntasCorrectas * -4.16) + 100;
+    }
+    
     return(
         <>
         <TituloPrincipal  textoTitulo="McAuditoria" />
@@ -26,13 +31,16 @@ function PaginaMcAuditoria(){
                 </thead>
                 <tbody className="table-group-divider">
                     {preguntas.map((pregunta) => (
-                        <FilaTablaMcAuditoria key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} />
+                        <FilaTablaMcAuditoria key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} setNumPreguntasCorrectas={setNumPreguntasCorrectas} numPreguntasCorrectas={numPreguntasCorrectas} />
                     ))}
 
                 <tr>
                     <td colSpan="2">Puntaje Total</td>
                     <td>{puntaje}</td>
-
+                </tr>
+                <tr>
+                    <td colSpan="2">Porcentaje </td>
+                    <td>{calcularPorcentaje()}%</td>
                 </tr>
                     <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria"/>
                 </tbody>
