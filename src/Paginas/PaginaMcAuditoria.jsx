@@ -8,7 +8,8 @@ import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
     const [puntaje, setPuntaje] = useState(94);
     const [numPreguntasCorrectas, setNumPreguntasCorrectas] = useState(0);
-    const [critico, setCritico] = useState(true)
+    const [critico, setCritico] = useState(true);
+    
     const ObtenerPuntaje = ()=>{
         if(puntaje<-1){
             return(puntaje + 100);
@@ -56,7 +57,7 @@ function PaginaMcAuditoria(){
                     <td colSpan="2">Porcentaje </td>
                     <td>{calcularPorcentaje()}</td>
                 </tr>
-                    <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria"/>
+                    <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria" calcularPorcentaje ={calcularPorcentaje} ObtenerPuntaje={ObtenerPuntaje}/>
                 </tbody>
 
             </table>

@@ -14,9 +14,8 @@ const FilaTablaMcAuditoria = ({setCritico, pregunta, id, puntos, setPuntaje, pun
             setSwitchPregunta(!switchPregunta);
         }
 
-        
             if (switchPregunta ) {
-                if (!isNaN(puntos)){
+                if (!isNaN(puntos) ){
                     setPuntaje(puntaje - puntos);
                     setNumPreguntasCorrectas(numPreguntasCorrectas + 1)
                 }else{
@@ -25,14 +24,21 @@ const FilaTablaMcAuditoria = ({setCritico, pregunta, id, puntos, setPuntaje, pun
                 }
 
             }else{
-                if (!isNaN(puntos)){
-                    setPuntaje(puntaje + puntos);
-                    setNumPreguntasCorrectas(numPreguntasCorrectas - 1)
-                }else{
-                    setPuntaje(puntaje + 100);
-                    
+                if(respuestaNegativa ===''){
+                    if (!isNaN(puntos) ){
+                        setPuntaje(puntaje + puntos);
+                        setNumPreguntasCorrectas(numPreguntasCorrectas - 1)
+                    }else{
+                        setPuntaje(puntaje + 100);
+                        
+                    }
                 }
+   
             }
+        
+
+        
+          
         
         
  

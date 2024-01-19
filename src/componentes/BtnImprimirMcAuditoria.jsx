@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { preguntaAuditoria } from '../js/objetosAuditoria.js';
 
-const BtnImprimirMcAuditoria = ({ componenteImprimir }) => {
+const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,ObtenerPuntaje}) => {
   const sacarDate = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
@@ -47,9 +47,26 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir }) => {
       startY: 20,
       styles: {
         fontSize: 10,
+        cell: { textAlign: 'center', padding: 5 },
+        
+      },
+      columnStyles: {
+        0: { halign: 'center' },  
+        2: { halign: 'center' },  
       },
     });
+    pdfDoc.autoTable({
+      body: [
+        ['Puntaje Total', '', ObtenerPuntaje()],
+        ['Porcentaje', '', calcularPorcentaje()],
+      ],
+      startY: pdfDoc.autoTable.previous.finalY + 10,
+      styles: {
+        fontSize: 10,
+        
+      },
 
+    });
     pdfDoc.save(`Auditoria(${dateFormatted}).pdf`);
   };
 
