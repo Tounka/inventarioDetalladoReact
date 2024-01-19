@@ -8,9 +8,23 @@ import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
     const [puntaje, setPuntaje] = useState(94);
     const [numPreguntasCorrectas, setNumPreguntasCorrectas] = useState(0);
-    
+    const [critico, setCritico] = useState(true)
+    const ObtenerPuntaje = ()=>{
+        if(puntaje<-1){
+            return(puntaje + 100);
+        }else{
+            return(puntaje)
+        }
+    }
     const calcularPorcentaje = () => {
-        return (numPreguntasCorrectas * -4.16) + 100;
+        let numPorciento = (puntaje / 94) * 100;
+
+        if (numPorciento >= 90 && critico){
+            return numPorciento + '%';
+        }else{
+            return "Reprobada"
+        }
+        
     }
     
     return(
@@ -31,16 +45,16 @@ function PaginaMcAuditoria(){
                 </thead>
                 <tbody className="table-group-divider">
                     {preguntas.map((pregunta) => (
-                        <FilaTablaMcAuditoria key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} setNumPreguntasCorrectas={setNumPreguntasCorrectas} numPreguntasCorrectas={numPreguntasCorrectas} />
+                        <FilaTablaMcAuditoria setCritico={setCritico} key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} setNumPreguntasCorrectas={setNumPreguntasCorrectas} numPreguntasCorrectas={numPreguntasCorrectas} />
                     ))}
 
                 <tr>
                     <td colSpan="2">Puntaje Total</td>
-                    <td>{puntaje}</td>
+                    <td>{ObtenerPuntaje()}</td>
                 </tr>
                 <tr>
                     <td colSpan="2">Porcentaje </td>
-                    <td>{calcularPorcentaje()}%</td>
+                    <td>{calcularPorcentaje()}</td>
                 </tr>
                     <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria"/>
                 </tbody>

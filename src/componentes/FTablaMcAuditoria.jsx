@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ElementoTablaStyled from '../componentes/ElementoTabla.jsx';
 import ElementoTablaInputStyled from '../componentes/ElementoTablaInputStyled.jsx';
 
-const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, preguntaAuditoria, setNumPreguntasCorrectas, numPreguntasCorrectas }) => {
+const FilaTablaMcAuditoria = ({setCritico, pregunta, id, puntos, setPuntaje, puntaje, preguntaAuditoria, setNumPreguntasCorrectas, numPreguntasCorrectas }) => {
     const [switchPregunta, setSwitchPregunta] = useState(true);
 
     const validar = (e) => {
@@ -13,21 +13,32 @@ const FilaTablaMcAuditoria = ({ pregunta, id, puntos, setPuntaje, puntaje, pregu
         if(respuestaNegativa === ''){
             setSwitchPregunta(!switchPregunta);
         }
-   
-        if (!isNaN(puntos)){
+
+        
             if (switchPregunta ) {
-                setPuntaje(puntaje - puntos);
-                setNumPreguntasCorrectas(numPreguntasCorrectas + 1)
+                if (!isNaN(puntos)){
+                    setPuntaje(puntaje - puntos);
+                    setNumPreguntasCorrectas(numPreguntasCorrectas + 1)
+                }else{
+                    setPuntaje(puntaje - 100);
+                    
+                }
+
             }else{
-                setPuntaje(puntaje + puntos);
-                setNumPreguntasCorrectas(numPreguntasCorrectas - 1)
+                if (!isNaN(puntos)){
+                    setPuntaje(puntaje + puntos);
+                    setNumPreguntasCorrectas(numPreguntasCorrectas - 1)
+                }else{
+                    setPuntaje(puntaje + 100);
+                    
+                }
             }
-        }
+        
         
  
 
  
-        console.log(elementoPregunta);
+        
          // Puedes imprimir el nuevo arreglo para verificar si se ha actualizado correctamente
     };
 
