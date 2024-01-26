@@ -18,10 +18,20 @@ function PaginaMcAuditoria(){
         }
     }
     const calcularPorcentaje = () => {
+        if(puntaje<-1){
+            return(puntaje + 100);
+        }
+        let numPorciento = (puntaje / 94) * 100;
+  
+            return numPorciento + '%';
+   
+        
+    }
+    const calcularResultado= () => {
         let numPorciento = (puntaje / 94) * 100;
 
-        if (numPorciento >= 90 && critico){
-            return numPorciento + '%';
+        if (numPorciento >= 80 && critico){
+            return 'Aprobado';
         }else{
             return "Reprobada"
         }
@@ -56,6 +66,10 @@ function PaginaMcAuditoria(){
                 <tr>
                     <td colSpan="2">Porcentaje </td>
                     <td>{calcularPorcentaje()}</td>
+                </tr>
+                <tr>
+                    <td colSpan="2">Resultado </td>
+                    <td>{calcularResultado()}</td>
                 </tr>
                     <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria" calcularPorcentaje ={calcularPorcentaje} ObtenerPuntaje={ObtenerPuntaje}/>
                 </tbody>

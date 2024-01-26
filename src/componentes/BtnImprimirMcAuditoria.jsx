@@ -58,7 +58,7 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
     pdfDoc.autoTable({
       body: [
         ['Puntaje Total', '', ObtenerPuntaje()],
-        ['Porcentaje', '', calcularPorcentaje()],
+        ['Resultado', '', calcularPorcentaje()],
       ],
       startY: pdfDoc.autoTable.previous.finalY + 10,
       styles: {
