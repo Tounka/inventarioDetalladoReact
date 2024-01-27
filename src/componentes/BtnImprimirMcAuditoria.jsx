@@ -2,8 +2,13 @@ import React from "react";
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { preguntaAuditoria } from '../js/objetosAuditoria.js';
+import styled from "styled-components";
+const Button = styled.button`
+  margin-bottom:20px;
+  padding: 10px;
+`
 
-const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,ObtenerPuntaje}) => {
+const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,ObtenerPuntaje, calcularResultado}) => {
   const sacarDate = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
@@ -58,7 +63,8 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
     pdfDoc.autoTable({
       body: [
         ['Puntaje Total', '', ObtenerPuntaje()],
-        ['Resultado', '', calcularPorcentaje()],
+        ['Porcentaje', '', calcularPorcentaje()],
+        ['Resultado', '', calcularResultado()],
       ],
       startY: pdfDoc.autoTable.previous.finalY + 10,
       styles: {
@@ -71,7 +77,7 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
   };
 
   return (
-    <button type="button" className="btn btn-secondary" onClick={imprimir}>Imprimir</button>
+    <Button type="button" className="btn btn-secondary" onClick={imprimir}>Imprimir</Button>
   );
 };
 

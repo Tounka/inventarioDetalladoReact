@@ -8,6 +8,7 @@ import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
     const [puntaje, setPuntaje] = useState(94);
     const [numPreguntasCorrectas, setNumPreguntasCorrectas] = useState(0);
+    const [preguntasCriticas, SetPreguntasCriticas] = useState(0);
     const [critico, setCritico] = useState(true);
     
     const ObtenerPuntaje = ()=>{
@@ -22,7 +23,7 @@ function PaginaMcAuditoria(){
             return(puntaje + 100);
         }
         let numPorciento = (puntaje / 94) * 100;
-  
+        numPorciento = numPorciento.toFixed(2);
             return numPorciento + '%';
    
         
@@ -30,7 +31,7 @@ function PaginaMcAuditoria(){
     const calcularResultado= () => {
         let numPorciento = (puntaje / 94) * 100;
 
-        if (numPorciento >= 80 && critico){
+        if (numPorciento >= 80 && preguntasCriticas==0){
             return 'Aprobado';
         }else{
             return "Reprobada"
@@ -56,7 +57,7 @@ function PaginaMcAuditoria(){
                 </thead>
                 <tbody className="table-group-divider">
                     {preguntas.map((pregunta) => (
-                        <FilaTablaMcAuditoria setCritico={setCritico} key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} setNumPreguntasCorrectas={setNumPreguntasCorrectas} numPreguntasCorrectas={numPreguntasCorrectas} />
+                        <FilaTablaMcAuditoria setCritico={setCritico} key={pregunta.id} pregunta={pregunta.pregunta} id={pregunta.id} puntos={pregunta.puntos} setPuntaje={setPuntaje} puntaje={puntaje} preguntaAuditoria={preguntas} setNumPreguntasCorrectas={setNumPreguntasCorrectas} numPreguntasCorrectas={numPreguntasCorrectas} SetPreguntasCriticas={SetPreguntasCriticas} preguntasCriticas= {preguntasCriticas}/>
                     ))}
 
                 <tr>
@@ -71,11 +72,11 @@ function PaginaMcAuditoria(){
                     <td colSpan="2">Resultado </td>
                     <td>{calcularResultado()}</td>
                 </tr>
-                    <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria" calcularPorcentaje ={calcularPorcentaje} ObtenerPuntaje={ObtenerPuntaje}/>
+                    
                 </tbody>
 
             </table>
-
+            <BtnImprimirMcAuditoria componenteImprimir="formularioAuditoria" calcularPorcentaje ={calcularPorcentaje} ObtenerPuntaje={ObtenerPuntaje} calcularResultado={calcularResultado}/>
         </div>
         </div>
         </>
