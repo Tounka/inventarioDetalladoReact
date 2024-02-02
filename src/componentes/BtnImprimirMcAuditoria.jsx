@@ -3,12 +3,13 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { preguntaAuditoria } from '../js/objetosAuditoria.js';
 import styled from "styled-components";
+
 const Button = styled.button`
   margin-bottom:20px;
   padding: 10px;
-`
+`;
 
-const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,ObtenerPuntaje, calcularResultado}) => {
+const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje, ObtenerPuntaje, calcularResultado }) => {
   const sacarDate = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
@@ -21,7 +22,7 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
 
   const imprimir = () => {
     const pdfDoc = new jsPDF({
-      format: 'a4',
+      format: [210, 350],
     });
 
     const totalWidth = pdfDoc.internal.pageSize.getWidth();
@@ -35,7 +36,7 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
     const dataCopy = preguntaAuditoria.map((pregunta) => {
       const preguntaCopy = { ...pregunta };
       if (preguntaCopy.RespuestaNegativa !== "") {
-        preguntaCopy.pregunta += "\n" + preguntaCopy.RespuestaNegativa;
+        preguntaCopy.pregunta = { content: preguntaCopy.pregunta + "\n" + preguntaCopy.RespuestaNegativa, styles: { fillColor: [185, 3, 24], textColor: [255, 255, 255] } };
       }
       return preguntaCopy;
     });
@@ -53,13 +54,13 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
       styles: {
         fontSize: 10,
         cell: { textAlign: 'center', padding: 5 },
-        
       },
       columnStyles: {
         0: { halign: 'center' },  
         2: { halign: 'center' },  
       },
     });
+
     pdfDoc.autoTable({
       body: [
         ['Puntaje Total', '', ObtenerPuntaje()],
@@ -69,10 +70,9 @@ const BtnImprimirMcAuditoria = ({ componenteImprimir, calcularPorcentaje ,Obtene
       startY: pdfDoc.autoTable.previous.finalY + 10,
       styles: {
         fontSize: 10,
-        
       },
-
     });
+
     pdfDoc.save(`Auditoria(${dateFormatted}).pdf`);
   };
 

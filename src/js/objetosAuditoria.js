@@ -22,7 +22,7 @@ export const preguntaAuditoria = [
     { pregunta: "Programa de Manejo de Plagas, reportes, servicios, permisos, guardapolvos, correcciones de visita hechas.", puntos: 3, id: "FS21", RespuestaNegativa: "" },
     { pregunta: "Hay procedimientos para el derramamiento de productos no alimenticios de riesgo biológico", puntos: 1, id: "FS22", RespuestaNegativa: "" },
     { pregunta: "Temperatura de Congeladores OF-10F o 5", puntos: 5, id: "FS23", RespuestaNegativa: "" },
-    { pregunta: "Temperatura de Refrigeradores 34F a 40F", puntos: 5, id: "FS24", RespuestaNegativa: "" },
+    { pregunta: "Temperatura de Refrigeradores 34F a 40F", puntos: 3, id: "FS24", RespuestaNegativa: "" },
     { pregunta: "La vida secundaria de todos los productos marcada.", puntos: 3, id: "FS25", RespuestaNegativa: "" },
     { pregunta: "Se descartan los productos del UHC vencidos.", puntos: 3, id: "FS26", RespuestaNegativa: "" },
     { pregunta: "El pirometro y los accesorios (bacterias de repuesto y sonda disponibles)", puntos: 5, id: "FS27", RespuestaNegativa: "" },

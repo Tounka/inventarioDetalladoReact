@@ -6,7 +6,7 @@ import {preguntaAuditoria as preguntas} from '../js/objetosAuditoria'
 import FilaTablaMcAuditoria from '../componentes/FTablaMcAuditoria.jsx'
 import BtnImprimirMcAuditoria  from '../componentes/BtnImprimirMcAuditoria.jsx'
 function PaginaMcAuditoria(){
-    const [puntaje, setPuntaje] = useState(94);
+    const [puntaje, setPuntaje] = useState(96);
     const [numPreguntasCorrectas, setNumPreguntasCorrectas] = useState(0);
     const [preguntasCriticas, SetPreguntasCriticas] = useState(0);
     const [critico, setCritico] = useState(true);
@@ -22,14 +22,14 @@ function PaginaMcAuditoria(){
         if(puntaje<-1){
             return(puntaje + 100);
         }
-        let numPorciento = (puntaje / 94) * 100;
+        let numPorciento = (puntaje / 96) * 100;
         numPorciento = numPorciento.toFixed(2);
             return numPorciento + '%';
    
         
     }
     const calcularResultado= () => {
-        let numPorciento = (puntaje / 94) * 100;
+        let numPorciento = (puntaje / 96) * 100;
 
         if (numPorciento >= 80 && preguntasCriticas==0){
             return 'Aprobado';
