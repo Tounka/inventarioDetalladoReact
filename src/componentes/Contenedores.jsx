@@ -38,3 +38,8 @@ export const ContenedorTarjetasLobby = styled.div`
     
 
 `
+
+export const ContenedorPrimario = styled.div`
+    padding: 10px 15px;
+`
+

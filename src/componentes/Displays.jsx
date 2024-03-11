@@ -14,3 +14,11 @@ export const DisplayLobby = styled.div`
 export const contenedorElementosLobby = styled.div`
      padding: 15px;
 `
+export const DisplayPaginaBreaks = styled.div`
+    background: #EDEBEB;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content:space-between;
+    flex-direction:column;
+`
