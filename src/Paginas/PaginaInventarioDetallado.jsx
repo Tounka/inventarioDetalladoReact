@@ -17,7 +17,7 @@ function PaginaInventarioDetallado() {
         <>
         
         
-        <div className="container-sm">
+        <div className="container-sm" style={{ marginBottom: '20px' }}>
             <InputID setNombre={setNombre} setCdp={setCdp}/>
 
             <Separador titulo="Contenedores" />

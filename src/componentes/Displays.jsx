@@ -5,6 +5,7 @@ export const DisplayLobby = styled.div`
     min-height: 100%;
     width: 100%;
     height: 100vh;
+    max-height: auto;
     min-width: 30px;
     display: flex;
     justify-content: space-between;

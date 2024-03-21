@@ -5,6 +5,7 @@ import PaginaMcHoot from './Paginas/PaginaMcHoot';
 import PaginaMcAuditoria from './Paginas/PaginaMcAuditoria';
 import Lobby from './Paginas/Lobby';
 import PaginaMcBreak from './Paginas/PaginaMcBreak';
+
 import NotFound from './Paginas/NotFound'
 
 import { BrowserRouter , Route, Routes} from 'react-router-dom';

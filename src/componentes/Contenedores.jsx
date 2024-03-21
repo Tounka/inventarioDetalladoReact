@@ -17,6 +17,13 @@ const TarjetaIndividual = styled(Link) `
     font-weight: bold;
     font-size:22px;
     margin-bottom: 30px;
+    text-align:center;
+
+    @media (max-width: 480px){
+        min-width: 105px;
+        min-height: 100px;
+        
+    }
 
     
 `
@@ -34,12 +41,18 @@ export const ContenedorTarjetasLobby = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    height: auto;
     justify-content: space-evenly;
+    
     
 
 `
 
 export const ContenedorPrimario = styled.div`
     padding: 10px 15px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
 `
 

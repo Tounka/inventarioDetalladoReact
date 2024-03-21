@@ -10,7 +10,6 @@ const ContenedorFooter = styled.div`
     width: 100%;
 
     text-align: center;
-    margin-top: 30px;
     background-color: black;
     color: white;
     font-weight: bold;

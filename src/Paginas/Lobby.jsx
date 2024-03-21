@@ -16,6 +16,7 @@ function Lobby() {
                     <Tarjeta nombrePagina='McHoot' linkPagina="McHoot" />
                     <Tarjeta nombrePagina='Inventario Detallado' linkPagina="InventarioDetallado" />
                     <Tarjeta nombrePagina='McAuditoria' linkPagina="McAuditoria" />
+                    <Tarjeta nombrePagina='McBreak' linkPagina="McBreak" />
                     
                 </ContenedorTarjetasLobby>
             </contenedorElementosLobby>

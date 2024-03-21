@@ -12,6 +12,14 @@ code {
     monospace;
 }
 
+:root{
+  --UserColor1: #112240;
+  --UserColor2: #EAFDF8;
+  --UserColor3: #984447;
+  --UserColor4: #468C98;
+  --UserColor5: #F1C40F;
+  --UserColor6: #B084CC;
+}
 .contenedorPaginaMcHoot {
   
   background-color: #ffffff;
