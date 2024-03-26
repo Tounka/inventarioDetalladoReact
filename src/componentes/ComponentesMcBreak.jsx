@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
+import { Formik, Form, Field } from 'formik';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import imgIconosUsuarios from '../js/imgUsuarios'
+import { GrNext,GrPrevious  } from "react-icons/gr";
+
 const ContenedorCardMcBreak = styled.div`
     height: 300px;
     width: 175px;
@@ -19,12 +21,13 @@ const ContenedorCardMcBreak = styled.div`
 `
 
 const P = styled.p`
-    font-size: 30px;
+    font-size: ${props => props.fuente || '30px'};
     font-weight:bold;
     text-align: center;
     margin: 5px;
     @media (max-width: 480px) {
         font-size: 18px;
+        
     }
 `
 const Psecundario = styled(P)`
@@ -54,12 +57,28 @@ const ImagenCardMcBreak = styled.img`
 
     
 `
+const ContenedorInferiorMcBreak = styled.div`
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+`
+{ /* const BotonActionCard = styled.div`
+    width: 50%;
+    background-color: ${props => props.color || '#27AE60'};
+    height: 100%;
+    display: flex;
+
+` */}
 
 export function CardMcBreak({SrcImg, Nombre, Apodo, ColorDeBg, Index}){
     const [Tiempo1,  setTiempo1] = useState(0);
     const [Tiempo2,  setTiempo2] = useState(0);
-    const [Text,  setText] = useState('');
-    const [switchFuncion,  setSwitchFuncion] = useState(false);
+    const [DiferenciaTiempo,  setDiferenciaTiempo] = useState(0);
+   
+    const [switchFuncion,  setSwitchFuncion] = useState(0);
 
 
     const handleClick = (switchFuncion) => {
@@ -69,14 +88,14 @@ export function CardMcBreak({SrcImg, Nombre, Apodo, ColorDeBg, Index}){
             
             hour12: false, 
           };
-        if(switchFuncion){
+        if(switchFuncion === 2){
             let tiempoActual = new Date();
-            let tiempoDeRegreso = Tiempo2;
+            //let tiempoDeRegreso = Tiempo2;
             tiempoActual= tiempoActual.toLocaleTimeString('en-US', opcionesFormato);
             
-            setText(tiempoDeRegreso + '/' + tiempoActual);
+            setSwitchFuncion(0)
 
-        }else{
+        }else if (switchFuncion === 0){
             const tiempo = new Date();
             const tiempoDeRegreso = new Date(tiempo);
             tiempoDeRegreso.setMinutes(tiempo.getMinutes() + 30);
@@ -84,8 +103,15 @@ export function CardMcBreak({SrcImg, Nombre, Apodo, ColorDeBg, Index}){
             
               setTiempo1(tiempo.toLocaleTimeString('en-US', opcionesFormato));
               setTiempo2(tiempoDeRegreso.toLocaleTimeString('en-US', opcionesFormato));
+
+              let xSwitchFuncion = switchFuncion + 1;
+              setSwitchFuncion(xSwitchFuncion)
+        }else{
+            setDiferenciaTiempo(revisarTiempo(Tiempo2));
+            let xSwitchFuncion = switchFuncion + 1;
+            setSwitchFuncion(xSwitchFuncion)
         }
-       setSwitchFuncion(!switchFuncion);
+  
 
         
     }
@@ -96,29 +122,103 @@ export function CardMcBreak({SrcImg, Nombre, Apodo, ColorDeBg, Index}){
             return(Nombre + " sin apodo")
         }
     }
+    const validarTiempo = (tiempoDeRegreso) =>{
+        const opcionesFormato = {
+            hour: 'numeric',
+            minute: 'numeric',
+            
+            hour12: false, 
+          };
+        let tiempoActualF = new Date();
+        tiempoActualF = tiempoActualF.toLocaleTimeString('en-US', opcionesFormato);
+
+        if(tiempoActualF >= tiempoDeRegreso){
+            return(true);
+        }else{
+            setSwitchFuncion(0);
+        }
+    }
+    const revisarTiempo = (tiempoDeRegreso) => {
+        
+        const formatearNumeros = (numero) =>{
+            let horaMinutos = numero.split(':'); 
+            let hora = parseInt(horaMinutos[0], 10); 
+            let minutos = parseInt(horaMinutos[1], 10); 
+            let fecha = new Date();
+            fecha.setHours(hora, minutos, 0, 0);
+
+            return(fecha)
+        }
+        const opcionesFormato = {
+            hour: 'numeric',
+            minute: 'numeric',
+            
+            hour12: false, 
+          };
+        let tiempoActualF = new Date();
+        tiempoActualF = tiempoActualF.toLocaleTimeString('en-US', opcionesFormato);
+
+        if (tiempoActualF >= tiempoDeRegreso){
+            
+            let tiempo1Actual = formatearNumeros(tiempoActualF);
+            let tiempo2Regreso = formatearNumeros(tiempoDeRegreso);
+            let diferenciaMs = Math.abs(tiempo2Regreso - tiempo1Actual);
+            const diferenciaMinutos = Math.floor(diferenciaMs / (1000 * 60));
+            
+            
+            return(diferenciaMinutos);
+        }
+    }
     return(
         <ContenedorCardMcBreak onClick={() => handleClick(switchFuncion)}>
             <ContenedorImgCardMcBreak>
                 <ImagenCardMcBreak src={SrcImg} color={ColorDeBg}  />
             </ContenedorImgCardMcBreak>
             
-        
-            {
-                     switchFuncion  ? (
-                        <ContenedorPsecundarios>
-                            <Psecundario>{Tiempo1}</Psecundario>
-                            <Psecundario>-</Psecundario>
-                            <Psecundario>{Tiempo2}</Psecundario>
-                        </ContenedorPsecundarios>
-                    ) : (
-                        <Psecundario>
-                             <P>{FullName(Nombre, Apodo)}</P>
-                        </Psecundario>
-                    )
-            }
-            
-            
+                <ContenedorInferiorMcBreak>
 
+                
+                {  switchFuncion  === 0 ?(
+                            
+                            <Psecundario>
+                                <P>{FullName(Nombre, Apodo)}</P>
+                            </Psecundario>
+                            
+                
+                            
+                ) : null }
+                
+                {  switchFuncion  === 1 ?(
+                    <>
+                            <P>{Nombre}</P>
+                            <ContenedorPsecundarios>
+                                
+                                <Psecundario>{Tiempo1}</Psecundario>
+                                <Psecundario>-</Psecundario>
+                                <Psecundario>{Tiempo2}</Psecundario>
+                            </ContenedorPsecundarios>
+                    </>
+            
+                        ) : null }
+                {switchFuncion === 2 ? (
+                    validarTiempo(Tiempo2) ? (
+                        
+                        <>
+                        {DiferenciaTiempo >= 5 ?(
+                            <>
+                                <P fuente= '16px'> El empleado se paso por {DiferenciaTiempo}</P>
+                                
+                            </>
+                        ) : null}
+                                
+                                
+                                
+
+                        </>
+                    ) : null
+                ) : null}  
+                
+            </ContenedorInferiorMcBreak>
         </ContenedorCardMcBreak>
     );
 } 
@@ -149,16 +249,12 @@ const ModalContent = styled.div`
     }
 `;
 
-const CloseButton = styled.span`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-`;
+
 
 const ContenedorImg = styled.div`
     width: 100%;
     height: 250px;
+    justify-content: space-between;
     border: solid 1px black;
     border-radius: 10px;
     display:flex;
@@ -188,11 +284,15 @@ const colors = [
     '#EAFDF8', 
     '#984447',  
     '#468C98',  
-    '#F1C40F',  
-    '#B084CC'  
+    '#6D4C41',  
+    '#3498DB',  
+    '#27AE60',  
+    '#F39C12',  
+    '#8E44AD',  
+    '#B084CC' 
 ];
 const ImagenForm = styled.img`
-    width:100%;
+    width:76%;
     height:100%;
     object-fit:cover;
     object-position: top;    
@@ -203,8 +303,9 @@ const PrevNext = styled.p`
   background-color: #000000;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  display:flex;
+  justify-content:center;
+  width:12%;
   font-size: 16px;
   margin: 0;
   display:flex;
@@ -214,6 +315,14 @@ const PrevNext = styled.p`
   transition: background-color 0.3s ease;
 
 `;
+const ContenedorInput = styled.div`
+    display:flex;
+    justify-content:space-between;
+`
+const ContenedorColores = styled.div`
+    display:flex;
+    justify-content:center;
+`
 const Modal = ({ onClose, db }) => {
     
     const [selectedColor, setSelectedColor] = useState('#FFFFFF');
@@ -246,7 +355,7 @@ const Modal = ({ onClose, db }) => {
                 img: urlImg,
                 bgColor: selectedColor
             });
-            console.log("Document written with ID: ",  );
+           
             onClose(); // Cierra el modal después de agregar los datos
         } catch (error) {
             console.error("Error adding document: ", error);
@@ -266,7 +375,7 @@ const Modal = ({ onClose, db }) => {
     return (
         <ModalContainer>
             <ModalContent className="modal-formularioRegistro">
-                <CloseButton onClick={onClose}>&times;</CloseButton>
+                
                 <h2>Registro</h2>
                 <Formik
                     initialValues={{ img:urlImg, bgColor:'' , nombre: '', apodo:'' }}
@@ -274,20 +383,20 @@ const Modal = ({ onClose, db }) => {
                 >
                     <ContenedorFormularioRegistro >
                         <ContenedorImg color={selectedColor}>
-                            <PrevNext onClick={() => handleClicSelectImg(-1)}> S </PrevNext>
+                            <PrevNext onClick={() => handleClicSelectImg(-1)}> <GrPrevious /> </PrevNext>
                             <ImagenForm src={urlImg} />
-                            <PrevNext onClick={() => handleClicSelectImg(1)}> N </PrevNext>
+                            <PrevNext onClick={() => handleClicSelectImg(1)}> <GrNext /> </PrevNext>
                         </ContenedorImg>
-                        <div>
+                        <ContenedorInput>
                             <label htmlFor="nombreFormulario">Nombre</label>
                             <Field type="text" name="nombre" id='nombreFormulario' />
-                        </div>
-                        <div>
+                        </ContenedorInput>
+                        <ContenedorInput>
                             <label htmlFor="apodoFormulario">Apodo / Apellido</label>
                             <Field type="text" name="apodo" id='apodoFormulario' />
-                        </div>
+                        </ContenedorInput>
 
-                        <div role="group" aria-labelledby="my-radio-group-label">
+                        <ContenedorColores role="group" aria-labelledby="my-radio-group-label" >
                             
                             {colors.map(color => ( 
                                 <BotonColor
@@ -302,7 +411,7 @@ const Modal = ({ onClose, db }) => {
                             {
                                 //<input type="color" value={'#cc99ff'} /> 
                             }
-                        </div>
+                        </ContenedorColores>
                         <button type='submit'>
                             Enviar
                         </button >

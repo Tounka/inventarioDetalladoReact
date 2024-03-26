@@ -177,7 +177,7 @@ const crearListadoDePreguntas = (todasLasPreguntas) => {
         array.sort(() => Math.random() - 0.5);
     }
     shuffle(listadoDePreguntas);
-    console.log(listadoDePreguntas);
+    
     return listadoDePreguntas;
 };
  let listadoDePreguntas = crearListadoDePreguntas(todasLasPreguntas);

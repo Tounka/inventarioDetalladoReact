@@ -14,7 +14,7 @@ const ElementoTabla = ({ switchPregunta, className, texto, preguntaAuditoria, id
       }
     });
 
-    console.log(preguntaAuditoria);
+    
   };
 
   const validarTextoInferior = () => {

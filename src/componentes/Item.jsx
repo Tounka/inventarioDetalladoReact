@@ -46,7 +46,7 @@ function Item ({objetoProducto}){
         const cantidadTotal = arregloCantidades[0] + arregloCantidades[1]+ arregloCantidades[2];
         
         objetoProducto.cantidad = cantidadTotal;
-        console.log(objetoProducto.cantidad);
+        
         
         
 
