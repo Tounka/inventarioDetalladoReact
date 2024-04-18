@@ -7,7 +7,7 @@ function Item(id, nombre,cantidadPorCajas,cantidadPorBolsa, cantidad ,cantidadCr
     this.cantidadCritica = cantidadCritica;
   }
   const CucharasSundae= new Item('CucharaS', 'Cuchara Sundae' ,0,200,   0,75);
-  const CucharasMcFlurry= new Item('CucharasMcF', 'Cuchara Mcflurry' ,0,200,   0,75);
+  const CucharasMcFlurry= new Item('CucharasMcF', 'Cuchara Mcflurry' ,0,75,   0,75);
   const Popotes= new Item('Popotes', 'Popotes' ,0,205,   0,50);
   const ServilletaCono= new Item('ServilletaCono', 'Servilletas Cono' ,0,0,   0,4);
   
@@ -24,11 +24,12 @@ const BaseDeHelado= new Item('BDHelado', 'Base de Helado' ,9,0 ,  0,18);
 const Leche= new Item('Leche', 'Leche' ,0,0,   0,1);
 const Mms= new Item('Mms', 'M&Ms (Oz)' ,0,0,   0,20);
 const Oreo= new Item('Oreo', 'Oreo (Oz)' ,0,0,   0,20);
+const Pinguinos= new Item('Pinguinos', 'Pinguinos (Unidades)' ,0,0,   0,10);
 const Chocolate= new Item('Chocolate', 'Chocolate' ,0,0,   0,2);
 const Fresa= new Item('Fresa', 'Fresa' ,0,0,   0,2);
 const Caramelo= new Item('Caramelo', 'Caramelo' ,0,0,   0,2);
 
-const arregloProducto = [BaseDeHelado, Leche, Mms, Oreo, Chocolate, Fresa, Caramelo];
+const arregloProducto = [BaseDeHelado, Leche, Mms, Oreo, Pinguinos, Chocolate, Fresa, Caramelo];
 
 
 
@@ -36,8 +37,8 @@ const RolloTermico= new Item('RolloTermico', 'Rollo Térmico' ,0,0,   0,5);
 const PapelCafe= new Item('PapelCafe', 'Papel Cafe' ,0,0,   0,1);
 const SobresDeposito= new Item('SobresDeposito', 'Sobres Deposito' ,0,0,   0,20);
 const Trapos= new Item('Trapos', 'Trapos' ,0,0,   0,3);
-const JabonParaManos= new Item('JabonParaManos', 'Jabon Para Manos' ,0,0,   0,1);
-const GelAntivacterial= new Item('GelAntivacterial', 'Gel Antibacterial' ,0,0,   0,1);
+const JabonParaManos= new Item('JabonParaManos', 'Jabón Para Manos' ,0,0,   0,1);
+const GelAntibacterial= new Item('GelAntibacterial', 'Gel Antibacterial' ,0,0,   0,1);
 const BolsaBasura= new Item('BolsaBasura', 'Bolsa Basura' ,0,0,   0,8);
 const Pluma= new Item('Pluma', 'Pluma' ,0,0,   0,1);
 const Engrapadora= new Item('Engrapadora', 'Engrapadora' ,0,0,   0,1);
@@ -50,7 +51,7 @@ const Cuchillo= new Item('Cuchillo', 'Cuchillo' ,0,0,   0,1);
 
 const arregloOperacional = [
   RolloTermico, PapelCafe, SobresDeposito, Trapos, JabonParaManos,
-  GelAntivacterial, BolsaBasura, Pluma, Engrapadora, Grapas,
+  GelAntibacterial, BolsaBasura, Pluma, Engrapadora, Grapas,
   Escoba, Trapeador, OverRun, Bascula, Cuchillo
 ];
 
