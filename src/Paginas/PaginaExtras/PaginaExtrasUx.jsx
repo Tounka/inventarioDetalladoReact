@@ -6,12 +6,15 @@ const ContenedorCardCajas = styled.div`
     width: 90%;
     gap: 20px;
     max-width: 800px;
+    padding: 20px 0;
 `
 export const PaginaExtrasUx = () =>{
     return(
         <ContenedorCardCajas>
-            <CardCaja />
-            <CardCaja />
+            <CardCaja numeroCaja="1" />
+            <CardCaja numeroCaja="76" />
+            <CardCaja numeroCaja="40" />
+            <CardCaja numeroCaja="41" />
         </ContenedorCardCajas>
            
         

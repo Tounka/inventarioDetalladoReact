@@ -10,7 +10,15 @@ const EmpleadosContext = createContext();
 
 export const EmpleadosProvider = ({ children }) => {
     const [listaEmpleados, setListaEmpleados] = useState([]);
-
+    const [modalExtras, setModalExtras] = useState(false);
+    const [cajaSeleccionada, setCajaSeleccionada] = useState('');
+    const [cajas, setCajas] = useState({})
+    const actualizarCaja = (id, nuevoContenido) => {
+        setCajas((prevCajas) => ({
+          ...prevCajas,
+          [id]: nuevoContenido,
+        }));
+      };
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
@@ -36,7 +44,7 @@ export const EmpleadosProvider = ({ children }) => {
 
     // Pasar el valor como prop al Provider
     return (
-        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db }}>
+        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas}}>
             {children}
         </EmpleadosContext.Provider>
     );
