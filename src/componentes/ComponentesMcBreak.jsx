@@ -5,6 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import imgIconosUsuarios from '../js/imgUsuarios'
 import { GrNext,GrPrevious  } from "react-icons/gr";
+import { useEmpleados } from "../Paginas/ContextoGeneral";
 
 const ContenedorCardMcBreak = styled.div`
     height: 300px;
@@ -323,7 +324,8 @@ const ContenedorColores = styled.div`
     display:flex;
     justify-content:center;
 `
-const Modal = ({ onClose, db }) => {
+const Modal = ({ onClose }) => {
+    const {db} = useEmpleados();
     
     const [selectedColor, setSelectedColor] = useState('#FFFFFF');
     const [urlImg, setUrlImg] = useState(imgIconosUsuarios[0]);
@@ -430,29 +432,14 @@ const ContenedorCardMcBreakAgregar = styled(ContenedorCardMcBreak)`
         cursor: pointer;
     
 `
-export function CardAgregar( {db, setListaEmpleados}){
+export function CardAgregar( ){
     const [modalOpen, setModalOpen] = useState(false); // Estado para controlar si el modal está abierto
     
-    const obtenerDatos = async () => {
-        try {
-            const consulta = collection(db, 'Empleados');
-            const listaEmpleadosSnapshot = await getDocs(consulta);
-
-            if (listaEmpleadosSnapshot.docs.length > 0) {
-                let lista = listaEmpleadosSnapshot.docs.map(documento => documento.data());
-                setListaEmpleados(lista);
-            
-            } else {
-                console.log('No se encontraron documentos');
-            }
-        } catch (error) {
-            console.error('Error al obtener documentos:', error.message);
-        }
-    };
+    const {listaEmpleados} = useEmpleados();
 
     const toggleModal = () => {
         setModalOpen(!modalOpen); // Cambia el estado del modal
-        obtenerDatos();
+        
     };
     
 
@@ -463,7 +450,7 @@ export function CardAgregar( {db, setListaEmpleados}){
                     +
                 </ContenedorCardMcBreakAgregar>
             
-            {modalOpen && <Modal onClose={toggleModal} db={db} />} 
+            {modalOpen && <Modal onClose={toggleModal}  />} 
         </>
     );
     

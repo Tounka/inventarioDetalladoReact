@@ -23,3 +23,13 @@ export const DisplayPaginaBreaks = styled.div`
     justify-content:space-between;
     flex-direction:column;
 `
+export const DisplayGenerico = styled.div`
+    background: #EDEBEB;
+    min-height: calc(100dvh - 80px);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction:column;
+
+`
