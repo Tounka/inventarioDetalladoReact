@@ -20,6 +20,8 @@ const TxtCardCajas = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    color: white;
 ` 
 
 const ContenedorCaja = styled.div`

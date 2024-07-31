@@ -14,7 +14,7 @@ export const PaginaExtras = () =>{
     return(
         <>
         
-        <TituloPrincipal textoTitulo="McBreaks" />
+        <TituloPrincipal textoTitulo="Extras" />
         <DisplayGenerico>
             
 
