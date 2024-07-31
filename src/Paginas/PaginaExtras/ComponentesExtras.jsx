@@ -39,22 +39,24 @@ const ContenedorImgPicture = styled.div`
 `
 export const CardCaja = ({nombre = 'Selecciona Empleado', numeroCaja = '1', empleado = '1'}) =>{
     const {setModalExtras, setCajaSeleccionada, cajas} = useEmpleados();
-    
+ 
+    console.log(cajas[numeroCaja])
     const handleClick = () =>{
         setModalExtras(true);
         setCajaSeleccionada(numeroCaja);
+        
     }
     return(
         <CardCajaStyled onClick={() => handleClick()}>
                   {cajas[numeroCaja] ? 
-             <TxtCardCajas>{cajas[numeroCaja].nombre}</TxtCardCajas>
+             <TxtCardCajas>{cajas[numeroCaja].empleado.nombre}</TxtCardCajas>
                 :
                     <TxtCardCajas>{nombre}</TxtCardCajas>
                 }
             
                 {cajas[numeroCaja] ? 
                     <ContenedorImgPicture>
-                        <ImgPicture src = {cajas[numeroCaja].img} color = {cajas[numeroCaja].bgColor}  alt={'imagen empleado'} top />
+                        <ImgPicture src = {cajas[numeroCaja].empleado.img} color = {cajas[numeroCaja].empleado.bgColor}  alt={'imagen empleado'} top />
                     </ContenedorImgPicture>
                 :
                     <ContenedorCaja>

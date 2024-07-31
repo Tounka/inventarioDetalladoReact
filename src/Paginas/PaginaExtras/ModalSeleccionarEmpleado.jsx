@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEmpleados } from "../ContextoGeneral"; // Asegúrate de que la ruta sea correcta
 import { ImgPicture } from "../../componentes/ImgPicture"; // Asegúrate de que la ruta sea correcta
+import { addDoc, collection } from "firebase/firestore";
 
 const CardEmpleadoStyled = styled.div`
     width: 100%;
@@ -54,14 +55,16 @@ const TxtCard = styled.div`
 `;
 
 const CardEmpleado = ({ empleado }) => {
-    const { setModalExtras, cajaSeleccionada, actualizarCaja } = useEmpleados();
+    const { setModalExtras, cajaSeleccionada, actualizarCaja, actualizarContenidoCajas } = useEmpleados();
+  
     const nombre = empleado.nombre;
     const img    =empleado.img;
    
     const handleClick = () =>{
         setModalExtras(false);
+        
         actualizarCaja(cajaSeleccionada, empleado);
-       
+        actualizarContenidoCajas(cajaSeleccionada, empleado );
 
     }
     return (
@@ -91,9 +94,11 @@ export const ModalEmpleados = () => {
 };
 //<InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />
 export const InternoModalSeleccionarEmpleado = ({listaEmpleados}) => {
+
     return(
         <ContenedorCardEmpleados>
             {listaEmpleados.map((empleado) => (
+                
                 <CardEmpleado key={empleado.id}  empleado={empleado}  />
             ))}
         </ContenedorCardEmpleados>
@@ -163,27 +168,37 @@ const InputExtras = ({id, txt, }) => {
 }
 
 const BtnModalExtrasStyled = styled.button`
-    width: 150px;
-    height: 40px;
+    
+    width: ${props => props.type === 'submit' ? '200px' : '150px'};
+    height: ${props => props.type === 'submit' ? '60px' : '40px'};
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    background-color: brown;
+    background-color: ${props => props.type === 'submit' ? 'green' : 'brown'};
     border: none;
     border-radius: 10px;
     font-size: 24px;
 `;
 
-const BtnModalExtras = () => {
-    const { setModalExtras} = useEmpleados();
+const BtnModalExtras = ({submit}) => {
+    const { setModalExtras, actualizarContenidoCajas, actualizarCaja, cajaSeleccionada} = useEmpleados();
     const handleClick = () =>{
-        setModalExtras(false);
+        if(submit){
+            actualizarContenidoCajas(cajaSeleccionada, '');
+            actualizarCaja(cajaSeleccionada, '');
+            setModalExtras(false);
+            
+        }else{
+            setModalExtras(false);
+        }
+       
 
     }
     return(
-        <BtnModalExtrasStyled onClick={() => handleClick()}>
-            Cerrar
+        <BtnModalExtrasStyled onClick={() => handleClick()} type ={submit}>
+            {submit ? 'Enviar' : 'Cerrar'}
+            
         </BtnModalExtrasStyled>
     );
 }
@@ -204,6 +219,7 @@ const InternoModalExtras = () => {
 
                 </ContenedorItemsExtras>
 
+                <BtnModalExtras submit = 'submit'  />
                 <BtnModalExtras />
             </ContenedorModalExtras>
 

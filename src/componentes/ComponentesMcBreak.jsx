@@ -327,7 +327,7 @@ const ContenedorColores = styled.div`
     justify-content:center;
 `
 const Modal = ({ onClose }) => {
-    const {db} = useEmpleados();
+    const {db, actualizarListaEmpleados} = useEmpleados();
     
     const [selectedColor, setSelectedColor] = useState('#FFFFFF');
     const [urlImg, setUrlImg] = useState(imgIconosUsuarios[0]);
@@ -359,6 +359,7 @@ const Modal = ({ onClose }) => {
                 img: urlImg,
                 bgColor: selectedColor
             });
+            actualizarListaEmpleados();
            
             onClose(); // Cierra el modal después de agregar los datos
         } catch (error) {
