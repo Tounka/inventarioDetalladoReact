@@ -315,6 +315,8 @@ const PrevNext = styled.p`
   cursor: pointer;
   transition: background-color 0.3s ease;
 
+  user-select: none;
+
 `;
 const ContenedorInput = styled.div`
     display:flex;
