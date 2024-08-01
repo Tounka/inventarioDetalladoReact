@@ -3,13 +3,10 @@ import { DisplayGenerico } from "../../componentes/Displays"
 import TituloPrincipal from "../../componentes/TituloPagina"
 import { ModalEmpleados } from "./ModalSeleccionarEmpleado"
 import Footer from "../../componentes/Footer"
-import { listaEmpleados, useEmpleados } from "../ContextoGeneral"
-import { useState, useEffect } from "react"
 
 export const PaginaExtras = () =>{
   
-    const {listaEmpleados} = useEmpleados();
-    console.log(listaEmpleados);
+
  
     return(
         <>

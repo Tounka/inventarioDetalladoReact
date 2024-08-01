@@ -1,4 +1,3 @@
-import React from "react";
 import {  useEffect } from 'react';
 import '../hojas-de-estilo/TopMcHoot.css'
 

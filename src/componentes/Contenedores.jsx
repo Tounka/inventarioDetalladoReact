@@ -16,7 +16,7 @@ const TarjetaIndividual = styled(Link) `
     text-decoration: none;
     font-weight: bold;
     font-size:22px;
-    margin-bottom: 30px;
+    
     text-align:center;
 
     @media (max-width: 480px){
@@ -40,9 +40,12 @@ export function Tarjeta({nombrePagina, linkPagina}){
 export const ContenedorTarjetasLobby = styled.div`
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
     width: 100%;
     height: auto;
     justify-content: space-evenly;
+    
+    padding: 20px 0;
     
     
 

@@ -1,7 +1,8 @@
 import React from "react";
-import {DisplayLobby} from '../componentes/Displays'
+import {ContenedorElementosLobby, DisplayLobby} from '../componentes/Displays'
 import TituloPrincipal from "../componentes/TituloPagina";
 import { Tarjeta, ContenedorTarjetasLobby } from "../componentes/Contenedores";
+
 import Footer from "../componentes/Footer";
 
 function Lobby() {
@@ -9,7 +10,7 @@ function Lobby() {
        
             <DisplayLobby>
                 <TituloPrincipal textoTitulo="Selecciona la aplicación" />
-                <contenedorElementosLobby>
+                <ContenedorElementosLobby>
                     
                     
 
@@ -19,9 +20,10 @@ function Lobby() {
                         <Tarjeta nombrePagina='Inventario Detallado' linkPagina="InventarioDetallado" />
                         <Tarjeta nombrePagina='McAuditoria' linkPagina="McAuditoria" />
                         <Tarjeta nombrePagina='McBreak' linkPagina="McBreak" />
+                        <Tarjeta nombrePagina='Extras' linkPagina="Extras" />
                         
                     </ContenedorTarjetasLobby>
-                </contenedorElementosLobby>
+                </ContenedorElementosLobby>
 
                 <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS, La Pagina No Almacena Ningún Tipo De Dato.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  />
             </DisplayLobby>

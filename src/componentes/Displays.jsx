@@ -4,7 +4,8 @@ export const DisplayLobby = styled.div`
     background-color: #ffc700;
     min-height: 100%;
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     max-height: auto;
     min-width: 30px;
     display: flex;
@@ -12,7 +13,7 @@ export const DisplayLobby = styled.div`
     flex-direction: column;
 `;
 
-export const contenedorElementosLobby = styled.div`
+export const ContenedorElementosLobby = styled.div`
      padding: 15px;
 `
 export const DisplayPaginaBreaks = styled.div`

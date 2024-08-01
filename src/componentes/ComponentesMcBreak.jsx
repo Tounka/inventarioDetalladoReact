@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field } from 'formik';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import imgIconosUsuarios from '../js/imgUsuarios'
 import { GrNext,GrPrevious  } from "react-icons/gr";
 import { useEmpleados } from "../Paginas/ContextoGeneral";
@@ -66,13 +66,7 @@ const ContenedorInferiorMcBreak = styled.div`
     justify-content:center;
     align-items:center;
 `
-{ /* const BotonActionCard = styled.div`
-    width: 50%;
-    background-color: ${props => props.color || '#27AE60'};
-    height: 100%;
-    display: flex;
 
-` */}
 
 export function CardMcBreak({SrcImg, Nombre, Apodo, ColorDeBg, Index}){
     const [Tiempo1,  setTiempo1] = useState(0);

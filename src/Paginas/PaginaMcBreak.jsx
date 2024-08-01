@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {DisplayPaginaBreaks} from '../componentes/Displays'
 import { ContenedorPrimario } from "../componentes/Contenedores";
 import TituloPrincipal from "../componentes/TituloPagina";
 import Footer from "../componentes/Footer";
 import {CardMcBreak, CardAgregar} from '../componentes/ComponentesMcBreak'
-import img from '../img/userRandom.jpg'
 
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import {app} from '../componentes/McbreakBaseDeDatos' 
 import { useEmpleados } from "./ContextoGeneral";
 
 function PaginaMcBreak(){

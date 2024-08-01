@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useEmpleados } from "../ContextoGeneral"; // Asegúrate de que la ruta sea correcta
-import { ImgPicture } from "../../componentes/ImgPicture"; // Asegúrate de que la ruta sea correcta
-import { addDoc, collection } from "firebase/firestore";
+import { useEmpleados } from "../ContextoGeneral"; //
+import { ImgPicture } from "../../componentes/ImgPicture"; //
 
 const CardEmpleadoStyled = styled.div`
     width: 100%;
@@ -80,9 +79,10 @@ const CardEmpleado = ({ empleado }) => {
 
 export const ModalEmpleados = () => {
     const { listaEmpleados, modalExtras, cajas, cajaSeleccionada } = useEmpleados();
+    
     return (
         <ContenedorModal modalExtras = {modalExtras}>
-            {cajas[cajaSeleccionada] ?
+            {cajas[cajaSeleccionada].empleado != ''  ?
                 <InternoModalExtras />
                 :
                 <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />
@@ -120,7 +120,7 @@ const ContenedorItemsExtras = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 
 `;
 const TituloExtras = styled.p`
