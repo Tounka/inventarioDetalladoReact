@@ -15,6 +15,8 @@ export const PaginaExtrasUx = () =>{
             <CardCaja numeroCaja="76" />
             <CardCaja numeroCaja="40" />
             <CardCaja numeroCaja="41" />
+
+            <CardCaja numeroCaja="2" />
         </ContenedorCardCajas>
            
         

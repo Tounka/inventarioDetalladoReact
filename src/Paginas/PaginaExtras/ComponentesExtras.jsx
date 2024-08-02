@@ -57,7 +57,7 @@ export const CardCaja = ({ nombre = 'Selecciona Empleado', numeroCaja = '1', emp
 
     // Determina el contenido de la tarjeta
     const caja = cajas[numeroCaja];
-    const cajaNombre = caja ? caja.nombre : nombre;
+    const cajaNombre = caja && caja.empleado.nombre ? caja.empleado.nombre : 'Ingresa un usuario';
     const empleadoImg = caja && caja.empleado ? caja.empleado.img : null;
     const empleadoBgColor = caja && caja.empleado ? caja.empleado.bgColor : null;
 

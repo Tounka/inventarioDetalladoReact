@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEmpleados } from "../ContextoGeneral"; //
 import { ImgPicture } from "../../componentes/ImgPicture"; //
+import { useState } from "react";
 
 const CardEmpleadoStyled = styled.div`
     width: 100%;
@@ -82,7 +83,7 @@ export const ModalEmpleados = () => {
     
     return (
         <ContenedorModal modalExtras = {modalExtras}>
-            {cajas[cajaSeleccionada].empleado != ''  ?
+            {cajas[cajaSeleccionada]  ?
                 <InternoModalExtras />
                 :
                 <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />
@@ -158,11 +159,16 @@ const ContenedorTexto = styled.div`
     display: flex;
     align-items: center;
 `;
-const InputExtras = ({id, txt, }) => {
+const InputExtras = ({id, txt, agregarExtra }) => {
+    const handleOnChange = (event) => {
+        const value = event.target.value;  
+        agregarExtra(id, value);
+
+    };
     return(
         <ContenedorInput>
-            <InputCantidad id={id}/>
-            <ContenedorTexto> {txt} </ContenedorTexto>
+            <InputCantidad id={id} onChange={handleOnChange}/>
+            <ContenedorTexto > {txt} </ContenedorTexto>
         </ContenedorInput>
     );
 }
@@ -188,7 +194,6 @@ const BtnModalExtras = ({submit}) => {
             actualizarContenidoCajas(cajaSeleccionada, '');
             actualizarCaja(cajaSeleccionada, '');
             setModalExtras(false);
-            
         }else{
             setModalExtras(false);
         }
@@ -203,19 +208,32 @@ const BtnModalExtras = ({submit}) => {
     );
 }
 const InternoModalExtras = () => {
+    const {cajaSeleccionada} = useEmpleados();
+    const [extras, setExtras] = useState({});
+
+    const agregarExtra = (id, value) => {
+        setExtras((prevExtras) => ({
+            ...prevExtras,
+            [cajaSeleccionada]: {
+                ...(prevExtras[cajaSeleccionada] || {}),
+                [id]: value
+            }
+        }));
+        console.log(extras);
+    };
     return( 
             <ContenedorModalExtras>
                 <TituloExtras> Extras </TituloExtras>
 
                 <ContenedorItemsExtras>
-                    <InputExtras id='tocino'  txt= 'Tocino'/>
-                    <InputExtras id='queso'  txt= 'Queso'/>
-                    <InputExtras id='papasGrandes'  txt= 'Papas Grandes'/>
-                    <InputExtras id='salchicha'  txt= 'Salchicha'/>
-                    <InputExtras id='carne4-1'  txt= 'Carne 4:1'/>
-                    <InputExtras id='carne10-1'  txt= 'Carne 10:1'/>
-                    <InputExtras id='verduras'  txt= 'Verduras'/>
-                    <InputExtras id='toppings'  txt= 'Toppings'/>
+                    <InputExtras id='tocino'  txt= 'Tocino'  agregarExtra={agregarExtra}   />
+                    <InputExtras id='queso'  txt= 'Queso' agregarExtra={agregarExtra}  />
+                    <InputExtras id='papasGrandes'  txt= 'Papas Grandes' agregarExtra={agregarExtra}  />
+                    <InputExtras id='salchicha'  txt= 'Salchicha' agregarExtra={agregarExtra}  />
+                    <InputExtras id='carne4-1'  txt= 'Carne 4:1' agregarExtra={agregarExtra}  />
+                    <InputExtras id='carne10-1'  txt= 'Carne 10:1' agregarExtra={agregarExtra}  />
+                    <InputExtras id='verduras'  txt= 'Verduras' agregarExtra={agregarExtra}  />
+                    <InputExtras id='toppings'  txt= 'Toppings' agregarExtra={agregarExtra}  />
 
                 </ContenedorItemsExtras>
 

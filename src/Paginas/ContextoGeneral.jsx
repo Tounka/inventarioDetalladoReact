@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, updateDoc, setDoc } from 'firebase/firestore';
 import { app } from '../componentes/McbreakBaseDeDatos'; // Asegúrate de importar correctamente
 
 const db = getFirestore(app);
@@ -13,95 +13,81 @@ export const EmpleadosProvider = ({ children }) => {
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
 
-    useEffect(() => {
-        // Obtener Cajas al montar
-        const obtenerCajas = async () => {
-            try {
-                const consulta = collection(db, 'Cajas');
-                const listaCajasSnapshot = await getDocs(consulta);
-               
-                if (listaCajasSnapshot.docs.length > 0) {
-                    const listaCajas = listaCajasSnapshot.docs.reduce((acc, doc) => {
-                        acc[doc.id] = doc.data();
-                        return acc;
-                    }, {});
-                    setCajas(listaCajas);
-                    console.log("---------------", listaCajas);
-                } else {
-                    console.log('No se encontraron documentos');
-                }
-            } catch (error) {
-                console.error('Error al obtener documentos:', error.message);
+    const ObtenerCajas = async () =>{
+        try {
+            const consulta = collection(db, 'Cajas');
+            const listaCajasSnapshot = await getDocs(consulta);
+           
+            if (listaCajasSnapshot.docs.length > 0) {
+                const listaCajas = listaCajasSnapshot.docs.reduce((acc, doc) => {
+                    acc[doc.id] = doc.data();
+                    return acc;
+                }, {});
+                setCajas(listaCajas);
+                console.log("---------------",listaCajas);
+            } else {
+                console.log('No se encontraron documentos');
             }
-        };
-
-        obtenerCajas();
-    }, []); // Dependencias vacías para que se ejecute solo una vez
+        } catch (error) {
+            console.error('Error al obtener documentos:', error.message);
+        }
+    }
 
     useEffect(() => {
-        // Obtener Empleados al montar
-        const obtenerDatos = async () => {
-            try {
-                const consulta = collection(db, 'Empleados');
-                const listaEmpleadosSnapshot = await getDocs(consulta);
-
-                if (listaEmpleadosSnapshot.docs.length > 0) {
-                    const lista = listaEmpleadosSnapshot.docs.map(documento => ({
-                        id: documento.id,
-                        ...documento.data()
-                    }));
-                    setListaEmpleados(lista);
-                } else {
-                    console.log('No se encontraron documentos');
-                }
-            } catch (error) {
-                console.error('Error al obtener documentos:', error.message);
-            }
-        };
-
-        obtenerDatos();
-    }, []); // Dependencias vacías para que se ejecute solo una vez
+        ObtenerCajas();
+    }, []);
 
     const actualizarCaja = (id, empleado) => {
-        setCajas(prevCajas => {
-            // Verifica si el nuevo estado es diferente
-            if (prevCajas[id]?.empleado === empleado) {
-                return prevCajas; // No hacer nada si no hay cambios
-            }
-            return {
-                ...prevCajas,
-                [id]: { fecha: new Date(), empleado },
-            };
-        });
+        setCajas((prevCajas) => ({
+            ...prevCajas,
+            [id]: {fecha: new Date(), empleado},
+        }));
     };
 
+    const obtenerDatos = async () => {
+        try {
+            const consulta = collection(db, 'Empleados');
+            const listaEmpleadosSnapshot = await getDocs(consulta);
+
+            if (listaEmpleadosSnapshot.docs.length > 0) {
+                const lista = listaEmpleadosSnapshot.docs.map(documento => ({
+                    id: documento.id,
+                    ...documento.data()
+                }));
+                setListaEmpleados(lista);
+            } else {
+                console.log('No se encontraron documentos');
+            }
+        } catch (error) {
+            console.error('Error al obtener documentos:', error.message);
+        }
+    };
+
+    // Función para actualizar la lista de empleados
+    const actualizarListaEmpleados = async () => {
+        await obtenerDatos();
+    };
+    
     const actualizarContenidoCajas = async (id, empleado) => {
         try {
-            const docRef = doc(db, 'Cajas', id);
+            const docRef = doc(db, 'Cajas', id); // 'cajas' es el nombre de la colección, y id es el id del documento
             const data = {
-                empleado: empleado,
+                empleado : empleado,
                 fecha: new Date(),
-            };
+            }
             await setDoc(docRef, data);
             console.log('Documento actualizado exitosamente');
         } catch (error) {
             console.error('Error al actualizar documento:', error.message);
         }
     };
+    useEffect(() => {
+        obtenerDatos();
+    }, []);
+    
 
     return (
-        <EmpleadosContext.Provider value={{
-            listaEmpleados,
-            setListaEmpleados,
-            db,
-            modalExtras,
-            setModalExtras,
-            cajaSeleccionada,
-            setCajaSeleccionada,
-            actualizarCaja,
-            cajas,
-            actualizarContenidoCajas,
-        }}>
+        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas }}>
             {children}
         </EmpleadosContext.Provider>
     );
