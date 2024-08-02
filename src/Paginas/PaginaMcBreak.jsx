@@ -13,7 +13,7 @@ function PaginaMcBreak(){
     
     return(
         <DisplayPaginaBreaks>
-            <TituloPrincipal textoTitulo="McBreaks" />
+            <TituloPrincipal textoTitulo="Usuarios" />
             <ContenedorPrimario> 
                 <CardAgregar ></CardAgregar>
                 {listaEmpleados.map((empleado) => (

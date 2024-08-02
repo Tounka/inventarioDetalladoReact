@@ -80,10 +80,18 @@ const CardEmpleado = ({ empleado }) => {
 
 export const ModalEmpleados = () => {
     const { listaEmpleados, modalExtras, cajas, cajaSeleccionada } = useEmpleados();
-    
+    let selectorModal;
+    if(cajas[cajaSeleccionada]){
+        
+        if(cajas[cajaSeleccionada].empleado){
+            selectorModal = true;
+        }else{
+            selectorModal = false;
+        }
+    }
     return (
         <ContenedorModal modalExtras = {modalExtras}>
-            {cajas[cajaSeleccionada]  ?
+            {selectorModal   ?
                 <InternoModalExtras />
                 :
                 <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />
@@ -159,7 +167,7 @@ const ContenedorTexto = styled.div`
     display: flex;
     align-items: center;
 `;
-const InputExtras = ({id, txt, agregarExtra }) => {
+const InputExtras = ({id, txt, agregarExtra, valueExtra }) => {
     const handleOnChange = (event) => {
         const value = event.target.value;  
         agregarExtra(id, value);
@@ -167,7 +175,7 @@ const InputExtras = ({id, txt, agregarExtra }) => {
     };
     return(
         <ContenedorInput>
-            <InputCantidad id={id} onChange={handleOnChange}/>
+            <InputCantidad id={id} onChange={handleOnChange} value={valueExtra} type="number" />
             <ContenedorTexto > {txt} </ContenedorTexto>
         </ContenedorInput>
     );
@@ -187,13 +195,28 @@ const BtnModalExtrasStyled = styled.button`
     font-size: 24px;
 `;
 
-const BtnModalExtras = ({submit}) => {
-    const { setModalExtras, actualizarContenidoCajas, actualizarCaja, cajaSeleccionada} = useEmpleados();
+const BtnModalExtras = ({submit, valoresExtras = 0, setExtras}) => {
+    const { setModalExtras, actualizarContenidoCajas, actualizarCaja, cajaSeleccionada, enviarTicket, cajas} = useEmpleados();
+
+    const ticket = {
+        empleado: cajas[cajaSeleccionada].empleado,
+        extras: valoresExtras,
+        fechaInicio: cajas[cajaSeleccionada].fecha,
+        fechaFinal: new Date(),
+    }
+
     const handleClick = () =>{
         if(submit){
             actualizarContenidoCajas(cajaSeleccionada, '');
             actualizarCaja(cajaSeleccionada, '');
             setModalExtras(false);
+            enviarTicket(ticket);
+
+            setExtras((prevExtras) => {
+                const { [cajaSeleccionada]: _, ...rest } = prevExtras;
+                return rest;
+            });
+            console.log(valoresExtras);
         }else{
             setModalExtras(false);
         }
@@ -207,39 +230,55 @@ const BtnModalExtras = ({submit}) => {
         </BtnModalExtrasStyled>
     );
 }
+const ContenedorBtns = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 10px;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 const InternoModalExtras = () => {
-    const {cajaSeleccionada} = useEmpleados();
+    const { cajaSeleccionada } = useEmpleados();
     const [extras, setExtras] = useState({});
 
     const agregarExtra = (id, value) => {
+        // Convertir el valor a número
+        const numericValue = Number(value);
+        
         setExtras((prevExtras) => ({
             ...prevExtras,
             [cajaSeleccionada]: {
                 ...(prevExtras[cajaSeleccionada] || {}),
-                [id]: value
+                [id]: numericValue
             }
         }));
+        
+        // Mostrar el estado actualizado en la consola
         console.log(extras);
     };
-    return( 
-            <ContenedorModalExtras>
-                <TituloExtras> Extras </TituloExtras>
 
-                <ContenedorItemsExtras>
-                    <InputExtras id='tocino'  txt= 'Tocino'  agregarExtra={agregarExtra}   />
-                    <InputExtras id='queso'  txt= 'Queso' agregarExtra={agregarExtra}  />
-                    <InputExtras id='papasGrandes'  txt= 'Papas Grandes' agregarExtra={agregarExtra}  />
-                    <InputExtras id='salchicha'  txt= 'Salchicha' agregarExtra={agregarExtra}  />
-                    <InputExtras id='carne4-1'  txt= 'Carne 4:1' agregarExtra={agregarExtra}  />
-                    <InputExtras id='carne10-1'  txt= 'Carne 10:1' agregarExtra={agregarExtra}  />
-                    <InputExtras id='verduras'  txt= 'Verduras' agregarExtra={agregarExtra}  />
-                    <InputExtras id='toppings'  txt= 'Toppings' agregarExtra={agregarExtra}  />
+    // Verificar si existen extras para la cajaSeleccionada
+    const valoresExtras = extras[cajaSeleccionada] || {};
 
-                </ContenedorItemsExtras>
-
-                <BtnModalExtras submit = 'submit'  />
+    return (
+        <ContenedorModalExtras>
+            <TituloExtras>Extras</TituloExtras>
+            <ContenedorItemsExtras>
+                <InputExtras id='tocino' txt='Tocino' agregarExtra={agregarExtra} valueExtra={valoresExtras.tocino || ""} />
+                <InputExtras id='queso' txt='Queso' agregarExtra={agregarExtra} valueExtra={valoresExtras.queso || ""} />
+                <InputExtras id='papasGrandes' txt='Papas Grandes' agregarExtra={agregarExtra} valueExtra={valoresExtras.papasGrandes || ""} />
+                <InputExtras id='salchicha' txt='Salchicha' agregarExtra={agregarExtra} valueExtra={valoresExtras.salchicha || ""} />
+                <InputExtras id='carne4' txt='Carne 4:1' agregarExtra={agregarExtra} valueExtra={valoresExtras.carne4 || ""} />
+                <InputExtras id='carne10' txt='Carne 10:1' agregarExtra={agregarExtra} valueExtra={valoresExtras.carne10 || ""} />
+                <InputExtras id='verduras' txt='Verduras' agregarExtra={agregarExtra} valueExtra={valoresExtras.verduras || ""} />
+                <InputExtras id='toppings' txt='Toppings' agregarExtra={agregarExtra} valueExtra={valoresExtras.toppings || ""} />
+            </ContenedorItemsExtras>
+            <ContenedorBtns>
+                <BtnModalExtras submit = 'submit' valoresExtras = {valoresExtras} setExtras = {setExtras} extras={extras} />
                 <BtnModalExtras />
-            </ContenedorModalExtras>
-
+            </ContenedorBtns>
+        </ContenedorModalExtras>
     );
-}
+};

@@ -6,6 +6,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import imgIconosUsuarios from '../js/imgUsuarios'
 import { GrNext,GrPrevious  } from "react-icons/gr";
 import { useEmpleados } from "../Paginas/ContextoGeneral";
+import { FaPlus } from "react-icons/fa";
 
 const ContenedorCardMcBreak = styled.div`
     height: 300px;
@@ -320,6 +321,20 @@ const ContenedorColores = styled.div`
     display:flex;
     justify-content:center;
 `
+const ContenedorVertical = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+`
+
+const BtnSubmit = styled.button`
+ border-radius: 10px;
+ color: white;
+ border: none;
+ background-color: #B41A4A;
+`
 const Modal = ({ onClose }) => {
     const {db, actualizarListaEmpleados} = useEmpleados();
     
@@ -395,25 +410,30 @@ const Modal = ({ onClose }) => {
                             <Field type="text" name="apodo" id='apodoFormulario' />
                         </ContenedorInput>
 
-                        <ContenedorColores role="group" aria-labelledby="my-radio-group-label" >
-                            
-                            {colors.map(color => ( 
-                                <BotonColor
-                                    key={color}
-                                    color={color}
-                                    type="button"
-                                    onClick={() => handleColorClick(color)} 
-                                    value='option'
-                                />
-                            ))}
+                        <ContenedorVertical>
+                            <ContenedorColores role="group" aria-labelledby="my-radio-group-label" >
+                                
+                                {colors.map(color => ( 
+                                    <BotonColor
+                                        key={color}
+                                        color={color}
+                                        type="button"
+                                        onClick={() => handleColorClick(color)} 
+                                        value='option'
+                                    />
+                                ))}
 
+                            
+                            </ContenedorColores>
+                            
                             {
-                                //<input type="color" value={'#cc99ff'} /> 
+                                <input type="color" value={selectedColor}  onChange={(e) => handleColorClick(e.target.value)} />
                             }
-                        </ContenedorColores>
-                        <button type='submit'>
+                        </ContenedorVertical>
+                        
+                        <BtnSubmit type='submit'>
                             Enviar
-                        </button >
+                        </BtnSubmit >
                     </ContenedorFormularioRegistro>
                 </Formik>
             </ModalContent>
@@ -421,12 +441,13 @@ const Modal = ({ onClose }) => {
     );
 };
 const ContenedorCardMcBreakAgregar = styled(ContenedorCardMcBreak)`
-        font-size: 8rem;
-        font-weight:bold;
-        display:flex; 
-        align-items: center;
-        justify-content:center;
-        cursor: pointer;
+         font-size: 6rem;
+    font-weight: bold;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1; /* Ajusta el alto de línea para centrar verticalmente */
     
 `
 export function CardAgregar( ){
@@ -444,7 +465,7 @@ export function CardAgregar( ){
         <>
             
                 <ContenedorCardMcBreakAgregar onClick={toggleModal} >
-                    +
+                    <FaPlus />
                 </ContenedorCardMcBreakAgregar>
             
             {modalOpen && <Modal onClose={toggleModal}  />} 
