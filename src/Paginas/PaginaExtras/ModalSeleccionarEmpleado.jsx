@@ -6,9 +6,15 @@ import { useState } from "react";
 const CardEmpleadoStyled = styled.div`
     width: 100%;
     height: 300px;
+    background-color: ${props => props.bgColor ? props.bgColor : '#0000008f'};
+
     display: grid;
     grid-template-rows: 8fr 1fr;
     cursor: pointer;
+
+    @media (max-width: 400px) {
+        height: 200px;
+    }
 `;
 const ContenedorImgCard = styled.div`
     width: 100%;
@@ -52,13 +58,18 @@ const TxtCard = styled.div`
     font-size: 20px;
     color: white;
     font-weight: bold;
+    text-align: center;
+
+    background-color: #B41A4A;
 `;
 
 const CardEmpleado = ({ empleado }) => {
     const { setModalExtras, cajaSeleccionada, actualizarCaja, actualizarContenidoCajas } = useEmpleados();
   
     const nombre = empleado.nombre;
+    const apodo = empleado.apodo || '';
     const img    =empleado.img;
+    const bgColor = empleado.bgColor;
    
     const handleClick = () =>{
         setModalExtras(false);
@@ -68,12 +79,12 @@ const CardEmpleado = ({ empleado }) => {
 
     }
     return (
-        <CardEmpleadoStyled onClick={() =>handleClick() }>
+        <CardEmpleadoStyled onClick={() =>handleClick()} bgColor= {bgColor}>
             <ContenedorImgCard>
                 <ImgPicture src={img} alt={'Imagen de ' + nombre} top />
             </ContenedorImgCard>
             
-            <TxtCard>{nombre}</TxtCard>
+            <TxtCard>{nombre + ' ' + apodo}</TxtCard>
         </CardEmpleadoStyled>
     );
 };
@@ -149,11 +160,15 @@ const InputCantidad = styled.input`
 
 const ContenedorInput = styled.div`
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr 7fr;
+
     gap: 20px;
     padding: 0 40px;
-    
-   
+
+    @media (max-width: 400px) {
+        grid-template-columns: 2fr 7fr;
+    }
 `;
 
 const ContenedorTexto = styled.div`
@@ -162,7 +177,12 @@ const ContenedorTexto = styled.div`
     height: 100%;
 
     padding: 0 20px;
+
     font-size: 24px;
+
+    @media (max-width: 350px) {
+        font-size: 20px;
+    }
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -199,10 +219,12 @@ const BtnModalExtras = ({submit, valoresExtras = 0, setExtras}) => {
     const { setModalExtras, actualizarContenidoCajas, actualizarCaja, cajaSeleccionada, enviarTicket, cajas} = useEmpleados();
 
     const ticket = {
+        pos: cajaSeleccionada ,
         empleado: cajas[cajaSeleccionada].empleado,
         extras: valoresExtras,
         fechaInicio: cajas[cajaSeleccionada].fecha,
         fechaFinal: new Date(),
+        
     }
 
     const handleClick = () =>{
@@ -267,13 +289,14 @@ const InternoModalExtras = () => {
             <TituloExtras>Extras</TituloExtras>
             <ContenedorItemsExtras>
                 <InputExtras id='tocino' txt='Tocino' agregarExtra={agregarExtra} valueExtra={valoresExtras.tocino || ""} />
-                <InputExtras id='queso' txt='Queso' agregarExtra={agregarExtra} valueExtra={valoresExtras.queso || ""} />
-                <InputExtras id='papasGrandes' txt='Papas Grandes' agregarExtra={agregarExtra} valueExtra={valoresExtras.papasGrandes || ""} />
+                <InputExtras id='queso' txt='Quesos' agregarExtra={agregarExtra} valueExtra={valoresExtras.queso || ""} />
                 <InputExtras id='salchicha' txt='Salchicha' agregarExtra={agregarExtra} valueExtra={valoresExtras.salchicha || ""} />
+                <InputExtras id='papasGrandes' txt='Papas Grandes' agregarExtra={agregarExtra} valueExtra={valoresExtras.papasGrandes || ""} />
                 <InputExtras id='carne4' txt='Carne 4:1' agregarExtra={agregarExtra} valueExtra={valoresExtras.carne4 || ""} />
                 <InputExtras id='carne10' txt='Carne 10:1' agregarExtra={agregarExtra} valueExtra={valoresExtras.carne10 || ""} />
                 <InputExtras id='verduras' txt='Verduras' agregarExtra={agregarExtra} valueExtra={valoresExtras.verduras || ""} />
                 <InputExtras id='toppings' txt='Toppings' agregarExtra={agregarExtra} valueExtra={valoresExtras.toppings || ""} />
+                <InputExtras id='conosDobles' txt='Conos Dobles' agregarExtra={agregarExtra} valueExtra={valoresExtras.conosDobles || ""} />
             </ContenedorItemsExtras>
             <ContenedorBtns>
                 <BtnModalExtras submit = 'submit' valoresExtras = {valoresExtras} setExtras = {setExtras} extras={extras} />

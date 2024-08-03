@@ -7,7 +7,11 @@ const CardCajaStyled = styled.div`
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-rows: 50px 250px 40px;
+    grid-template-rows: 60px 240px 40px;
+
+    @media (max-width: 450px) {
+        grid-template-rows: 80px 200px 40px;
+    }
     cursor: pointer;
 `;
 
@@ -20,7 +24,9 @@ const TxtCardCajas = styled.div`
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    text-align: center;
     color: white;
+    padding: 10px 5px;
 `;
 
 const ContenedorCaja = styled.div`
@@ -42,8 +48,8 @@ const traductor = {
     1: 'Mostrador 1',
     2: 'Mostrador 2',
     76: 'Auto',
-    41: 'Centro',
-    40: 'Mega',
+    41: 'Mega',
+    44: 'Centro',
 };
 
 export const CardCaja = ({ nombre = 'Selecciona Empleado', numeroCaja = '1', empleado = '1' }) => {

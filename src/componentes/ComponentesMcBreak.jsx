@@ -336,18 +336,18 @@ const BtnSubmit = styled.button`
  background-color: #B41A4A;
 `
 const Modal = ({ onClose }) => {
-    const {db, actualizarListaEmpleados} = useEmpleados();
+    const { db, actualizarListaEmpleados } = useEmpleados();
     
     const [selectedColor, setSelectedColor] = useState('#FFFFFF');
     const [urlImg, setUrlImg] = useState(imgIconosUsuarios[0]);
     const [posicion, setPosicion] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const numDeImgs = imgIconosUsuarios.length;
-    
 
     const handleColorClick = (color) => {
         setSelectedColor(color); 
-        
     };
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest(".modal-formularioRegistro")) {
@@ -359,8 +359,9 @@ const Modal = ({ onClose }) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [onClose]);
-    const hanldeSubmit = async(values) =>{
-        
+
+    const handleSubmit = async (values) => {
+        setIsSubmitting(true);
         try {
             await addDoc(collection(db, "Empleados"), { 
                 nombre: values.nombre,
@@ -369,37 +370,38 @@ const Modal = ({ onClose }) => {
                 bgColor: selectedColor
             });
             actualizarListaEmpleados();
-           
             onClose(); // Cierra el modal después de agregar los datos
         } catch (error) {
             console.error("Error adding document: ", error);
+        } finally {
+            setIsSubmitting(false);
         }
+    };
 
-    }
-    const handleClicSelectImg = (modo) =>{
+    const handleClickSelectImg = (modo) => {
         let newPosicion = posicion + modo;
         if (newPosicion >= numDeImgs) {
             newPosicion = 0;
         } else if (newPosicion < 0) {
-            newPosicion = numDeImgs -1;
+            newPosicion = numDeImgs - 1;
         }
         setPosicion(newPosicion);
         setUrlImg(imgIconosUsuarios[newPosicion]);
-    }
+    };
+
     return (
         <ModalContainer>
             <ModalContent className="modal-formularioRegistro">
-                
                 <h2>Registro</h2>
                 <Formik
-                    initialValues={{ img:urlImg, bgColor:'' , nombre: '', apodo:'' }}
-                    onSubmit={hanldeSubmit}
+                    initialValues={{ img: urlImg, bgColor: '', nombre: '', apodo: '' }}
+                    onSubmit={handleSubmit}
                 >
-                    <ContenedorFormularioRegistro >
+                    <ContenedorFormularioRegistro>
                         <ContenedorImg color={selectedColor}>
-                            <PrevNext onClick={() => handleClicSelectImg(-1)}> <GrPrevious /> </PrevNext>
+                            <PrevNext onClick={() => handleClickSelectImg(-1)}> <GrPrevious /> </PrevNext>
                             <ImagenForm src={urlImg} />
-                            <PrevNext onClick={() => handleClicSelectImg(1)}> <GrNext /> </PrevNext>
+                            <PrevNext onClick={() => handleClickSelectImg(1)}> <GrNext /> </PrevNext>
                         </ContenedorImg>
                         <ContenedorInput>
                             <label htmlFor="nombreFormulario">Nombre</label>
@@ -411,29 +413,23 @@ const Modal = ({ onClose }) => {
                         </ContenedorInput>
 
                         <ContenedorVertical>
-                            <ContenedorColores role="group" aria-labelledby="my-radio-group-label" >
-                                
-                                {colors.map(color => ( 
+                            <ContenedorColores role="group" aria-labelledby="my-radio-group-label">
+                                {colors.map(color => (
                                     <BotonColor
                                         key={color}
                                         color={color}
                                         type="button"
-                                        onClick={() => handleColorClick(color)} 
+                                        onClick={() => handleColorClick(color)}
                                         value='option'
                                     />
                                 ))}
-
-                            
                             </ContenedorColores>
-                            
-                            {
-                                <input type="color" value={selectedColor}  onChange={(e) => handleColorClick(e.target.value)} />
-                            }
+                            <input type="color" value={selectedColor} onChange={(e) => handleColorClick(e.target.value)} />
                         </ContenedorVertical>
-                        
-                        <BtnSubmit type='submit'>
-                            Enviar
-                        </BtnSubmit >
+
+                        <BtnSubmit type='submit' disabled={isSubmitting}>
+                            {isSubmitting ? 'Enviando...' : 'Enviar'}
+                        </BtnSubmit>
                     </ContenedorFormularioRegistro>
                 </Formik>
             </ModalContent>
@@ -441,7 +437,7 @@ const Modal = ({ onClose }) => {
     );
 };
 const ContenedorCardMcBreakAgregar = styled(ContenedorCardMcBreak)`
-         font-size: 6rem;
+    font-size: 6rem;
     font-weight: bold;
     display: flex; 
     align-items: center;

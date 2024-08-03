@@ -13,8 +13,8 @@ export const PaginaExtrasUx = () =>{
         <ContenedorCardCajas>
             <CardCaja numeroCaja="1" />
             <CardCaja numeroCaja="76" />
-            <CardCaja numeroCaja="40" />
             <CardCaja numeroCaja="41" />
+            <CardCaja numeroCaja="44" />
 
             <CardCaja numeroCaja="2" />
         </ContenedorCardCajas>
