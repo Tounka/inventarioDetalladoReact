@@ -3,10 +3,11 @@ import styled from "styled-components"
 
 const ContenedorTicket = styled.div`
     width: 250px;
-    height: 400px;
-    max-height: auto;
+    min-height: 400px;
+    height: auto;
 
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
     justify-content: center;
     align-items: center;
     justify-content: space-between;
@@ -27,20 +28,23 @@ const TxtTicket = styled.p`
 
     font-size: ${props => props.Fsize ? props.Fsize : '18px'};
     font-weight: ${props => props.bold ? 'bold' : ''};
+    margin-bottom: 5px;
 `;
 
 const ContenedorFecha = styled.div`
     display: flex;
     flex-direction: row;
 
+    width: 100%;
+
 `;
 
 const ContenedorExtraStyled = styled.div`
     display: grid;
-    align-items: center;
-    grid-template-columns: 2fr 7fr;
+    grid-template-columns: 1fr 4fr;
+    
 
-    gap: 5px;
+    gap: 10px;
     padding: 0 40px;
 
 `;
@@ -58,14 +62,37 @@ const Extra = ({cantidad = '0', nombre = 'Tocino'}) =>{
         </ContenedorExtraStyled>
     )
 }
+const ContenedorExtra= styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+`;
+const ContenedorVertical = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
 
-export const Ticket = ({pos= 'POS', empleado = 'Empleado', tickets= [], fechaInicio= 'Inicio', fechaFinal= 'Fin'}) =>{
+export const Ticket = ({pos= 'POS', empleado = 'Empleado', extras= [], fechaInicio= 0, fechaFinal= 0}) =>{
+    console.log(extras)
     return(
         <ContenedorTicket>
-            <TxtTicket bold Fsize ='24px'> {pos} </TxtTicket>
-            <TxtTicket> {empleado} </TxtTicket>
+            <ContenedorVertical>
+                <TxtTicket bold Fsize ='24px'> {pos} </TxtTicket>
+                <TxtTicket> {empleado} </TxtTicket>
+            </ContenedorVertical>
 
-            <Extra />
+            <ContenedorExtra>
+                
+                {extras.map(extra => (
+                    
+                    
+                    <Extra nombre={extra[0]} cantidad={extra[1]}/>
+                ))}
+                
+            </ContenedorExtra>
+            
 
 
             <ContenedorFecha>

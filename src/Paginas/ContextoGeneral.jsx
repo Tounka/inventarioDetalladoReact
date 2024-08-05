@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc, setDoc, getDoc, arrayUnion, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, setDoc, getDoc, arrayUnion, getFirestore, where, query } from 'firebase/firestore';
 import { app } from '../componentes/McbreakBaseDeDatos'; // Asegúrate de importar correctamente
 
 
@@ -13,6 +13,7 @@ export const EmpleadosProvider = ({ children }) => {
     const [modalExtras, setModalExtras] = useState(false);
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
+    const [tickets, setTickets] = useState({});
 
     const ObtenerCajas = async () =>{
         try {
@@ -127,12 +128,44 @@ export const EmpleadosProvider = ({ children }) => {
     
         enviarTicket(nuevoTicket);
     };
-    
 
+    const recibirTicket = async () => {
+        try {
+            const hoy = new Date();
+            const ultimaSemana = new Date(hoy);
+            ultimaSemana.setDate(hoy.getDate() - 7); 
+            
+            const consulta = query(
+                collection(db, 'Tickets'),
+                where('fecha', '>=', ultimaSemana) 
+            );
     
+            const listaTicketsSnapshot = await getDocs(consulta);
+    
+            if (listaTicketsSnapshot.docs.length > 0) {
+                const listaTickets = listaTicketsSnapshot.docs.reduce((acc, doc) => {
+                    acc[doc.id] = doc.data();
+                    return acc;
+                }, {});
+                setTickets(listaTickets);
+                console.log('---------------', tickets);
+            } else {
+                console.log('No se encontraron documentos');
+            }
+        } catch (error) {
+            console.error('Error al obtener documentos:', error.message);
+        }
+    };
+    const actualizarTickets = async () => {
+        await recibirTicket();
+    };
+    useEffect(() => {
+        console.log('tickets');
+        console.log(tickets);
+    },[tickets])
 
     return (
-        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket }}>
+        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets }}>
             {children}
         </EmpleadosContext.Provider>
     );

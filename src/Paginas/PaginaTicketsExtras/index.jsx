@@ -2,19 +2,30 @@ import { PaginaTicketsExtrasUx } from "./TicketsExtrasUx"
 import { DisplayGenerico } from "../../componentes/Displays"
 import TituloPrincipal from "../../componentes/TituloPagina"
 import Footer from "../../componentes/Footer"
+import styled from "styled-components"
+import { useEmpleados } from "../ContextoGeneral"
+import { useEffect } from "react"
+const DisplayTicketsExtras = styled(DisplayGenerico)`
+    justify-content: start;
+    padding: 20px;
+    background-color: #575757;
+`;
 
 export const PaginaTicketsExtras = () =>{
- 
+    const {actualizarTickets, tickets} = useEmpleados();
+    useEffect(() => {
+        actualizarTickets();
+    },[]);
     return(
         <>
         <TituloPrincipal textoTitulo="Tickets" />
-        <DisplayGenerico>
+        <DisplayTicketsExtras>
             
 
             <PaginaTicketsExtrasUx />
 
            
-        </DisplayGenerico>
+        </DisplayTicketsExtras>
         <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS, Es Solo Un Formato Digital Creado Para Facilitar Los Inventarios Detallados en CDP, La Pagina No Almacena Ningún Tipo De Dato.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  />
         </>
     
