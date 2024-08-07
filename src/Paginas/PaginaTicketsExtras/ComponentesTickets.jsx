@@ -6,12 +6,9 @@ const ContenedorTicket = styled.div`
     min-height: 400px;
     height: auto;
 
-    display: grid;
-    grid-template-rows: 1fr 3fr 1fr;
-    justify-content: center;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+   
+    
+    
 
     background-color: #f7f7ec;
     padding: 10px 5px;
@@ -25,6 +22,7 @@ const TxtTicket = styled.p`
     text-align: center;
     width: 100%;
     user-select: none;
+    
 
     font-size: ${props => props.Fsize ? props.Fsize : '18px'};
     font-weight: ${props => props.bold ? 'bold' : ''};
@@ -34,24 +32,27 @@ const TxtTicket = styled.p`
 const ContenedorFecha = styled.div`
     display: flex;
     flex-direction: row;
+    margin: 0 auto;
+    gap: 5px;
+    width: min-content;
 
-    width: 100%;
 
 `;
 
 const ContenedorExtraStyled = styled.div`
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 80px auto;
     
 
     gap: 10px;
-    padding: 0 40px;
+    
 
 `;
 const TxtExtra = styled(TxtTicket)`
     background-color: #FFBC0D;
     clip-path: ${props => props.especial ? 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)' : ''} ;
-    padding: 0 20px;
+    padding: ${props => props.especial ? '0 20px' : '0 5px'} ;
+   
 `;
 
 const Extra = ({cantidad = '0', nombre = 'Tocino'}) =>{
@@ -74,33 +75,59 @@ const ContenedorVertical = styled.div`
     width: 100%;
 `;
 
+const ContenedorInternoTickets = styled.div `
+    width:100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    align-items: center;
+    
+
+    padding: 0 10px;
+    
+`;
+
 export const Ticket = ({pos= 'POS', empleado = 'Empleado', extras= [], fechaInicio= 0, fechaFinal= 0}) =>{
-    console.log(extras)
+    const traductorExtras = {
+        tocino: 'Tocino',
+        queso: 'Quesos',
+        salchicha: 'Salchicha',
+        papasGrandes: 'Papas Grandes',
+        carne4: 'Carne 4:1',
+        carne10: 'Carne 10:1',
+        verduras: 'Verduras',
+        toppings: 'Toppings',
+        conosDobles: 'Conos Dobles'
+    };
     return(
         <ContenedorTicket>
-            <ContenedorVertical>
-                <TxtTicket bold Fsize ='24px'> {pos} </TxtTicket>
-                <TxtTicket> {empleado} </TxtTicket>
-            </ContenedorVertical>
+            <ContenedorInternoTickets>
+                <ContenedorVertical>
+                        <TxtTicket bold Fsize ='24px'> {pos} </TxtTicket>
+                        <TxtTicket> {empleado} </TxtTicket>
+                    </ContenedorVertical>
 
-            <ContenedorExtra>
-                
-                {extras.map(extra => (
+                    <ContenedorExtra>
+                        
+                        {extras.map(extra => (
+                            
+                            
+                            <Extra nombre={traductorExtras[extra[0]]} cantidad={extra[1]}/>
+                        ))}
+                        
+                    </ContenedorExtra>
                     
-                    
-                    <Extra nombre={extra[0]} cantidad={extra[1]}/>
-                ))}
-                
-            </ContenedorExtra>
+
+
+                    <ContenedorFecha>
+                        <TxtTicket Fzise = '18px'> {fechaInicio} </TxtTicket>
+                        <TxtTicket Fzise = '18px'> - </TxtTicket>
+                        <TxtTicket Fzise = '18px'> {fechaFinal} </TxtTicket>
+                    </ContenedorFecha>
+
+
+            </ContenedorInternoTickets>
             
-
-
-            <ContenedorFecha>
-                <TxtTicket Fzise = '18px'> {fechaInicio} </TxtTicket>
-                <TxtTicket Fzise = '18px'> - </TxtTicket>
-                <TxtTicket Fzise = '18px'> {fechaFinal} </TxtTicket>
-            </ContenedorFecha>
-
         </ContenedorTicket>
     )
 }

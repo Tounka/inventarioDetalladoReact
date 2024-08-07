@@ -40,10 +40,7 @@ export const EmpleadosProvider = ({ children }) => {
     }, []);
 
     const actualizarCaja = (id, empleado) => {
-        setCajas((prevCajas) => ({
-            ...prevCajas,
-            [id]: {fecha: new Date(), empleado},
-        }));
+        ObtenerCajas()
     };
 
     const obtenerDatos = async () => {
@@ -70,12 +67,13 @@ export const EmpleadosProvider = ({ children }) => {
         await obtenerDatos();
     };
     
-    const actualizarContenidoCajas = async (id, empleado) => {
+    const actualizarContenidoCajas = async (id, empleado, extras = {}) => {
         try {
             const docRef = doc(db, 'Cajas', id); // 'cajas' es el nombre de la colección, y id es el id del documento
             const data = {
                 empleado : empleado,
                 fecha: new Date(),
+                extras: extras
             }
             await setDoc(docRef, data);
             console.log('Documento actualizado exitosamente');
@@ -133,7 +131,7 @@ export const EmpleadosProvider = ({ children }) => {
         try {
             const hoy = new Date();
             const ultimaSemana = new Date(hoy);
-            ultimaSemana.setDate(hoy.getDate() - 7); 
+            ultimaSemana.setDate(hoy.getDate() - 3); 
             
             const consulta = query(
                 collection(db, 'Tickets'),
