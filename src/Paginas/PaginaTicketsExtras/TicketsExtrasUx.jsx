@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Ticket } from "./ComponentesTickets";
 import { useEmpleados } from "../ContextoGeneral";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ContenedorPaginaTickets = styled.div`
     width: 100%;
@@ -22,6 +22,12 @@ const ContenedorTicketStyled = styled.div`
     height: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+    @media (max-width: 550px) {
+        grid-template-columns: repeat(auto-fill, minmax(175px, 175px));
+   }
+   @media (max-width: 375px) {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+   }
     justify-content: center;
     gap: 20px;
 `;
@@ -55,7 +61,8 @@ const calcularDiferenciaExtras = (extrasActual, extrasAnterior) => {
 };
 
 export const PaginaTicketsExtrasUx = () => {
-    const { tickets } = useEmpleados();
+    const { tickets,SeleccionarEmpleado } = useEmpleados();
+    const [ticketsOrdenados, setTicketOrdenados] = useState();
     const keys = Object.keys(tickets);
     const arregloDias = Object.values(tickets);
 
@@ -111,10 +118,12 @@ export const PaginaTicketsExtrasUx = () => {
                                         return (
                                             <Ticket key={`ticket-${ticketIndex}`}
                                                 pos={ticket.pos}
-                                                empleado={`${ticket.empleado.nombre} ${ticket.empleado.apodo}`}
+                                                empleado={`${SeleccionarEmpleado(ticket.empleado).nombre} ${SeleccionarEmpleado(ticket.empleado).apodo}`}
                                                 extras={Object.entries(diferenciaExtras)}
                                                 fechaInicio={convertTimestampToDate(ticket.fechaInicio.seconds, ticket.fechaInicio.nanoseconds, 'hora')}
                                                 fechaFinal={convertTimestampToDate(ticket.fechaFinal.seconds, ticket.fechaFinal.nanoseconds, 'hora')}
+                                                src={SeleccionarEmpleado(ticket.empleado).img}
+                                                color={SeleccionarEmpleado(ticket.empleado).bgColor}
                                             />
                                         );
                                     })}

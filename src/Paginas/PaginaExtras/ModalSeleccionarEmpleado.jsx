@@ -215,7 +215,7 @@ const BtnModalExtras = ({ submit, valoresExtras = 0, setExtras }) => {
 
     const ticket = {
         pos: cajaSeleccionada,
-        empleado: cajas[cajaSeleccionada].empleado,
+        empleado: cajas[cajaSeleccionada].empleado.id,
         extras: valoresExtras,
         fechaInicio: cajas[cajaSeleccionada].fecha,
         fechaFinal: new Date(),
@@ -282,12 +282,13 @@ const InternoModalExtras = () => {
                 <InputExtras id='tocino'  txt='Tocino'  agregarExtra={agregarExtra} minValue={minValue.tocino} valueExtra={valoresExtras.tocino || ""} />
                 <InputExtras id='queso' txt='Quesos' agregarExtra={agregarExtra}  minValue={minValue.queso} valueExtra={valoresExtras.queso || ""} />
                 <InputExtras id='salchicha' txt='Salchicha' agregarExtra={agregarExtra} minValue={minValue.salchicha} valueExtra={valoresExtras.salchicha || ""} />
+                <InputExtras id='verduras' txt='Verduras' agregarExtra={agregarExtra} minValue={minValue.verduras} valueExtra={valoresExtras.verduras || ""} />
                 <InputExtras id='papasGrandes' txt='Papas Grandes' agregarExtra={agregarExtra} minValue={minValue.papasGrandes} valueExtra={valoresExtras.papasGrandes || ""} />
+                <InputExtras id='conosDobles' txt='Conos Dobles' agregarExtra={agregarExtra} minValue={minValue.conosDobles} valueExtra={valoresExtras.conosDobles || ""} />
+                <InputExtras id='toppings' txt='Toppings' agregarExtra={agregarExtra} minValue={minValue.toppings} valueExtra={valoresExtras.toppings || ""} />
+                <InputExtras id='huevo' txt='Huevo' agregarExtra={agregarExtra} minValue={minValue.huevo} valueExtra={valoresExtras.huevo || ""} />
                 <InputExtras id='carne4' txt='Carne 4:1' agregarExtra={agregarExtra} minValue={minValue.carne4} valueExtra={valoresExtras.carne4 || ""} />
                 <InputExtras id='carne10' txt='Carne 10:1' agregarExtra={agregarExtra} minValue={minValue.carne10} valueExtra={valoresExtras.carne10 || ""} />
-                <InputExtras id='verduras' txt='Verduras' agregarExtra={agregarExtra} minValue={minValue.verduras} valueExtra={valoresExtras.verduras || ""} />
-                <InputExtras id='toppings' txt='Toppings' agregarExtra={agregarExtra} minValue={minValue.toppings} valueExtra={valoresExtras.toppings || ""} />
-                <InputExtras id='conosDobles' txt='Conos Dobles' agregarExtra={agregarExtra} minValue={minValue.conosDobles} valueExtra={valoresExtras.conosDobles || ""} />
             </ContenedorItemsExtras>
             <ContenedorBtns>
                 <BtnModalExtras submit='submit' valoresExtras={valoresExtras} setExtras={setExtras} />

@@ -54,6 +54,7 @@ export const EmpleadosProvider = ({ children }) => {
                     ...documento.data()
                 }));
                 setListaEmpleados(lista);
+                console.log(listaEmpleados);
             } else {
                 console.log('No se encontraron documentos');
             }
@@ -162,8 +163,12 @@ export const EmpleadosProvider = ({ children }) => {
         console.log(tickets);
     },[tickets])
 
+    const SeleccionarEmpleado = (id) =>{
+
+        return listaEmpleados.find(objeto => objeto.id === id);
+    }
     return (
-        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets }}>
+        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado }}>
             {children}
         </EmpleadosContext.Provider>
     );

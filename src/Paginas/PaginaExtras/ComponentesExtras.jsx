@@ -9,6 +9,10 @@ const CardCajaStyled = styled.div`
     display: grid;
     grid-template-rows: 60px 240px 40px;
 
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
     @media (max-width: 450px) {
         grid-template-rows: 80px 200px 40px;
     }

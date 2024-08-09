@@ -31,14 +31,15 @@ const ImageContainer = styled.div`
     height: ${props => props.top ? '' : '100%'};
     object-fit: cover;
     object-position: ${props => props.obPosition ? props.obPosition : ''};
+    padding-top: ${props => props.paddingTop ? props.paddingTop : ''};
   }
   
 `;
 
-export const ImgPicture = ({ src, alt, index, hover, bg, zIndex, obPosition, top, color }) => {
+export const ImgPicture = ({ src, alt, index, hover, bg, zIndex, obPosition, top, color, paddingTop }) => {
     
     return src ? (
-        <ImageContainer index={index}  hover={hover} bg={bg} zIndex={zIndex} obPosition={obPosition} top={top} color={color} >
+        <ImageContainer index={index}  hover={hover} bg={bg} zIndex={zIndex} obPosition={obPosition} top={top} color={color} paddingTop={paddingTop} >
             <picture>
                 <source srcSet={`${src}`} type="image/webp" />
                 <source srcSet={`${src}`} type="image/jpeg" />

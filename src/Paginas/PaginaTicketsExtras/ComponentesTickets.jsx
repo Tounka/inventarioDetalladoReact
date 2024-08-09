@@ -1,13 +1,17 @@
 import styled from "styled-components"
-
+import { ImgPicture } from "../../componentes/ImgPicture";
 
 const ContenedorTicket = styled.div`
     width: 250px;
     min-height: 400px;
     height: auto;
-
-   
     
+   @media (max-width: 550px) {
+        width: 175px;
+   }
+   @media (max-width: 375px) {
+        width: 250px;
+   }
     
 
     background-color: #f7f7ec;
@@ -22,11 +26,21 @@ const TxtTicket = styled.p`
     text-align: center;
     width: 100%;
     user-select: none;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     font-size: ${props => props.Fsize ? props.Fsize : '18px'};
     font-weight: ${props => props.bold ? 'bold' : ''};
     margin-bottom: 5px;
+
+    @media (max-width: 550px) {
+        font-size: ${props => props.small ? '16px'  : '16px'};
+   }
+
+   background-color: ${props => props.color ? '#B41A4A'  : ''} ;
+   color: ${props => props.color ? 'white'  : ''} ;
+   font-size: bold;
 `;
 
 const ContenedorFecha = styled.div`
@@ -42,7 +56,10 @@ const ContenedorFecha = styled.div`
 const ContenedorExtraStyled = styled.div`
     display: grid;
     grid-template-columns: 80px auto;
-    
+    align-items:center;
+    @media (max-width: 550px) {
+        grid-template-columns: 60px auto;
+   }
 
     gap: 10px;
     
@@ -51,7 +68,10 @@ const ContenedorExtraStyled = styled.div`
 const TxtExtra = styled(TxtTicket)`
     background-color: #FFBC0D;
     clip-path: ${props => props.especial ? 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)' : ''} ;
+    height: ${props => props.especial ? '24px' : ''} ;
+    
     padding: ${props => props.especial ? '0 20px' : '0 5px'} ;
+    margin-bottom: 0;
    
 `;
 
@@ -68,43 +88,58 @@ const ContenedorExtra= styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
+    gap: 10px;
 `;
 const ContenedorVertical = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    align-items: center;
 `;
 
 const ContenedorInternoTickets = styled.div `
     width:100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-rows: 150px auto 30px;
     align-items: center;
-    
+    gap: 10px;
 
     padding: 0 10px;
     
 `;
-
-export const Ticket = ({pos= 'POS', empleado = 'Empleado', extras= [], fechaInicio= 0, fechaFinal= 0}) =>{
+const ContenedorImgExtras = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 175px;
+    height: 110px;
+    display:flex;
+    overflow: hidden;
+    align-items: baseline;
+`;
+export const Ticket = ({pos= 'POS', empleado = 'Empleado', src,color , extras= [], fechaInicio= 0, fechaFinal= 0}) =>{
     const traductorExtras = {
         tocino: 'Tocino',
         queso: 'Quesos',
         salchicha: 'Salchicha',
-        papasGrandes: 'Papas Grandes',
-        carne4: 'Carne 4:1',
-        carne10: 'Carne 10:1',
+        papasGrandes: 'Papas G.',
+        carne4: '4:1',
+        carne10: '10:1',
         verduras: 'Verduras',
         toppings: 'Toppings',
-        conosDobles: 'Conos Dobles'
+        conosDobles: 'Conos D.'
     };
     return(
         <ContenedorTicket>
             <ContenedorInternoTickets>
                 <ContenedorVertical>
                         <TxtTicket bold Fsize ='24px'> {pos} </TxtTicket>
-                        <TxtTicket> {empleado} </TxtTicket>
+
+                        <ContenedorImgExtras>
+                            <ImgPicture bg color={color} src={src} top paddingTop = '10px' />
+                            <TxtTicket topName color > {empleado} </TxtTicket>
+                        </ContenedorImgExtras>
+                        
                     </ContenedorVertical>
 
                     <ContenedorExtra>
@@ -120,9 +155,9 @@ export const Ticket = ({pos= 'POS', empleado = 'Empleado', extras= [], fechaInic
 
 
                     <ContenedorFecha>
-                        <TxtTicket Fzise = '18px'> {fechaInicio} </TxtTicket>
-                        <TxtTicket Fzise = '18px'> - </TxtTicket>
-                        <TxtTicket Fzise = '18px'> {fechaFinal} </TxtTicket>
+                        <TxtTicket Fzise = '18px' small > {fechaInicio} </TxtTicket>
+                        <TxtTicket Fzise = '18px' small > - </TxtTicket>
+                        <TxtTicket Fzise = '18px' small > {fechaFinal} </TxtTicket>
                     </ContenedorFecha>
 
 
