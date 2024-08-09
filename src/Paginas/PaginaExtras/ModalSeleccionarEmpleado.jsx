@@ -59,10 +59,10 @@ const TxtCard = styled.div`
     background-color: #B41A4A;
 `;
 
-const CardEmpleado = ({ empleado }) => {
+const CardEmpleado = ({ empleado = {} }) => {
     const { setModalExtras, cajaSeleccionada, actualizarCaja, actualizarContenidoCajas, cajas } = useEmpleados();
 
-    const nombre = empleado.nombre;
+    const nombre = empleado.nombre || '';
     const apodo = empleado.apodo || '';
     const img = empleado.img;
     const bgColor = empleado.bgColor;
@@ -101,25 +101,39 @@ const CardEmpleado = ({ empleado }) => {
 };
 
 export const ModalEmpleados = () => {
-    const { listaEmpleados, modalExtras, cajas, cajaSeleccionada } = useEmpleados();
+    const { listaEmpleados, modalExtras, cajas, cajaSeleccionada, setModalExtras } = useEmpleados();
     let selectorModal;
     if (cajas[cajaSeleccionada]) {
         selectorModal = !!cajas[cajaSeleccionada].empleado;
     }
     return (
-        <ContenedorModal modalExtras={modalExtras}>
+        <ContenedorModal modalExtras={modalExtras}  >
             {selectorModal ? <InternoModalExtras /> : <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />}
         </ContenedorModal>
     );
 };
+const ContenedorModalSeleccionarEmpleado = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 10px;
+`;
 export const InternoModalSeleccionarEmpleado = ({ listaEmpleados }) => {
     return (
-        <ContenedorCardEmpleados>
-            {listaEmpleados.map((empleado) => (
-                <CardEmpleado key={empleado.id} empleado={empleado} />
-            ))}
-        </ContenedorCardEmpleados>
+        
+            <ContenedorCardEmpleados  >
+                {listaEmpleados.map((empleado) => (
+                    <CardEmpleado key={empleado.id} empleado={empleado} />
+                ))}
+                
+            </ContenedorCardEmpleados>
+            
+        
+
     );
 };
 
@@ -208,6 +222,7 @@ const BtnModalExtrasStyled = styled.button`
     border: none;
     border-radius: 10px;
     font-size: 24px;
+    
 `;
 
 const BtnModalExtras = ({ submit, valoresExtras = 0, setExtras }) => {
