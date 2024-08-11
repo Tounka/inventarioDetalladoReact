@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { CardCaja } from "./ComponentesExtras"
+import { CardCaja, CardNavigate } from "./ComponentesExtras"
 const ContenedorCardCajas = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -17,6 +17,7 @@ export const PaginaExtrasUx = () =>{
             <CardCaja numeroCaja="44" />
 
             <CardCaja numeroCaja="2" />
+            <CardNavigate />
         </ContenedorCardCajas>
            
         

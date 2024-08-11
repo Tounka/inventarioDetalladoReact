@@ -88,11 +88,18 @@ export const EmpleadosProvider = ({ children }) => {
 
     const enviarTicket = async (ticket) => {
         // Obtener la fecha actual
-        const hoy = new Date();
-        const dia = String(hoy.getDate()).padStart(2, '0');
-        const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
-        const año = hoy.getFullYear();
-        const fecha = `${dia}-${mes}-${año}`;
+        const hoy = ticket.fechaInicio;
+        const milliseconds = (hoy.seconds * 1000) + (hoy.nanoseconds / 1000000);
+
+        // Crear un objeto Date con los milisegundos
+        const fechaMili = new Date(milliseconds);
+    
+        // Extraer el año, mes y día
+        const anio = fechaMili.getFullYear();
+        const mes = fechaMili.getMonth() + 1; // Los meses en JavaScript son 0-indexados
+        const dia = fechaMili.getDate();
+    
+        const fecha = `${dia}-${mes}-${anio}`;
     
         try {
             // Referencia al documento con el nombre de la fecha (dd/mm/yyyy)
@@ -106,7 +113,7 @@ export const EmpleadosProvider = ({ children }) => {
                     tickets: [] // Inicializar el array de tickets vacío
                 });
             }
-    
+     
             // Añadir el ticket a la colección de tickets dentro del documento
             await updateDoc(docRef, {
                 tickets: arrayUnion(ticket) // Asegura que el ticket se añada al array
@@ -132,8 +139,9 @@ export const EmpleadosProvider = ({ children }) => {
         try {
             const hoy = new Date();
             const ultimaSemana = new Date(hoy);
-            ultimaSemana.setDate(hoy.getDate() - 3); 
-            
+            ultimaSemana.setDate(hoy.getDate() - 30); 
+            ultimaSemana.setHours(0, 0, 0, 0);  
+    
             const consulta = query(
                 collection(db, 'Tickets'),
                 where('fecha', '>=', ultimaSemana) 
@@ -147,7 +155,7 @@ export const EmpleadosProvider = ({ children }) => {
                     return acc;
                 }, {});
                 setTickets(listaTickets);
-                console.log('---------------', tickets);
+                console.log('---------------', listaTickets); // Corregido a 'listaTickets' en lugar de 'tickets'
             } else {
                 console.log('No se encontraron documentos');
             }
@@ -155,13 +163,15 @@ export const EmpleadosProvider = ({ children }) => {
             console.error('Error al obtener documentos:', error.message);
         }
     };
+    
     const actualizarTickets = async () => {
         await recibirTicket();
     };
+    
     useEffect(() => {
         console.log('tickets');
         console.log(tickets);
-    },[tickets])
+    }, [tickets]);
 
     const SeleccionarEmpleado = (id) =>{
 

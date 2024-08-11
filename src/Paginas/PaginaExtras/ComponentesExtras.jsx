@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useEmpleados } from '../ContextoGeneral';
 import { ImgPicture } from '../../componentes/ImgPicture';
+import { useNavigate } from 'react-router-dom';
 
 const CardCajaStyled = styled.div`
     width: 100%;
@@ -88,6 +89,34 @@ export const CardCaja = ({ nombre = 'Selecciona Empleado', numeroCaja = '1', emp
             )}
             <TxtCardCajas>{traductor[numeroCaja]}</TxtCardCajas>
         </CardCajaStyled>
+    );
+};
+
+const CardNavigateStyled = styled(CardCajaStyled)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--RojoPrincipal);
+
+`;
+export const CardNavigate = () => {
+    const navigate = useNavigate();
+
+    // Handler para el clic en la tarjeta
+    const handleClick = () => {
+        navigate('/tickets');
+    };
+
+
+
+    return (
+        <CardNavigateStyled onClick={handleClick}>
+           Tickets
+        </CardNavigateStyled>
     );
 };
 

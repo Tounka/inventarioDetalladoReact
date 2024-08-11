@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Ticket } from "./ComponentesTickets";
 import { useEmpleados } from "../ContextoGeneral";
 import { useEffect, useState } from "react";
-
+import { procesarTickets, TicketsData } from "./SeccionGraficas/ProcesadoGeneralData";
+import { GraficaPiePrincipal } from "./SeccionGraficas/GraficaTickets";
 const ContenedorPaginaTickets = styled.div`
     width: 100%;
     height: 100%;
@@ -62,9 +63,21 @@ const calcularDiferenciaExtras = (extrasActual, extrasAnterior) => {
 
 export const PaginaTicketsExtrasUx = () => {
     const { tickets,SeleccionarEmpleado } = useEmpleados();
-    const [ticketsOrdenados, setTicketOrdenados] = useState();
+
     const keys = Object.keys(tickets);
     const arregloDias = Object.values(tickets);
+
+    const fechaLimite = new Date();
+    fechaLimite.setDate(fechaLimite.getDate() - 2);
+    fechaLimite.setHours(0, 1, 0, 0); // Establece la hora a las 00:01 de hace 2 días
+    
+    const arregloDiasFiltrado = arregloDias.filter(dia => {
+        // Convertir la fecha del ticket en un objeto Date
+        const fechaDia = new Date(dia.fecha.seconds * 1000 + dia.fecha.nanoseconds / 1000000);
+    
+        // Retornar true si la fecha del ticket es mayor o igual a las 00:01 del día límite
+        return fechaDia >= fechaLimite;
+    });
 
     console.log('asdasda', arregloDias);
 
@@ -85,11 +98,17 @@ export const PaginaTicketsExtrasUx = () => {
         }
         // Devuelve una combinación si 'opc' no es especificado
     };
-
+    
+    console.log(procesarTickets(arregloDias));
+    
     return (
         <ContenedorPaginaTickets>
+          
+
+            
+
             {keys.length > 0 ? (
-                arregloDias.map((dia, diaIndex) => (
+                arregloDiasFiltrado.map((dia, diaIndex) => (
                     <ContenedorDia key={`dia-${diaIndex}`}>
                         <DiaTxt>{convertTimestampToDate(dia.fecha.seconds, dia.fecha.nanoseconds, 'dia')}</DiaTxt>
                         {dia.tickets && Array.isArray(dia.tickets) && dia.tickets.length > 0 ? (
@@ -136,6 +155,10 @@ export const PaginaTicketsExtrasUx = () => {
             ) : (
                 <div>No se encontraron tickets.</div>
             )}
+
+            
+            <GraficaPiePrincipal dataBruta={procesarTickets(arregloDiasFiltrado)}/>
+            
         </ContenedorPaginaTickets>
     );
 };

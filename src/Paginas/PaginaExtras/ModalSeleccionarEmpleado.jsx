@@ -238,14 +238,16 @@ const BtnModalExtras = ({ submit, valoresExtras = 0, setExtras }) => {
 
     const handleClick = () => {
         if (submit) {
-            actualizarContenidoCajas(cajaSeleccionada, '', valoresExtras);
-            actualizarCaja(cajaSeleccionada, '');
+   
             setModalExtras(false);
+            
             enviarTicket(ticket);
             setExtras((prevExtras) => {
                 const { [cajaSeleccionada]: _, ...rest } = prevExtras;
                 return rest;
             });
+            actualizarContenidoCajas(cajaSeleccionada, '', valoresExtras);
+            actualizarCaja(cajaSeleccionada, '');
             console.log(valoresExtras);
         } else {
             setModalExtras(false);
