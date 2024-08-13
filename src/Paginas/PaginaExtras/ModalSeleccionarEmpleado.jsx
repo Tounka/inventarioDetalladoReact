@@ -31,7 +31,7 @@ const ContenedorCardEmpleados = styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     height: fit-content;
-    margin: 20px 0;
+   
 `;
 
 const ContenedorModal = styled.div`
@@ -42,8 +42,11 @@ const ContenedorModal = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    display: ${props => (props.modalExtras ? 'flex' : 'none')};
-    overflow: auto;
+    display: ${props => (props.modalExtras ? 'inline-block' : 'none')};
+    
+    vertical-align: middle;
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 const TxtCard = styled.div`
@@ -100,6 +103,7 @@ const CardEmpleado = ({ empleado = {} }) => {
     );
 };
 
+
 export const ModalEmpleados = () => {
     const { listaEmpleados, modalExtras, cajas, cajaSeleccionada, setModalExtras } = useEmpleados();
     let selectorModal;
@@ -122,15 +126,48 @@ const ContenedorModalSeleccionarEmpleado = styled.div`
     width: 100%;
     padding-bottom: 10px;
 `;
+const ContenedorModalSeleccionarEmpleadoStyled = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 20px;
+    gap: 20px;
+    
+   
+`;
+const BtnModalExtrasStyled = styled.button`
+    width: ${props => props.type === 'submit' ? '200px' : '150px'};
+    height: ${props => props.type === 'submit' ? '60px' : '40px'};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: ${props => props.type === 'submit' ? 'green' : 'brown'};
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    
+`;
 export const InternoModalSeleccionarEmpleado = ({ listaEmpleados }) => {
+    const { setModalExtras } = useEmpleados();
+    const handleClick = () =>{
+        setModalExtras(false);
+    }
     return (
-        
+        <ContenedorModalSeleccionarEmpleadoStyled>
             <ContenedorCardEmpleados  >
                 {listaEmpleados.map((empleado) => (
                     <CardEmpleado key={empleado.id} empleado={empleado} />
                 ))}
-                
+
+                  
             </ContenedorCardEmpleados>
+            <BtnModalExtrasStyled onClick={() => handleClick()} >
+                    { 'Cerrar'}
+            </BtnModalExtrasStyled>
+        </ContenedorModalSeleccionarEmpleadoStyled>
+            
             
         
 
@@ -140,9 +177,12 @@ export const InternoModalSeleccionarEmpleado = ({ listaEmpleados }) => {
 const ContenedorModalExtras = styled.div`
     display: flex;
     flex-direction: column;
+
     justify-content: space-evenly;
     align-items: center;
     width: 90%;
+    height: 100%;
+    margin: 0 auto;
     max-width: 900px;
     padding: 10px;
     gap: 10px;
@@ -211,19 +251,7 @@ const InputExtras = ({ id, txt, agregarExtra, valueExtra = 0, minValue=0 }) => {
     );
 };
 
-const BtnModalExtrasStyled = styled.button`
-    width: ${props => props.type === 'submit' ? '200px' : '150px'};
-    height: ${props => props.type === 'submit' ? '60px' : '40px'};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: ${props => props.type === 'submit' ? 'green' : 'brown'};
-    border: none;
-    border-radius: 10px;
-    font-size: 24px;
-    
-`;
+
 
 const BtnModalExtras = ({ submit, valoresExtras = 0, setExtras }) => {
     const { setModalExtras, actualizarContenidoCajas, actualizarCaja, cajaSeleccionada, enviarTicket, cajas } = useEmpleados();

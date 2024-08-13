@@ -1,5 +1,7 @@
 // Función para procesar los tickets
+
 export const procesarTickets = (dias) => {
+    
     const calcularDiferenciaExtras = (extrasActual, extrasAnterior) => {
         const diferencia = {};
         const claves = new Set([...Object.keys(extrasActual), ...Object.keys(extrasAnterior)]);
@@ -60,21 +62,40 @@ export const procesarTickets = (dias) => {
 
     const agruparTicketsPorDia = (tickets) => {
         const agrupadosPorDia = {};
-
+    
         tickets.forEach(ticket => {
             const fechaTicket = new Date(ticket.fechaInicio.seconds * 1000).toLocaleDateString();
-
+            const empleado = ticket.empleado;
+    
             if (!agrupadosPorDia[fechaTicket]) {
-                agrupadosPorDia[fechaTicket] = { ...ticket, extras: { ...ticket.extras } };
+                agrupadosPorDia[fechaTicket] = {};
+            }
+    
+            if (!agrupadosPorDia[fechaTicket][empleado]) {
+                agrupadosPorDia[fechaTicket][empleado] = { ...ticket, extras: { ...ticket.extras }, diferenciaExtras: { ...ticket.diferenciaExtras } };
             } else {
-                // Sumar los extras al ticket existente del mismo día
+                // Sumar los extras y diferenciaDeExtras al ticket existente del mismo día y empleado
                 Object.keys(ticket.extras).forEach(extra => {
-                    agrupadosPorDia[fechaTicket].extras[extra] = (agrupadosPorDia[fechaTicket].extras[extra] || 0) + ticket.extras[extra];
+                    agrupadosPorDia[fechaTicket][empleado].extras[extra] = 
+                        (agrupadosPorDia[fechaTicket][empleado].extras[extra] || 0) + ticket.extras[extra];
+                });
+    
+                Object.keys(ticket.diferenciaExtras).forEach(extra => {
+                    agrupadosPorDia[fechaTicket][empleado].diferenciaExtras[extra] = 
+                        (agrupadosPorDia[fechaTicket][empleado].diferenciaExtras[extra] || 0) + ticket.diferenciaExtras[extra];
                 });
             }
         });
-
-        return Object.values(agrupadosPorDia);
+    
+        // Convertir agrupadosPorDia en un array de tickets
+        const resultado = [];
+        Object.values(agrupadosPorDia).forEach(ticketsPorDia => {
+            Object.values(ticketsPorDia).forEach(ticket => {
+                resultado.push(ticket);
+            });
+        });
+    
+        return resultado;
     };
 
     if (dias && dias.length > 0) {
@@ -89,6 +110,7 @@ export const procesarTickets = (dias) => {
         });
 
         return ticketsFinales;
+        
     }
 
     return {};

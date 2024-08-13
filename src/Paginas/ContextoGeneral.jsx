@@ -173,12 +173,14 @@ export const EmpleadosProvider = ({ children }) => {
         console.log(tickets);
     }, [tickets]);
 
+
+
     const SeleccionarEmpleado = (id) =>{
 
         return listaEmpleados.find(objeto => objeto.id === id);
     }
     return (
-        <EmpleadosContext.Provider value={{ listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado }}>
+        <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado }}>
             {children}
         </EmpleadosContext.Provider>
     );
@@ -190,4 +192,17 @@ export const useEmpleados = () => {
         throw new Error('useEmpleados debe estar usado dentro de un EmpleadosProvider');
     }
     return context;
+};
+
+export const ValoresExtras = {
+    tocino: 25,
+    queso: 15,
+    salchicha: 20,
+    verduras: 10,
+    papasGrandes: 10,
+    conosDobles: 5,
+    toppings: 15,
+    huevo: 10,
+    carne4: 35,
+    carne10: 25
 };

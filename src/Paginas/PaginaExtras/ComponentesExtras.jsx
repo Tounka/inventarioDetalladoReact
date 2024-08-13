@@ -17,6 +17,13 @@ const CardCajaStyled = styled.div`
     @media (max-width: 450px) {
         grid-template-rows: 80px 200px 40px;
     }
+    @media (max-width: 400px) {
+        grid-template-rows: 60px 175px 40px;
+    }
+    @media (max-width: 350px) {
+        grid-template-rows: 60px 125px 40px;
+    }
+ 
     cursor: pointer;
 `;
 

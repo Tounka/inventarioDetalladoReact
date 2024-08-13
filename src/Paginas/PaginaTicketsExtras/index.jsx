@@ -8,7 +8,7 @@ import { useEffect } from "react"
 const DisplayTicketsExtras = styled(DisplayGenerico)`
     justify-content: start;
     padding: 20px;
-    background-color: #575757;
+    background-color: #112240;
 `;
 
 export const PaginaTicketsExtras = () =>{

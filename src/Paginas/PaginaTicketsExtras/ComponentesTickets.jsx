@@ -6,17 +6,24 @@ const ContenedorTicket = styled.div`
     min-height: 400px;
     height: auto;
     
+    background-color: #f7f7ec;
+    padding: 10px 5px;
+    gap: 10px;
+
    @media (max-width: 550px) {
         width: 175px;
    }
    @media (max-width: 375px) {
         width: 250px;
    }
+   @media (max-width: 350px) {
+        width: 125px;
+        min-height: 300px;
+        
+   }
     
 
-    background-color: #f7f7ec;
-    padding: 10px 5px;
-    gap: 10px;
+   
     
     clip-path: polygon(
         5% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%
@@ -57,11 +64,17 @@ const ContenedorExtraStyled = styled.div`
     display: grid;
     grid-template-columns: 80px auto;
     align-items:center;
+    gap: 10px;
     @media (max-width: 550px) {
         grid-template-columns: 60px auto;
    }
+   @media (max-width: 350px) {
+        grid-template-columns: 30px auto;
+        gap: 5px;
+   }
+   
 
-    gap: 10px;
+    
     
 
 `;
@@ -72,6 +85,11 @@ const TxtExtra = styled(TxtTicket)`
     
     padding: ${props => props.especial ? '0 20px' : '0 5px'} ;
     margin-bottom: 0;
+
+    @media (max-width: 350px) {
+        clip-path: ${props => props.especial ? 'border-box' : ''} ;
+        padding: ${props => props.especial ? '0px' : '0 5px'} ;
+   }
    
 `;
 
@@ -106,6 +124,9 @@ const ContenedorInternoTickets = styled.div `
     gap: 10px;
 
     padding: 0 10px;
+    @media (max-width: 350px) {
+        padding: 0px;
+   }
     
 `;
 const ContenedorImgExtras = styled.div`
