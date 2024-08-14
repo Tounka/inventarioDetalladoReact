@@ -15,10 +15,10 @@ const CardCajaStyled = styled.div`
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 
     @media (max-width: 450px) {
-        grid-template-rows: 80px 200px 40px;
+        grid-template-rows: 80px 175px 40px;
     }
     @media (max-width: 400px) {
-        grid-template-rows: 60px 175px 40px;
+        grid-template-rows: 60px 150px 40px;
     }
     @media (max-width: 350px) {
         grid-template-rows: 60px 125px 40px;

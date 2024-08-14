@@ -131,7 +131,7 @@ const ContenedorModalSeleccionarEmpleadoStyled = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin: 20px;
+    margin: 20px 0;
     gap: 20px;
     
    
@@ -181,7 +181,7 @@ const ContenedorModalExtras = styled.div`
     justify-content: space-evenly;
     align-items: center;
     width: 90%;
-    height: 100%;
+    min-height: 100%;
     margin: 0 auto;
     max-width: 900px;
     padding: 10px;

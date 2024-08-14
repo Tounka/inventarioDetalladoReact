@@ -64,10 +64,12 @@ const procesarTickets = (dataBruta, SeleccionarEmpleado) => {
 const ContenedorGrafica = styled.div`
     width: 450px;
     height: auto;
+    overflow: visible;
 `;
 const ContenedorGraficas = styled.div`
     width: 100%;
     height: 100%;
+    
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;

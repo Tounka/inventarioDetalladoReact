@@ -13,10 +13,13 @@ const ContenedorTicket = styled.div`
    @media (max-width: 550px) {
         width: 175px;
    }
-   @media (max-width: 375px) {
-        width: 250px;
+
+   @media (max-width: 395px) {
+        width: 140px;
+        min-height: 300px;
+        
    }
-   @media (max-width: 350px) {
+   @media (max-width: 340px) {
         width: 125px;
         min-height: 300px;
         
@@ -68,7 +71,7 @@ const ContenedorExtraStyled = styled.div`
     @media (max-width: 550px) {
         grid-template-columns: 60px auto;
    }
-   @media (max-width: 350px) {
+   @media (max-width: 395px) {
         grid-template-columns: 30px auto;
         gap: 5px;
    }
@@ -86,7 +89,7 @@ const TxtExtra = styled(TxtTicket)`
     padding: ${props => props.especial ? '0 20px' : '0 5px'} ;
     margin-bottom: 0;
 
-    @media (max-width: 350px) {
+    @media (max-width: 395px) {
         clip-path: ${props => props.especial ? 'border-box' : ''} ;
         padding: ${props => props.especial ? '0px' : '0 5px'} ;
    }
@@ -124,7 +127,7 @@ const ContenedorInternoTickets = styled.div `
     gap: 10px;
 
     padding: 0 10px;
-    @media (max-width: 350px) {
+    @media (max-width: 375px) {
         padding: 0px;
    }
     

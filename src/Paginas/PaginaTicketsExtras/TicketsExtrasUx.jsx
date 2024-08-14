@@ -26,10 +26,10 @@ const ContenedorTicketStyled = styled.div`
     @media (max-width: 550px) {
         grid-template-columns: repeat(auto-fill, minmax(175px, 175px));
    }
-   @media (max-width: 375px) {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
-   }
-   @media (max-width: 350px) {
+   @media (max-width: 395px) {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
+   } 
+   @media (max-width: 340px) {
         grid-template-columns: repeat(auto-fill, minmax(125px, 125px));
    }
     justify-content: center;

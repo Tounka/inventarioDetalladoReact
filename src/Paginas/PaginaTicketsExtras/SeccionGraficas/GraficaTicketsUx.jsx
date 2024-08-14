@@ -29,9 +29,10 @@ export const GraficaPiePrincipalUx = ({ data, txt }) => {
 
             <ContenedorTxt> {txt} </ContenedorTxt>
             <ContenedorGraficaInterno>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" >
                     <PieChart>
                         <Pie
+                        
                             dataKey="value"
                             isAnimationActive={false}
                             data={dataWithColors}
