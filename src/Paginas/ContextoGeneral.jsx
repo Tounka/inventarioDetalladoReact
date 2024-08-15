@@ -14,7 +14,7 @@ export const EmpleadosProvider = ({ children }) => {
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
     const [tickets, setTickets] = useState({});
-
+    
     const ObtenerCajas = async () =>{
         try {
             const consulta = collection(db, 'Cajas');
@@ -174,7 +174,7 @@ export const EmpleadosProvider = ({ children }) => {
     }, [tickets]);
 
 
-
+    
     const SeleccionarEmpleado = (id) =>{
 
         return listaEmpleados.find(objeto => objeto.id === id);

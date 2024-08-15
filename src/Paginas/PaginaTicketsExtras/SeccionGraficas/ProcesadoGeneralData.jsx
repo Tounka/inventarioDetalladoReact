@@ -1,4 +1,5 @@
 // Función para procesar los tickets
+import { ValoresExtras } from "../../ContextoGeneral";
 
 export const procesarTickets = (dias) => {
     
@@ -115,3 +116,62 @@ export const procesarTickets = (dias) => {
 
     return {};
 };
+
+
+export const procesarTicketsExtras = (dataBruta, SeleccionarEmpleado) => {
+    const acumulados = {};
+    const extrasTotales = {};
+    const conteoTickets = {}; // Nuevo objeto para contar los tickets por empleado
+    
+
+    for (const [empleadoID, tickets] of Object.entries(dataBruta)) {
+        if (!acumulados[empleadoID]) {
+            acumulados[empleadoID] = 0;
+            extrasTotales[empleadoID] = {};
+            conteoTickets[empleadoID] = 0; // Inicializar el conteo de tickets
+        }
+
+        tickets.forEach(ticket => {
+            const { diferenciaExtras } = ticket;
+            conteoTickets[empleadoID] += 1; // Incrementar el conteo de tickets para el empleado
+            
+            for (const [extra, cantidad] of Object.entries(diferenciaExtras)) {
+                // Acumulación total de extras por empleado
+                if (!extrasTotales[empleadoID][extra]) {
+                    extrasTotales[empleadoID][extra] = 0;
+                }
+                extrasTotales[empleadoID][extra] += cantidad;
+
+                // Acumulación total de extras
+                acumulados[empleadoID] = (acumulados[empleadoID] || 0) + cantidad;
+            }
+        });
+    }
+
+
+    const calcularDineroEnExtras = (extras) => {
+        let valor = 0;
+        for (const extra in extras) {
+            const valorIterativo = extras[extra] * (ValoresExtras[extra] || 0); // Asegúrate de que ValoresExtras tenga el valor para el extra
+            valor += valorIterativo;
+        }
+        return valor;
+    };
+
+    // Convertir los IDs a nombres usando SeleccionarEmpleado
+    const datosProcesadosConValorMonetario = Object.entries(extrasTotales).map(([id, objetoExtras]) => ({
+        name: SeleccionarEmpleado(id).nombre,
+        value: calcularDineroEnExtras(objetoExtras),
+        id: id,
+        cantidadTickets: conteoTickets[id] // Agregar la cantidad de tickets
+    }));
+    const datosProcesados = Object.entries(acumulados).map(([id, totalExtras]) => ({
+        name: SeleccionarEmpleado(id).nombre,
+        value: totalExtras,
+        id: id,
+        cantidadTickets: conteoTickets[id] // Agregar la cantidad de tickets
+    }));
+
+    return { datosProcesados, datosProcesadosConValorMonetario };
+};
+

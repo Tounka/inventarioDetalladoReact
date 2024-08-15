@@ -82,7 +82,7 @@ export const PaginaTicketsExtrasUx = () => {
         return fechaDia >= fechaLimite;
     });
 
-    console.log('asdasda', arregloDias);
+   
 
     const convertTimestampToDate = (seconds, nanoseconds, opc) => {
         const milliseconds = (seconds * 1000) + (nanoseconds / 1000000);
@@ -102,7 +102,10 @@ export const PaginaTicketsExtrasUx = () => {
         // Devuelve una combinación si 'opc' no es especificado
     };
     
-    console.log(procesarTickets(arregloDias));
+ 
+
+
+    
     
     return (
         <ContenedorPaginaTickets>
