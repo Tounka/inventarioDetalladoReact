@@ -5,13 +5,25 @@ import { procesarTicketsExtras } from "../PaginaTicketsExtras/SeccionGraficas/Pr
 import { TablaResumen } from "./ComponentesGraficaAdmin/Tabla";
 import { GraficaResumen } from "./ComponentesGraficaAdmin/Grafica";
 
+const ContenedorGraficas = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    @media (max-width: 600px) {
+        width: 98%;
+    }
+`;
 export const PaginaGraficasAdminUx = () => {
     
     return (
-        <>
+        <ContenedorGraficas>
             <TablaResumen  />
             <GraficaResumen />
 
-        </>
+        </ContenedorGraficas>
     );
 };

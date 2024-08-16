@@ -12,6 +12,7 @@ export const DataOrdenadaProvider = ({ children, dataBruta }) => {
     const [dataResumen, setDataResumen] = useState([]);
     const [dataMonetariaResumen, setDataMonetariaResumen] = useState([]);
     const [dataResumenUnida, setDataResumenUnida] = useState([]);
+    const [dataSeleccionada, setDataSeleccionada] = useState();
 
     useEffect(() => {
         if (dataBruta && SeleccionarEmpleado) {
@@ -42,21 +43,29 @@ export const DataOrdenadaProvider = ({ children, dataBruta }) => {
     useEffect(() => {
         if (dataResumenUnida.length) {
             OrdenarData("value");
+            setDataSeleccionada("value");
         }
     }, [dataResumenUnida]);
 
     const OrdenarData = (criterio) => {
         const dataRam = [...dataResumenUnida].sort((a, b) => b[criterio] - a[criterio]);
         setDataOrdenada(dataRam);
+        setDataSeleccionada(criterio);
     };
 
     const OrdenarDataConDias = (criterio) => {
-        const dataRam = [...dataResumenUnida].sort((a, b) => (b[criterio] / b['cantidadTickets']) - (a[criterio] / a['cantidadTickets']));
+        const dataRam = [...dataResumenUnida].map(item => ({
+            ...item,
+            [criterio + "conDias"]: item[criterio] / item['cantidadTickets']
+        })).sort((a, b) => 
+            b[criterio + "conDias"] - a[criterio + "conDias"]
+        );
         setDataOrdenada(dataRam);
+        setDataSeleccionada(criterio + "conDias" );
     };
 
     return (
-        <DataOrdenadaContext.Provider value={{ dataOrdenada, OrdenarData, OrdenarDataConDias }}>
+        <DataOrdenadaContext.Provider value={{ dataOrdenada, OrdenarData, OrdenarDataConDias, dataSeleccionada }}>
             {children}
         </DataOrdenadaContext.Provider>
     );

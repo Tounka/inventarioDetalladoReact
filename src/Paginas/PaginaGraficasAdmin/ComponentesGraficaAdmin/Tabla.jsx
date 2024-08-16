@@ -13,6 +13,8 @@ const Table = styled.table`
     text-align: left;
     background-color: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  
 `;
 
 const ThTable = styled.th`
@@ -22,7 +24,10 @@ const ThTable = styled.th`
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
-    
+    @media (max-width: 450px) {
+      font-size: 14px;
+      padding: 8px 5px;
+    }
     
 `;
 
@@ -41,7 +46,10 @@ const TrTable = styled.tr`
 const TdTable = styled.td`
     padding: 12px 15px;
     color: #333;    
-   
+    @media (max-width: 450px) {
+      font-size: 16px;
+      padding: 8px 5px;
+    }
 
 `;
 const ContTxt = styled.td`
@@ -53,6 +61,11 @@ const ContTxt = styled.td`
 const ContenedorIcons = styled(ContTxt)`
     cursor: pointer;
     user-select: none;
+    font-size: 30px;
+    @media (max-width: 450px) {
+      font-size: 24px;
+      
+    }
 `;
 
 export const TablaResumen = () => {
@@ -61,12 +74,12 @@ export const TablaResumen = () => {
     <Table>
       <thead>
         <TrTable>
-          <ThTable>#</ThTable>
+          <ThTable> <ContenedorIcons> # </ContenedorIcons> </ThTable>
           <ThTable>Nombre</ThTable>
-          <ThTable onClick={() => OrdenarData("value")}> <ContenedorIcons> <AiOutlineFieldNumber size={30} /> </ContenedorIcons>  </ThTable>
-          <ThTable onClick={() => OrdenarDataConDias("value")}> <ContenedorIcons> <IoTime size={30} /> </ContenedorIcons>  </ThTable>
-          <ThTable onClick={() => OrdenarData("valueMonetario")}> <ContenedorIcons>  <FaMoneyBillWave size={30} /> </ContenedorIcons> </ThTable>
-          <ThTable onClick={() => OrdenarDataConDias("valueMonetario")}> <ContenedorIcons>  <IoTime size={30} /> </ContenedorIcons> </ThTable>
+          <ThTable onClick={() => OrdenarData("value")}> <ContenedorIcons> <AiOutlineFieldNumber  /> </ContenedorIcons>  </ThTable>
+          <ThTable onClick={() => OrdenarDataConDias("value")}> <ContenedorIcons> <IoTime  /> </ContenedorIcons>  </ThTable>
+          <ThTable onClick={() => OrdenarData("valueMonetario")}> <ContenedorIcons>  <FaMoneyBillWave  /> </ContenedorIcons> </ThTable>
+          <ThTable onClick={() => OrdenarDataConDias("valueMonetario")}> <ContenedorIcons>  <IoTime /> </ContenedorIcons> </ThTable>
         </TrTable>
       </thead>
       <tbody>

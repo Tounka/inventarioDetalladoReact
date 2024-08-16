@@ -222,7 +222,7 @@ const ContenedorInput = styled.div`
     }
 `;
 
-const ContenedorTexto = styled.div`
+const ContenedorTexto = styled.label`
     background-color: white;
     width: 100%;
     height: 100%;
@@ -246,7 +246,7 @@ const InputExtras = ({ id, txt, agregarExtra, valueExtra = 0, minValue=0 }) => {
     return (
         <ContenedorInput>
             <InputCantidad min={minValue} id={id} onChange={handleOnChange} value={valueExtra} type="number" />
-            <ContenedorTexto>{txt}</ContenedorTexto>
+            <ContenedorTexto htmlFor={id} >{txt}</ContenedorTexto>
         </ContenedorInput>
     );
 };

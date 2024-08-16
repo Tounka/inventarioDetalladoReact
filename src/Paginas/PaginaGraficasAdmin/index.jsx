@@ -12,6 +12,10 @@ const DisplayTicketsExtras = styled(DisplayGenerico)`
     justify-content: start;
     padding: 20px;
     background-color: #112240;
+
+    @media (max-width: 600px) {
+        padding: 0px;
+    }
 `;
 
 export const PaginaGraficasAdmin = () => {
