@@ -22,9 +22,9 @@ const arregloContenedoresProducto = [VasoMcFlurry, VasoSundae,VasoMalteada,  Con
 
 const BaseDeHelado= new Item('BDHelado', 'Base de Helado' ,9,0 ,  0,18);
 const Leche= new Item('Leche', 'Leche' ,0,0,   0,1);
-const Mms= new Item('Mms', 'M&Ms (Oz)' ,0,0,   0,20);
-const Oreo= new Item('Oreo', 'Oreo (Oz)' ,0,0,   0,20);
-const Pinguinos= new Item('Pinguinos', 'Pinguinos (Unidades)' ,0,0,   0,10);
+const Mms= new Item('Mms', 'M&Ms (Gramos)' ,0,0,   0,20);
+const Oreo= new Item('Oreo', 'Oreo (Gramos)' ,0,0,   0,20);
+const Pinguinos= new Item('Gansito', 'Gansito (Unidades)' ,0,0,   0,10);
 const Chocolate= new Item('Chocolate', 'Chocolate' ,0,0,   0,2);
 const Fresa= new Item('Fresa', 'Fresa' ,0,0,   0,2);
 const Caramelo= new Item('Caramelo', 'Caramelo' ,0,0,   0,2);

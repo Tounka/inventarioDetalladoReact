@@ -83,15 +83,16 @@ const CardEmpleado = ({ empleado = {} }) => {
         return diaDeDate === diaDeHoy && mesDeDate === mesDeHoy;
     };
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (validarDiferenteDia()) {
-            actualizarContenidoCajas(cajaSeleccionada, empleado, cajas[cajaSeleccionada].extras);
+            await actualizarContenidoCajas(cajaSeleccionada, empleado, cajas[cajaSeleccionada].extras);
         } else {
-            actualizarContenidoCajas(cajaSeleccionada, empleado, {});
+            await actualizarContenidoCajas(cajaSeleccionada, empleado, {});
         }
         setModalExtras(false);
-        actualizarCaja(cajaSeleccionada, empleado);
+        await actualizarCaja(cajaSeleccionada, empleado);
     };
+    
 
     return (
         <CardEmpleadoStyled onClick={() => handleClick()} bgColor={bgColor}>
@@ -264,23 +265,29 @@ const BtnModalExtras = ({ submit, valoresExtras = 0, setExtras }) => {
         fechaFinal: new Date(),
     };
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (submit) {
-   
             setModalExtras(false);
             
-            enviarTicket(ticket);
-            setExtras((prevExtras) => {
-                const { [cajaSeleccionada]: _, ...rest } = prevExtras;
-                return rest;
-            });
-            actualizarContenidoCajas(cajaSeleccionada, '', valoresExtras);
-            actualizarCaja(cajaSeleccionada, '');
-            console.log(valoresExtras);
+            try {
+                // Asegurarte de que ambas funciones se ejecutan de forma correcta.
+                await actualizarContenidoCajas(cajaSeleccionada, '', valoresExtras);
+                await actualizarCaja(cajaSeleccionada, '');
+                
+                enviarTicket(ticket);
+                setExtras((prevExtras) => {
+                    const { [cajaSeleccionada]: _, ...rest } = prevExtras;
+                    return rest;
+                });
+                console.log(valoresExtras);
+            } catch (error) {
+                console.error("Error al actualizar la caja o el contenido:", error);
+            }
         } else {
             setModalExtras(false);
         }
     };
+    
 
     return (
         <BtnModalExtrasStyled onClick={() => handleClick()} type={submit}>
