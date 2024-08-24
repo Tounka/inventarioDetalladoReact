@@ -4,7 +4,6 @@ const preguntasCocina =[
         respuestas: ['350°F','425°F', '360°F', 'Ninguna'],
         respuestaCorrecta: '350°F'
         
-
     },
     {
         pregunta: 'Cual es la temperatura superior de la parrilla principal? ',
@@ -88,68 +87,68 @@ const preguntasCocina =[
     },
     {
         pregunta: '¿Cuál es el tiempo de cocción de la salchicha?',
-        opciones: ['80 seg', '82 seg', '85 seg', '90 seg'],
+        respuestas: ['80 seg', '82 seg', '85 seg', '90 seg'],
         respuestaCorrecta: '82 seg'
     },
     {
         pregunta: '¿Cuál es la temperatura interna mínima en la que se deben de mantener los productos en el UHC?',
-        opciones: ['135°F', '140°F', '145°F', '150°F'],
+        respuestas: ['135°F', '140°F', '145°F', '150°F'],
         respuestaCorrecta: '140°F'
       },
       {
         pregunta: '¿Cuál es la temperatura de la parrilla para cocinar huevo?',
-        opciones: ['250°F', '260°F', '275°F', '280°F'],
+        respuestas: ['250°F', '260°F', '275°F', '280°F'],
         respuestaCorrecta: '275°F'
       },
       
       {
         pregunta: '¿Cuál es el tiempo de descongelación del pan?',
-        opciones: ['2 hrs', '3 hrs', '4 hrs', '5 hrs'],
+        respuestas: ['2 hrs', '3 hrs', '4 hrs', '5 hrs'],
         respuestaCorrecta: '4 hrs'
       },
       {
         pregunta: '¿Cuál es el tiempo para retirar las carnes 10:1 y 4:1 de la parrilla?',
-        opciones: ['15 seg', '18 seg', '20 seg', '22 seg'],
+        respuestas: ['15 seg', '18 seg', '20 seg', '22 seg'],
         respuestaCorrecta: '18 seg'
       },
       {
         pregunta: '¿Cuál es el tiempo de vida del jitomate en la mesa de aderezo?',
-        opciones: ['1 hr', '1.5 hrs', '2 hrs', '2.5 hrs'],
+        respuestas: ['1 hr', '1.5 hrs', '2 hrs', '2.5 hrs'],
         respuestaCorrecta: '2 hrs'
       },
       {
         pregunta: '¿Cuál es el tiempo estimado de rotación de la carne?',
-        opciones: ['3 a 5 min', '4 a 6 min', '5 a 8 min', '6 a 10 min'],
+        respuestas: ['3 a 5 min', '4 a 6 min', '5 a 8 min', '6 a 10 min'],
         respuestaCorrecta: '5 a 8 min'
       },
       {
         pregunta: 'Para preparar una tanda de cebolla caramelizada, ¿cuál es la cantidad de cebolla fresca necesaria?',
-        opciones: ['20 oz por 2 sobres de reductor', '22 oz por 2 sobres de reductor', '24 oz por 2 sobres de reductor', '26 oz por 2 sobres de reductor'],
+        respuestas: ['20 oz por 2 sobres de reductor', '22 oz por 2 sobres de reductor', '24 oz por 2 sobres de reductor', '26 oz por 2 sobres de reductor'],
         respuestaCorrecta: '26 oz por 2 sobres de reductor'
       },
       {
         pregunta: '¿Cuál es el tiempo de cocción de los McPollo?',
-        opciones: ['3 min', '4 min', '5 min', '6 min'],
+        respuestas: ['3 min', '4 min', '5 min', '6 min'],
         respuestaCorrecta: '4 min'
       },
       {
         pregunta: '¿Cuál es la cantidad de agua fría que se requiere para realizar la mezcla de Hot Cakes, para un paquete de harina?',
-        opciones: ['40 oz', '44 oz', '48 oz', '52 oz'],
+        respuestas: ['40 oz', '44 oz', '48 oz', '52 oz'],
         respuestaCorrecta: '48 oz'
       },
       {
         pregunta: '¿Cuál es el tiempo de almacenamiento en UHC del huevo revuelto, pochado y doblado?',
-        opciones: ['15 minutos', '20 minutos', '25 minutos', '30 minutos'],
+        respuestas: ['15 minutos', '20 minutos', '25 minutos', '30 minutos'],
         respuestaCorrecta: '20 minutos'
       },
       {
         pregunta: '¿Cuál es la cantidad de topping que contiene un sundae?',
-        opciones: ['0.5 oz', '1 oz', '1.5 oz', '2 oz'],
+        respuestas: ['0.5 oz', '1 oz', '1.5 oz', '2 oz'],
         respuestaCorrecta: '1 oz'
       },
       {
         pregunta: '¿Cuál es el tiempo de cocción de los pays?',
-        opciones: ['5 min', '6 min', '7 min', '8 min'],
+        respuestas: ['5 min', '6 min', '7 min', '8 min'],
         respuestaCorrecta: '6 min'
       } 
       
@@ -229,7 +228,7 @@ const preguntasServicio =[
     },
     {
         pregunta: '¿Cuál es el tiempo estándar para ingresar el pedido en la POS?',
-        opciones: ['20 seg', '22 seg', '25 seg', '28 seg'],
+        respuestas: ['20 seg', '22 seg', '25 seg', '28 seg'],
         respuestaCorrecta: '25 seg'
       }
     
