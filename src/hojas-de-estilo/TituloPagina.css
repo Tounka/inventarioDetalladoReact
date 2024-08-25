@@ -1,13 +1,5 @@
 .textoTitular{
-    background-color: #B41A4A;
-    min-height: 10vh;
-    color: white;
-    user-select: none;
-    padding: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
+
 }
 @media print {
    .textoTitular{

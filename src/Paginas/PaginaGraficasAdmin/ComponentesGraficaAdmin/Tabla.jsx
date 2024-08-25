@@ -87,10 +87,10 @@ export const TablaResumen = () => {
           <TrTable key={index}>
             <TdTable>{index + 1}</TdTable>
             <TdTable>{persona.name}</TdTable>
-            <TdTable><ContTxt> {persona.value} </ContTxt></TdTable>
-            <TdTable><ContTxt> {(persona.value) / persona.cantidadTickets} </ContTxt></TdTable>
-            <TdTable><ContTxt> ${persona.valueMonetario} </ContTxt></TdTable>
-            <TdTable><ContTxt> ${(persona.valueMonetario) / persona.cantidadTickets} </ContTxt></TdTable>
+            <TdTable><ContTxt> {(persona.value).toFixed(1)  } </ContTxt></TdTable>
+            <TdTable><ContTxt> {((persona.value) / persona.cantidadTickets).toFixed(1)} </ContTxt></TdTable>
+            <TdTable><ContTxt> ${(persona.valueMonetario).toFixed(1)} </ContTxt></TdTable>
+            <TdTable><ContTxt> ${((persona.valueMonetario) / persona.cantidadTickets).toFixed(1)} </ContTxt></TdTable>
           </TrTable>
         ))}
       </tbody>
