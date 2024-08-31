@@ -18,6 +18,11 @@ const imgIconosUsuarios = [
     "https://i.imgur.com/8FMRvD3.png",
     "https://i.imgur.com/MkPz4rZ.png",
     "https://i.imgur.com/fZCgWNx.png",
+    "https://i.imgur.com/PJBjOnY.png",
+    "https://i.imgur.com/Lskjx7G.png",
+    "https://i.imgur.com/6ii5BGV.png",
+    "https://i.imgur.com/lb9hkyI.png",
+    "https://i.imgur.com/DxEnmGW.png",
 
 ]
 export default imgIconosUsuarios;
