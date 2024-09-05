@@ -14,6 +14,7 @@ export const EmpleadosProvider = ({ children }) => {
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
     const [tickets, setTickets] = useState({});
+    const [privilegios, setPrivilegios] = useState('gerencia');
     
     const ObtenerCajas = async () =>{
         try {
@@ -180,7 +181,7 @@ export const EmpleadosProvider = ({ children }) => {
         return listaEmpleados.find(objeto => objeto.id === id);
     }
     return (
-        <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado }}>
+        <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado, privilegios, setPrivilegios }}>
             {children}
         </EmpleadosContext.Provider>
     );

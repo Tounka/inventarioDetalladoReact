@@ -9,9 +9,11 @@
     background-color: #11a37e97;
 
     position: fixed;
-    top: 10px;
-    left: 0;
+   
+    top: 17px;
+    right: 0px;
     cursor: pointer;
+
 
 }
 .iconoPrint{
@@ -22,6 +24,7 @@
     .contenedorBtnFlotante{
         width: 70px;
         height: 70px;
+        top: 10px;
       
     
     }

@@ -8,6 +8,7 @@ import PaginaMcBreak from './Paginas/PaginaMcBreak';
 import { PaginaExtras } from './Paginas/PaginaExtras';
 import { PaginaTicketsExtras } from './Paginas/PaginaTicketsExtras';
 import { PaginaGraficasAdmin } from './Paginas/PaginaGraficasAdmin';
+import LobbyEmpleados from './Paginas/LobbyEmpleados';
 import NotFound from './Paginas/NotFound'
 
 import { BrowserRouter , Route, Routes} from 'react-router-dom';
@@ -29,6 +30,8 @@ function App() {
         <Route path='AdminGraficas' element={<PaginaGraficasAdmin />} />
         
         <Route index element={<Lobby />} />
+        <Route path='LobbyCrew'   element={<LobbyEmpleados />} />
+
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -9,12 +9,14 @@ import {  arregloProducto,
     arregloDesechablesProducto,
     arregloOperacional } from '../js/objetos';
 import { useState } from 'react';
+import TituloPrincipal from "../componentes/TituloPagina";
 
 function PaginaInventarioDetallado() {
     const [nombre, setNombre] = useState ('');
     const [cdp, setCdp] = useState ('');
     return(
         <>
+        <TituloPrincipal textoTitulo="Inventario CDP" />
         
         
         <div className="container-sm" style={{ marginBottom: '20px' }}>

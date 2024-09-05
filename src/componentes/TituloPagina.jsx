@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import '../hojas-de-estilo/TituloPagina.css'
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
+import { useEmpleados } from "../Paginas/ContextoGeneral";
 
 const ContenedorTitulo = styled.div`
     background-color: #B41A4A;
@@ -33,10 +34,16 @@ const BtnHome = styled.div`
 
 `
 function TituloPrincipal({textoTitulo, display}){
+    const {privilegios} = useEmpleados();
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/');
+        if(privilegios == "gerencia" ){
+            navigate('/');
+        }else if(privilegios == 'crew'){
+            navigate('/LobbyCrew');
+        }
+        
     };
 
     return(

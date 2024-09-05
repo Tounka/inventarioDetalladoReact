@@ -1,5 +1,7 @@
 .tituloSeparador{
-    color: #B41A4A;
+    color: white;
+    background-color: #B41A4A;
+    padding: 10px 0;
     margin: 20px 0;
     text-align: center;
 }
