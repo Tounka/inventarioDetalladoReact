@@ -8,6 +8,7 @@ import PaginaMcBreak from './Paginas/PaginaMcBreak';
 import { PaginaExtras } from './Paginas/PaginaExtras';
 import { PaginaTicketsExtras } from './Paginas/PaginaTicketsExtras';
 import { PaginaGraficasAdmin } from './Paginas/PaginaGraficasAdmin';
+import { PaginaCDPCrew } from './Paginas/PaginaCDP/Crew';
 import LobbyEmpleados from './Paginas/LobbyEmpleados';
 import NotFound from './Paginas/NotFound'
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='Extras' element={<PaginaExtras />} />
         <Route path='Tickets' element={<PaginaTicketsExtras />} />
         <Route path='AdminGraficas' element={<PaginaGraficasAdmin />} />
+        <Route path='CDPCrew' element={<PaginaCDPCrew />} />
         
         <Route index element={<Lobby />} />
         <Route path='LobbyCrew'   element={<LobbyEmpleados />} />
