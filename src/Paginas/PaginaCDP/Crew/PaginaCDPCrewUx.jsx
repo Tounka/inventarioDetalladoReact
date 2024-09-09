@@ -1,8 +1,10 @@
 
 import { DisplayGenerico } from "../../../componentes/Displays"
+import { useEmpleados } from "../../ContextoGeneral";
 import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
 import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
+
 import styled from "styled-components"
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
@@ -24,21 +26,23 @@ const ContenedorTareas = styled.div`
     gap: 10px;
 `;
 
-export const PaginaCDPCrewUx = ({nombreCdp = 'Mega', meta = '1'}) =>{
+export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
+
+    const {cajas, CDPSeleccionado} = useEmpleados();
+    
     return(
         <ContenedorPaginaCdp>
-            <TituloCDP> -- {nombreCdp}  -- </TituloCDP>
 
+            <TituloCDP> -- {cajas[CDPSeleccionado].nombre}  -- </TituloCDP>
+            
             <ContenedorMetas>
-                <MetaExtra nombre = 'Conos Dobles' numero= {meta} />
-                <MetaExtra nombre = 'Toppings' numero= {meta} />
+                <MetaExtra nombre = 'Conos Dobles' numero= {cajas[CDPSeleccionado].meta.conosDobles} />
+                <MetaExtra nombre = 'Toppings' numero= {cajas[CDPSeleccionado].meta.toppings} />
             </ContenedorMetas>
 
             <ContenedorTareas>
-
                 <ItemToDoList />
                 <ItemToDoList />
-
             </ContenedorTareas>
 
             

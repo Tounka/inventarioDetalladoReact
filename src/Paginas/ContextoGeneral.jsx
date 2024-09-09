@@ -15,7 +15,9 @@ export const EmpleadosProvider = ({ children }) => {
     const [cajas, setCajas] = useState({});
     const [tickets, setTickets] = useState({});
     const [privilegios, setPrivilegios] = useState('gerencia');
-    
+    const [CDPSeleccionado, setCDPSeleccionado] = useState();
+
+
     const ObtenerCajas = async () =>{
         try {
             const consulta = collection(db, 'Cajas');
@@ -69,22 +71,27 @@ export const EmpleadosProvider = ({ children }) => {
         await obtenerDatos();
     };
     
+
     const actualizarContenidoCajas = async (id, empleado, extras = {}) => {
         try {
-            const docRef = doc(db, 'Cajas', id); // 'cajas' es el nombre de la colección, y id es el id del documento
+            const docRef = doc(db, 'Cajas', id); // 'Cajas' es el nombre de la colección, y id es el id del documento
             const data = {
-                empleado : empleado,
+                empleado: empleado,
                 fecha: new Date(),
                 extras: extras
-            }
-            await setDoc(docRef, data);
+            };
+            
+            // Actualiza solo los campos que especificas, manteniendo los demás datos
+            await updateDoc(docRef, data);
             console.log('Documento actualizado exitosamente');
         } catch (error) {
             console.error('Error al actualizar documento:', error.message);
         }
     };
+    
+   
     useEffect(() => {
-        obtenerDatos();
+        obtenerDatos();  
     }, []);
 
     const enviarTicket = async (ticket) => {
@@ -181,7 +188,10 @@ export const EmpleadosProvider = ({ children }) => {
         return listaEmpleados.find(objeto => objeto.id === id);
     }
     return (
-        <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, tickets, SeleccionarEmpleado, privilegios, setPrivilegios }}>
+        <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, 
+        modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, 
+        actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, 
+        tickets, SeleccionarEmpleado, privilegios, setPrivilegios, CDPSeleccionado, setCDPSeleccionado }}>
             {children}
         </EmpleadosContext.Provider>
     );
