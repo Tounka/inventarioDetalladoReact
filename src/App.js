@@ -9,6 +9,7 @@ import { PaginaExtras } from './Paginas/PaginaExtras';
 import { PaginaTicketsExtras } from './Paginas/PaginaTicketsExtras';
 import { PaginaGraficasAdmin } from './Paginas/PaginaGraficasAdmin';
 import { PaginaCDPCrew } from './Paginas/PaginaCDP/Crew/PaginaCDPCrew';
+import { VisualizadorCDPs } from './Paginas/PaginaCDP/Gerentes';
 import { SelectorCdp } from './Paginas/PaginaCDP/Crew';
 import LobbyEmpleados from './Paginas/LobbyEmpleados';
 import NotFound from './Paginas/NotFound'
@@ -35,8 +36,9 @@ function App() {
 
 
     
-          <Route path='SeleccionaTuCDP' element={<SelectorCdp />} />
-          <Route path='CDPCrew' element={<PaginaCDPCrew />} />
+        <Route path='SeleccionaTuCDP' element={<SelectorCdp />} />
+        <Route path='CDPCrew' element={<PaginaCDPCrew />} />
+        <Route path='CDPGerentes' element={<VisualizadorCDPs />} />
         
 
 

@@ -4,7 +4,7 @@ import { useEmpleados } from "../../ContextoGeneral";
 import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
 import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
-
+import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
 import styled from "styled-components"
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
@@ -12,14 +12,7 @@ const ContenedorPaginaCdp = styled(DisplayGenerico)`
     gap: 20px;
 `;
 
-const ContenedorMetas = styled.div `
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 600px;
-    max-width: 90%;
-    height: 120px;
-    gap: 20px;
-`;
+
 const ContenedorTareas = styled.div`
     display: flex;
     flex-direction: column;
