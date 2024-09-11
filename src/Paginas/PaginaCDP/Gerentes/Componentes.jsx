@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { MetaExtra, TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
-import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
+import { ContenedorMetas, BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
+import { ItemToDoList } from "../ComponentesGenerales/Tareas";
+
 const ContenedorCdps = styled.div `
     width: 600px;
     height: 700px;
@@ -26,7 +28,10 @@ export const CdpGerente = ({caja}) =>{
                 <MetaExtra input nombre = 'Conos Dobles' />
                 <MetaExtra input nombre = 'Toppings'  />
             </ContenedorMetas>
+
+            <ItemToDoList admin />
             
+            <BtnStyled> Actualizar</BtnStyled>
         </ContenedorCdps>
     );
 }

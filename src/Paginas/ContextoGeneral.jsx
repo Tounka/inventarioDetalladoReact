@@ -11,6 +11,7 @@ const EmpleadosContext = createContext();
 export const EmpleadosProvider = ({ children }) => {
     const [listaEmpleados, setListaEmpleados] = useState([]);
     const [modalExtras, setModalExtras] = useState(false);
+    const [modalCDPToDo, setModalCDPToDo] = useState(false);
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
     const [tickets, setTickets] = useState({});
@@ -191,7 +192,8 @@ export const EmpleadosProvider = ({ children }) => {
         <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, 
         modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, 
         actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, 
-        tickets, SeleccionarEmpleado, privilegios, setPrivilegios, CDPSeleccionado, setCDPSeleccionado }}>
+        tickets, SeleccionarEmpleado, privilegios, setPrivilegios, CDPSeleccionado, setCDPSeleccionado, 
+        setModalCDPToDo, modalCDPToDo }}>
             {children}
         </EmpleadosContext.Provider>
     );

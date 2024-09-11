@@ -78,3 +78,22 @@ export const MetaExtra = ({ nombre, numero, input }) => {
         </>
     );
 };
+
+
+export const BtnStyled = styled.button`
+    min-width: 120px;
+    height: 80px;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--RojoPrincipal);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 24px;
+    color: white;
+    cursor:pointer;
+
+`;

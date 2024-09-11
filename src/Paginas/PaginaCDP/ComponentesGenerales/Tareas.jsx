@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { IoMdCheckmark } from "react-icons/io";
-
+import { MdEdit } from "react-icons/md";
+import { useEmpleados } from "../../ContextoGeneral";
 const ContenedorItemToDoStyled = styled.div`
     width: 600px;
     max-width: 100%;
     display: grid;
-    grid-template-columns: 35px auto;
+    grid-template-columns: ${props => props.admin ? "35px auto 35px" : '35px auto'  } ;
+    
+    
     gap: 15px;
     align-items: center;
     
@@ -73,24 +76,37 @@ const TxtTarea = styled.label`
     align-items: center;
 `;
 
+const BtnEspecial = ({icon, fn}) =>{
+
+    return(
+        <BtnEspecialStyled>
+            {icon}
+        </BtnEspecialStyled>
+    )
+}
 
 
 
 
-export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1 }) => {
+export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1, admin }) => {
     const [estadoTarea, setEstadoTarea] = useState(estado);
-   
+    const {setModalCDPToDo} = useEmpleados();
+         
+    
     const handleCheckbox = () => {
         
         setEstadoTarea(!estadoTarea);
         console.log(estadoTarea);
+
+
+       
        
     };
     
 
 
     return (
-        <ContenedorItemToDoStyled>
+        <ContenedorItemToDoStyled admin={admin} >
 
             <CheckboxStyled id={id} checked={estadoTarea} onClick={() => handleCheckbox()} >
                 {estadoTarea ? <IoMdCheckmark /> : null}
@@ -101,8 +117,13 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
                 {txtTarea}
             </TxtTarea>
 
+            {admin ? (   
+                <ContenedoresBtnStyled onClick={() => setModalCDPToDo(true)}>
+                <BtnEspecial icon = {<MdEdit />} />
+            </ContenedoresBtnStyled>) 
+            : (<></>)}
+         
 
-        
         </ContenedorItemToDoStyled>
     );
 };
