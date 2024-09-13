@@ -17,6 +17,7 @@ export const EmpleadosProvider = ({ children }) => {
     const [tickets, setTickets] = useState({});
     const [privilegios, setPrivilegios] = useState('gerencia');
     const [CDPSeleccionado, setCDPSeleccionado] = useState();
+    const [crearDocCdp, setCrearDocCdp] = useState();
 
 
     const ObtenerCajas = async () =>{
@@ -182,6 +183,16 @@ export const EmpleadosProvider = ({ children }) => {
         console.log(tickets);
     }, [tickets]);
 
+    const CrearDocumento = async ( coleccion, docId,  data) => {
+        try {
+            const docRef = doc(db, coleccion, docId);
+            await setDoc(docRef, data);
+            console.log('Documento creado con éxito');
+        } catch (error) {
+            console.error('Error al crear el documento:', error);
+        }
+    };
+
 
     
     const SeleccionarEmpleado = (id) =>{
@@ -193,7 +204,7 @@ export const EmpleadosProvider = ({ children }) => {
         modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, 
         actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, 
         tickets, SeleccionarEmpleado, privilegios, setPrivilegios, CDPSeleccionado, setCDPSeleccionado, 
-        setModalCDPToDo, modalCDPToDo }}>
+        setModalCDPToDo, modalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp }}>
             {children}
         </EmpleadosContext.Provider>
     );

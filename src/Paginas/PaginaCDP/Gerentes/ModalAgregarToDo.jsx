@@ -21,11 +21,11 @@ const ContenedorModalStyled = styled.div`
 const ContenedorFormulario = styled.form `
     width: 600px;
     max-width: 85%;
-    height: 800px;
+    height: 400px;
     max-height: 90%;
 
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--AzulPrincipal);
     padding: 20px;
     position: relative;
     overflow: hidden;
@@ -122,8 +122,8 @@ const InputToDoGenerico = ({id, txt, type, vertical, propsInput, setEstado, esta
 
 
 const  BtnSubmit = styled.button`
-    width: 260px;
-    height: 80px;
+    width: 240px;
+    height: 60px;
     border:none;
 
     display:flex;
@@ -132,8 +132,8 @@ const  BtnSubmit = styled.button`
 
     border-radius: 25px;
     overflow: hidden;
-    background-color: var(--color-verde);
-    color: white;
+    background-color: var(--AmarilloPrincipal);
+    color: var(--AzulPrincipal);
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -151,6 +151,16 @@ const  BtnSubmit = styled.button`
 `;
 
 const Titulo = styled.div`
+     color: white;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+     font-size: 36px;
+     font-weight: bold;
+     width: 100%;
+     height: 80px;
+
      
 `;
 
@@ -158,11 +168,18 @@ const Titulo = styled.div`
 
 
 export const ModalAgregarToDo = () => {
-    const {modalCDPToDo, setModalCDPToDo} = useEmpleados();
-    const [txtTarea, setTxtTarea] = useState("");
+    const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp} = useEmpleados();
+    const [txtTarea, setTxtTarea] = useState("tarea");
     const modalContainer = document.querySelector("#modalAgregarToDoCDP");
-    const handleSubmit = () =>{
+
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        console.log(event.values);
         console.log('submit');
+        if(crearDocCdp){
+            CrearDocumento("Cajas", "44",txtTarea)
+            setCrearDocCdp(false)
+        }
     }
     if (!modalContainer) return null;
 
@@ -171,10 +188,11 @@ export const ModalAgregarToDo = () => {
             <ContenedorFormulario onSubmit={handleSubmit}>
                 <ContenedorInputs>
                 
-                    <BtnCerrarModalStyled onClick={() => setModalCDPToDo(false) } > <IoCloseOutline /> </BtnCerrarModalStyled>
+                    <BtnCerrarModalStyled type="button" onClick={() => setModalCDPToDo(false) } > <IoCloseOutline /> </BtnCerrarModalStyled>
                     <Titulo>Ingresa una Tarea</Titulo>
 
                     <InputToDoGenerico id='Descripción' txt = 'Descripción' type='text' setEstado = {setTxtTarea} estado = {txtTarea} />
+                    
 
                 
 
