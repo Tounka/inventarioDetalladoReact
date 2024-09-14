@@ -90,12 +90,13 @@ const BtnEspecial = ({icon, fn}) =>{
 
 export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1, admin }) => {
     const [estadoTarea, setEstadoTarea] = useState(estado);
-    const {setModalCDPToDo} = useEmpleados();
+    const {setModalCDPToDo, setCrearDocCdp} = useEmpleados();
          
     
     const handleCheckbox = () => {
         
         setEstadoTarea(!estadoTarea);
+        setCrearDocCdp(false);
         console.log(estadoTarea);
 
 

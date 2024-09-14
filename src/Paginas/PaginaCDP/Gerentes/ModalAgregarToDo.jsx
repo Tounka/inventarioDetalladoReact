@@ -169,16 +169,17 @@ const Titulo = styled.div`
 
 export const ModalAgregarToDo = () => {
     const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp} = useEmpleados();
-    const [txtTarea, setTxtTarea] = useState("tarea");
+    const [txtTarea, setTxtTarea] = useState({tarea: "tarea"});
     const modalContainer = document.querySelector("#modalAgregarToDoCDP");
 
     const handleSubmit = (event) =>{
         event.preventDefault();
-        console.log(event.values);
+        console.log(event.target.values);
+        console.log(txtTarea);
         console.log('submit');
         if(crearDocCdp){
-            CrearDocumento("Cajas", "44",txtTarea)
-            setCrearDocCdp(false)
+            CrearDocumento("Tareas", "diarias",txtTarea)
+            setCrearDocCdp(false);
         }
     }
     if (!modalContainer) return null;
@@ -193,9 +194,6 @@ export const ModalAgregarToDo = () => {
 
                     <InputToDoGenerico id='Descripción' txt = 'Descripción' type='text' setEstado = {setTxtTarea} estado = {txtTarea} />
                     
-
-                
-
                 </ContenedorInputs>
 
                 <BtnSubmit type='submit' > Agregar </BtnSubmit>

@@ -60,15 +60,25 @@ export const ContenedorMetas = styled.div `
     height: 120px;
     gap: 20px;
 `;
-export const MetaExtra = ({ nombre, numero, input }) => {
+export const MetaExtra = ({ nombre, numero, input, setEstado }) => {
+    const handleChange = (event) => {
+        const newValue = event.target.value; 
+    
+        setEstado(newValue); 
+    }
+
     return (
         <>
             {input ? (
                 <ContenedorMeta>
                     <TxtMeta>{nombre}</TxtMeta>
-                    <NumeroMetaInput type= 'number' min='0' >{numero}</NumeroMetaInput>
+                    <NumeroMetaInput 
+                        onChange={handleChange}  
+                        type='number' 
+                        min='0' 
+                        value={numero}          
+                    />
                 </ContenedorMeta>
-        
             ) : (
                 <ContenedorMeta>
                     <TxtMeta>{nombre}</TxtMeta>

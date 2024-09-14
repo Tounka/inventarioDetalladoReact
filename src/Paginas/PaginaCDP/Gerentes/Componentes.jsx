@@ -5,7 +5,7 @@ import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 import { useState } from "react";
 import { useEmpleados } from "../../ContextoGeneral";
 
-const ContenedorCdps = styled.div `
+const ContenedorCdps = styled.form `
     width: 600px;
     height: 700px;
     display: flex;
@@ -31,30 +31,36 @@ const BtnAgregarTarea = styled.div`
     padding: 10px 20px;
     border-radius: 5px;
     background-color: var(--AmarilloPrincipal);
-    color: white;
+    color: var(--AzulPrincipal);
     cursor: pointer;
 `;
 
 export const CdpGerente = ({caja}) =>{
-    const {setModalCDPToDo} = useEmpleados();
+    const {setModalCDPToDo, setCrearDocCdp} = useEmpleados();
     
     const handleClickAgregarTarea = () =>{
         setModalCDPToDo(true);
-        console.log("agregar tarea")
+        setCrearDocCdp(true);
+        
+        console.log(metaTopping2)
+        console.log(metaTopping1)
     } 
-    const [tareas, setTareas] = useState({tarea: "Limpiar", fecha: new Date() })
-    console.log(caja)
+    const [tareas, setTareas] = useState({tarea: "Limpiar", fecha: new Date() });
+    const [metaTopping2, setMetaTopping2] = useState('');
+    const [metaTopping1, setMetaTopping1] = useState('');
+
+    console.log(caja);
     return(
         <ContenedorCdps>
             <Contenedor>
                 <TituloCDP> -- {caja[1].nombre} -- </TituloCDP>
                 <ContenedorMetas>
-                    <MetaExtra input nombre = 'Conos Dobles' />
-                    <MetaExtra input nombre = 'Toppings'  />
+                    <MetaExtra input nombre = 'Conos Dobles' setEstado = {setMetaTopping1} />
+                    <MetaExtra input nombre = 'Toppings'  setEstado = {setMetaTopping2} />
                 </ContenedorMetas>
 
                 <Contenedor>
-                    <ItemToDoList admin />
+                    <ItemToDoList admin  />
                     <BtnAgregarTarea onClick={() => handleClickAgregarTarea()}> Agregar tarea </BtnAgregarTarea>
                 </Contenedor>
             </Contenedor>
@@ -62,7 +68,7 @@ export const CdpGerente = ({caja}) =>{
 
        
     
-            <BtnStyled> Actualizar</BtnStyled>
+            <BtnStyled type = 'submit' > Actualizar</BtnStyled>
         </ContenedorCdps>
     );
 }

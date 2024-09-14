@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc, setDoc, getDoc, arrayUnion, getFirestore, where, query } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, setDoc, getDoc, arrayUnion, getFirestore, where, query, addDoc } from 'firebase/firestore';
 import { app } from '../componentes/McbreakBaseDeDatos'; // Asegúrate de importar correctamente
 
 
@@ -186,7 +186,7 @@ export const EmpleadosProvider = ({ children }) => {
     const CrearDocumento = async ( coleccion, docId,  data) => {
         try {
             const docRef = doc(db, coleccion, docId);
-            await setDoc(docRef, data);
+            await addDoc(docRef, data);
             console.log('Documento creado con éxito');
         } catch (error) {
             console.error('Error al crear el documento:', error);
