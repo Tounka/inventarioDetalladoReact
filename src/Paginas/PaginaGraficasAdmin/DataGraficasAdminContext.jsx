@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { procesarTicketsExtras } from '../PaginaTicketsExtras/SeccionGraficas/ProcesadoGeneralData';
-import { useEmpleados } from '../ContextoGeneral';
+import { useEmpleados } from '../Contextos/ContextoGeneral';
 
 // Crear el contexto
 const DataOrdenadaContext = createContext();

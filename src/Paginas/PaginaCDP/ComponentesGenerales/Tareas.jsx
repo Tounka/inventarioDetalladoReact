@@ -2,7 +2,9 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-import { useEmpleados } from "../../ContextoGeneral";
+import { useEmpleados } from "../../Contextos/ContextoGeneral";
+import { useCdp } from "../../Contextos/ContextoCDP";
+
 const ContenedorItemToDoStyled = styled.div`
     width: 600px;
     max-width: 100%;
@@ -21,7 +23,7 @@ const BtnEspecialStyled =  styled.div`
     
     font-size: 24px;
     color: var(--color-morado);
-    cursor: pointer;
+    
 `;
 const ContenedoresBtnStyled = styled.div`
     display: flex;
@@ -32,6 +34,8 @@ const ContenedoresBtnStyled = styled.div`
     width: 100%;
     
     border-radius: 10px;
+
+    cursor:pointer;
     
     
 `;
@@ -90,7 +94,7 @@ const BtnEspecial = ({icon, fn}) =>{
 
 export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1, admin }) => {
     const [estadoTarea, setEstadoTarea] = useState(estado);
-    const {setModalCDPToDo, setCrearDocCdp} = useEmpleados();
+    const {setModalCDPToDo, setCrearDocCdp} = useCdp();
          
     
     const handleCheckbox = () => {
@@ -103,6 +107,11 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
        
        
     };
+
+    const handleClickBtnEspecial = () => {
+        setModalCDPToDo(true)
+
+    }
     
 
 
@@ -119,7 +128,7 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
             </TxtTarea>
 
             {admin ? (   
-                <ContenedoresBtnStyled onClick={() => setModalCDPToDo(true)}>
+            <ContenedoresBtnStyled onClick={() => handleClickBtnEspecial() }>
                 <BtnEspecial icon = {<MdEdit />} />
             </ContenedoresBtnStyled>) 
             : (<></>)}

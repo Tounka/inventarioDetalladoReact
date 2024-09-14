@@ -3,7 +3,7 @@ import { DisplayGenerico } from "../../componentes/Displays"
 import TituloPrincipal from "../../componentes/TituloPagina"
 import Footer from "../../componentes/Footer"
 import styled from "styled-components"
-import { useEmpleados } from "../ContextoGeneral"
+import { useEmpleados } from "../Contextos/ContextoGeneral"
 import { useEffect } from "react"
 const DisplayTicketsExtras = styled(DisplayGenerico)`
     justify-content: start;

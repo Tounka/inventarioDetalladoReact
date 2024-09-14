@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { collection, getDocs, doc, updateDoc, setDoc, getDoc, arrayUnion, getFirestore, where, query, addDoc } from 'firebase/firestore';
-import { app } from '../componentes/McbreakBaseDeDatos'; // Asegúrate de importar correctamente
+import { app } from '../../componentes/McbreakBaseDeDatos'; // Asegúrate de importar correctamente
 
 
 const db = getFirestore(app);
@@ -11,13 +11,12 @@ const EmpleadosContext = createContext();
 export const EmpleadosProvider = ({ children }) => {
     const [listaEmpleados, setListaEmpleados] = useState([]);
     const [modalExtras, setModalExtras] = useState(false);
-    const [modalCDPToDo, setModalCDPToDo] = useState(false);
+    
     const [cajaSeleccionada, setCajaSeleccionada] = useState('');
     const [cajas, setCajas] = useState({});
     const [tickets, setTickets] = useState({});
     const [privilegios, setPrivilegios] = useState('gerencia');
-    const [CDPSeleccionado, setCDPSeleccionado] = useState();
-    const [crearDocCdp, setCrearDocCdp] = useState();
+
 
 
     const ObtenerCajas = async () =>{
@@ -183,17 +182,13 @@ export const EmpleadosProvider = ({ children }) => {
         console.log(tickets);
     }, [tickets]);
 
-    const CrearDocumento = async ( coleccion, docId,  data) => {
-        try {
-            const docRef = doc(db, coleccion, docId);
-            await addDoc(docRef, data);
-            console.log('Documento creado con éxito');
-        } catch (error) {
-            console.error('Error al crear el documento:', error);
-        }
-    };
 
 
+
+
+    
+
+    
     
     const SeleccionarEmpleado = (id) =>{
 
@@ -203,8 +198,7 @@ export const EmpleadosProvider = ({ children }) => {
         <EmpleadosContext.Provider value={{ ValoresExtras, listaEmpleados, setListaEmpleados, db, 
         modalExtras, setModalExtras, cajaSeleccionada, setCajaSeleccionada, actualizarCaja, cajas, 
         actualizarListaEmpleados, actualizarContenidoCajas, enviarTicket, handleSendTicket, actualizarTickets, 
-        tickets, SeleccionarEmpleado, privilegios, setPrivilegios, CDPSeleccionado, setCDPSeleccionado, 
-        setModalCDPToDo, modalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp }}>
+        tickets, SeleccionarEmpleado, privilegios, setPrivilegios }}>
             {children}
         </EmpleadosContext.Provider>
     );

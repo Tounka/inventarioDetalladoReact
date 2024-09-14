@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GraficaPiePrincipalUx } from "./GraficaTicketsUx";
-import { ValoresExtras, useEmpleados } from "../../ContextoGeneral";
+import { ValoresExtras, useEmpleados } from "../../Contextos/ContextoGeneral";
 import { procesarTicketsExtras } from "./ProcesadoGeneralData";
 
 

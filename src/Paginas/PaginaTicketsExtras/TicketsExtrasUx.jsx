@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Ticket } from "./ComponentesTickets";
-import { useEmpleados } from "../ContextoGeneral";
+import { useEmpleados } from "../Contextos/ContextoGeneral";
 import { useEffect, useState } from "react";
 import { procesarTickets, TicketsData } from "./SeccionGraficas/ProcesadoGeneralData";
 import { GraficaPiePrincipal } from "./SeccionGraficas/GraficaTickets";

@@ -8,7 +8,7 @@ import { BsFillTicketFill } from "react-icons/bs";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import Footer from "../componentes/Footer";
-import { useEmpleados } from "./ContextoGeneral";
+import { useEmpleados } from "./Contextos/ContextoGeneral";
 
 function LobbyEmpleados() {
     const {setPrivilegios} = useEmpleados();

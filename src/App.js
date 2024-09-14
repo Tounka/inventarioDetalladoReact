@@ -15,45 +15,49 @@ import LobbyEmpleados from './Paginas/LobbyEmpleados';
 import NotFound from './Paginas/NotFound'
 
 import { BrowserRouter , Route, Routes} from 'react-router-dom';
-import { EmpleadosProvider } from './Paginas/ContextoGeneral';
+import { EmpleadosProvider } from './Paginas/Contextos/ContextoGeneral';
 import { ModalAgregarToDo } from './Paginas/PaginaCDP/Gerentes/ModalAgregarToDo';
+import { CdpProvider } from './Paginas/Contextos/ContextoCDP';
 
 
 
 function App() {
 
   return (
-    <EmpleadosProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path='InventarioDetallado' element={<PaginaInventarioDetallado />} />
-        <Route path='McHoot' element={<PaginaMcHoot />} />
-        <Route path='McBreak' element={<PaginaMcBreak />} />
-        <Route path='McAuditoria' element={<PaginaMcAuditoria />} />
-        <Route path='Extras' element={<PaginaExtras />} />
-        <Route path='Tickets' element={<PaginaTicketsExtras />} />
-        <Route path='AdminGraficas' element={<PaginaGraficasAdmin />} />
-
-
     
-        <Route path='SeleccionaTuCDP' element={<SelectorCdp />} />
-        <Route path='CDPCrew' element={<PaginaCDPCrew />} />
-        <Route path='CDPGerentes' element={<VisualizadorCDPs />} />
-        
+      <EmpleadosProvider>
+        <CdpProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='InventarioDetallado' element={<PaginaInventarioDetallado />} />
+          <Route path='McHoot' element={<PaginaMcHoot />} />
+          <Route path='McBreak' element={<PaginaMcBreak />} />
+          <Route path='McAuditoria' element={<PaginaMcAuditoria />} />
+          <Route path='Extras' element={<PaginaExtras />} />
+          <Route path='Tickets' element={<PaginaTicketsExtras />} />
+          <Route path='AdminGraficas' element={<PaginaGraficasAdmin />} />
 
 
-        <Route index element={<Lobby />} />
-        <Route path='LobbyCrew'   element={<LobbyEmpleados />} />
-
-        <Route path='*' element={<NotFound />} />
-        
-      </Routes>
-    </BrowserRouter>
-
-    <ModalAgregarToDo  />
       
+          <Route path='SeleccionaTuCDP' element={<SelectorCdp />} />
+          <Route path='CDPCrew' element={<PaginaCDPCrew />} />
+          <Route path='CDPGerentes' element={<VisualizadorCDPs />} />
+          
+
+
+          <Route index element={<Lobby />} />
+          <Route path='LobbyCrew'   element={<LobbyEmpleados />} />
+
+          <Route path='*' element={<NotFound />} />
+          
+        </Routes>
+      </BrowserRouter>
+
+      <ModalAgregarToDo  />
+        
+      </CdpProvider>  
+      </EmpleadosProvider>
     
-    </EmpleadosProvider>
     
   );
 }

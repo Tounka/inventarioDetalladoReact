@@ -3,7 +3,7 @@ import '../hojas-de-estilo/TituloPagina.css'
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
-import { useEmpleados } from "../Paginas/ContextoGeneral";
+import { useEmpleados } from "../Paginas/Contextos/ContextoGeneral";
 
 const ContenedorTitulo = styled.div`
     background-color: #B41A4A;

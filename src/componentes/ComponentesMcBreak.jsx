@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import { collection, addDoc } from 'firebase/firestore';
 import imgIconosUsuarios from '../js/imgUsuarios'
 import { GrNext,GrPrevious  } from "react-icons/gr";
-import { useEmpleados } from "../Paginas/ContextoGeneral";
+import { useEmpleados } from "../Paginas/Contextos/ContextoGeneral";
 import { FaPlus } from "react-icons/fa";
 
 const ContenedorCardMcBreak = styled.div`

@@ -1,5 +1,5 @@
 // Función para procesar los tickets
-import { ValoresExtras } from "../../ContextoGeneral";
+import { ValoresExtras } from "../../Contextos/ContextoGeneral";
 
 export const procesarTickets = (dias) => {
     

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEmpleados } from "../ContextoGeneral";
+import { useEmpleados } from "../Contextos/ContextoGeneral";
 import { ImgPicture } from "../../componentes/ImgPicture";
 import { useState, useEffect, useRef } from "react";
 

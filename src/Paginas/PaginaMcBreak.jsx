@@ -5,7 +5,7 @@ import TituloPrincipal from "../componentes/TituloPagina";
 import Footer from "../componentes/Footer";
 import {CardMcBreak, CardAgregar} from '../componentes/ComponentesMcBreak'
 
-import { useEmpleados } from "./ContextoGeneral";
+import { useEmpleados } from "./Contextos/ContextoGeneral";
 
 function PaginaMcBreak(){
 

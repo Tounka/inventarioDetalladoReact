@@ -3,7 +3,7 @@ import { MetaExtra, TituloCDP } from "../ComponentesGenerales/ComponentesGeneric
 import { ContenedorMetas, BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 import { useState } from "react";
-import { useEmpleados } from "../../ContextoGeneral";
+import { useCdp } from "../../Contextos/ContextoCDP";
 
 const ContenedorCdps = styled.form `
     width: 600px;
@@ -36,7 +36,7 @@ const BtnAgregarTarea = styled.div`
 `;
 
 export const CdpGerente = ({caja}) =>{
-    const {setModalCDPToDo, setCrearDocCdp} = useEmpleados();
+    const {setModalCDPToDo, setCrearDocCdp} = useCdp();
     
     const handleClickAgregarTarea = () =>{
         setModalCDPToDo(true);

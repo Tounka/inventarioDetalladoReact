@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useEmpleados } from '../ContextoGeneral';
+import { useEmpleados } from '../Contextos/ContextoGeneral';
 import { ImgPicture } from '../../componentes/ImgPicture';
 import { useNavigate } from 'react-router-dom';
 

@@ -2,7 +2,8 @@ import { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { IoCloseOutline } from "react-icons/io5";
-import { useEmpleados } from '../../ContextoGeneral';
+import { useEmpleados } from '../../Contextos/ContextoGeneral';
+import { useCdp } from '../../Contextos/ContextoCDP';
 
 
 
@@ -168,8 +169,8 @@ const Titulo = styled.div`
 
 
 export const ModalAgregarToDo = () => {
-    const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp} = useEmpleados();
-    const [txtTarea, setTxtTarea] = useState({tarea: "tarea"});
+    const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp} = useCdp();
+    const [txtTarea, setTxtTarea] = useState("");
     const modalContainer = document.querySelector("#modalAgregarToDoCDP");
 
     const handleSubmit = (event) =>{
@@ -178,9 +179,17 @@ export const ModalAgregarToDo = () => {
         console.log(txtTarea);
         console.log('submit');
         if(crearDocCdp){
-            CrearDocumento("Tareas", "diarias",txtTarea)
+            CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
             setCrearDocCdp(false);
         }
+    }
+    
+    const handleBtnCerrar = () =>{
+ 
+
+            setCrearDocCdp(false);
+            setModalCDPToDo(false)
+      
     }
     if (!modalContainer) return null;
 
@@ -189,7 +198,7 @@ export const ModalAgregarToDo = () => {
             <ContenedorFormulario onSubmit={handleSubmit}>
                 <ContenedorInputs>
                 
-                    <BtnCerrarModalStyled type="button" onClick={() => setModalCDPToDo(false) } > <IoCloseOutline /> </BtnCerrarModalStyled>
+                    <BtnCerrarModalStyled type="button" onClick={() => handleBtnCerrar() } > <IoCloseOutline /> </BtnCerrarModalStyled>
                     <Titulo>Ingresa una Tarea</Titulo>
 
                     <InputToDoGenerico id='Descripción' txt = 'Descripción' type='text' setEstado = {setTxtTarea} estado = {txtTarea} />

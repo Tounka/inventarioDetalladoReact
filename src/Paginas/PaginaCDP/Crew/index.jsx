@@ -4,8 +4,9 @@ import TituloPrincipal from "../../../componentes/TituloPagina"
 import Footer from "../../../componentes/Footer"
 import { DisplayGenerico } from "../../../componentes/Displays"
 import styled from "styled-components"
-import { useEmpleados } from "../../ContextoGeneral"
+import { useEmpleados } from "../../Contextos/ContextoGeneral"
 import { useNavigate } from "react-router-dom"
+import { useCdp } from "../../Contextos/ContextoCDP"
 
 const ContenedorCdp = styled.div`
     display: grid;
@@ -32,7 +33,8 @@ const CardCDP = styled.div`
 
 
 export const SelectorCdp = () =>{
-    const {cajas, setCDPSeleccionado} = useEmpleados();
+    const {cajas} = useEmpleados();
+    const {setCDPSeleccionado} = useCdp();
     
 
     const  cajasFiltradas = Object.entries(cajas).filter( caja => caja[1].cdp );

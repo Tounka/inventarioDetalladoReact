@@ -1,11 +1,12 @@
 
 import { DisplayGenerico } from "../../../componentes/Displays"
-import { useEmpleados } from "../../ContextoGeneral";
+import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
 import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
 import styled from "styled-components"
+import { useCdp } from "../../Contextos/ContextoCDP";
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
     justify-content: start;
@@ -21,7 +22,9 @@ const ContenedorTareas = styled.div`
 
 export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
 
-    const {cajas, CDPSeleccionado} = useEmpleados();
+    const {cajas} = useEmpleados();
+    const {CDPSeleccionado} = useCdp();
+    
     
     return(
         <ContenedorPaginaCdp>

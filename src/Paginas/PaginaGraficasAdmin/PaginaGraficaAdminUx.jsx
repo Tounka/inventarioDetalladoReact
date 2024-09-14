@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEmpleados } from "../ContextoGeneral";
+import { useEmpleados } from "../Contextos/ContextoGeneral";
 import { useEffect, useState } from "react";
 import { procesarTicketsExtras } from "../PaginaTicketsExtras/SeccionGraficas/ProcesadoGeneralData";
 import { TablaResumen } from "./ComponentesGraficaAdmin/Tabla";
