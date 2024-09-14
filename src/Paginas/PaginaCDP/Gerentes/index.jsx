@@ -6,10 +6,11 @@ import { DisplayGenerico } from "../../../componentes/Displays"
 import styled from "styled-components"
 
 import { useNavigate } from "react-router-dom"
+import { useCdp } from "../../Contextos/ContextoCDP"
 
 export const VisualizadorCDPs = () =>{
-   
-    
+   const {tareasCDP} = useCdp();
+    console.log("tareas",tareasCDP);
 
     return(
         <>

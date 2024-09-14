@@ -6,7 +6,6 @@ import Footer from "../../../componentes/Footer"
 
 export const PaginaCDPCrew = () =>{
    
-
     return(
         <>
             <TituloPrincipal textoTitulo="Seleccion CDP"  />

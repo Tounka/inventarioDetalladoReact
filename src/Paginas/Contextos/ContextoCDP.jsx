@@ -53,13 +53,28 @@ export const CdpProvider = ({ children }) => {
         }
     };
     
+    useEffect(() => {
+        const fetchTareas = async () => {
+          try {
+            const consultaTareasCdp = collection(db, 'Tareas');
+            let tareasRam = await ObtenerDocumento(consultaTareasCdp);
+            setTareasCDP(tareasRam);
+            console.log(tareasRam);
+          } catch (error) {
+            console.error('Error al obtener tareas:', error);
+          }
+        };
+    
+        fetchTareas();
+      }, [db]); // Agregar db como dependencia si puede cambiar
+    
 
     
     
 
     return (
         <CdpContext.Provider value={{ CrearDocumento, ObtenerDocumento,crearDocCdp, setCrearDocCdp,CDPSeleccionado, setCDPSeleccionado, 
-            setModalCDPToDo, modalCDPToDo }}>
+            setModalCDPToDo, modalCDPToDo, tareasCDP }}>
             {children}
         </CdpContext.Provider>
     );
