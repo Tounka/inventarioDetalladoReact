@@ -31,6 +31,24 @@ export const CdpProvider = ({ children }) => {
         } catch (error) {
             console.error('Error al crear o actualizar el documento:', error);
         }
+        
+    };
+
+    const CrearDocumentoMeta = async (idDocumento, documento , metas) => {
+        try {
+            // Obtén una referencia al documento
+            const docRef = doc(db, documento, idDocumento);
+            
+            
+            await setDoc(docRef, {
+                metas // Usa arrayUnion para añadir sin duplicar
+            }, { merge: true }); // merge: true para crear o actualizar el documento
+            
+            console.log('Documento creado o actualizado con éxito');
+        } catch (error) {
+            console.error('Error al crear o actualizar el documento:', error);
+        }
+        
     };
 
     const ObtenerDocumento = async (consulta) => {
@@ -52,6 +70,7 @@ export const CdpProvider = ({ children }) => {
             throw error;  
         }
     };
+
     
     useEffect(() => {
         const fetchTareas = async () => {
@@ -69,12 +88,13 @@ export const CdpProvider = ({ children }) => {
       }, [db]); // Agregar db como dependencia si puede cambiar
     
 
+      
     
     
 
     return (
         <CdpContext.Provider value={{ CrearDocumento, ObtenerDocumento,crearDocCdp, setCrearDocCdp,CDPSeleccionado, setCDPSeleccionado, 
-            setModalCDPToDo, modalCDPToDo, tareasCDP }}>
+            setModalCDPToDo, modalCDPToDo, tareasCDP,CrearDocumentoMeta }}>
             {children}
         </CdpContext.Provider>
     );

@@ -10,8 +10,7 @@ import { useCdp } from "../../Contextos/ContextoCDP"
 
 export const VisualizadorCDPs = () =>{
    const {tareasCDP} = useCdp();
-    console.log("tareas",tareasCDP);
-
+   
     return(
         <>
             <TituloPrincipal textoTitulo="CDPs"  />

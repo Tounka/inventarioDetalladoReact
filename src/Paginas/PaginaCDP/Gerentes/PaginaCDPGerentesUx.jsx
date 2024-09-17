@@ -23,7 +23,7 @@ export const PaginaCDPGerenteUx = () =>{
     const {cajas} = useEmpleados();
 
     const  cajasFiltradas = Object.entries(cajas).filter( caja => caja[1].cdp );
-    console.log(cajasFiltradas);
+   
     return(
         <ContenedorPaginaCdp>
             

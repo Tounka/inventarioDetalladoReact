@@ -5,7 +5,8 @@ import { Tarjeta, ContenedorTarjetasLobby } from "../componentes/Contenedores";
 
 import { FaQuestion } from "react-icons/fa";
 import { BsFillTicketFill } from "react-icons/bs";
-import { FaPenToSquare } from "react-icons/fa6";
+import { FaPenToSquare, FaIceCream } from "react-icons/fa6";
+
 
 import Footer from "../componentes/Footer";
 import { useEmpleados } from "./Contextos/ContextoGeneral";
@@ -26,6 +27,7 @@ function LobbyEmpleados() {
                         <Tarjeta nombrePagina='McHoot' linkPagina="/McHoot" Icon = {FaQuestion}  />
                         <Tarjeta nombrePagina='Inventario Detallado' linkPagina="/InventarioDetallado" Icon = {FaPenToSquare} />
                         <Tarjeta nombrePagina='Tikets' linkPagina="/tickets" Icon = {BsFillTicketFill} />
+                        <Tarjeta nombrePagina='Selecciona tu CDP' linkPagina="/SeleccionaTuCDP" Icon = {FaIceCream} />
 
                         
                     </ContenedorTarjetasLobby>

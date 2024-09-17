@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { MetaExtra, TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
 import { ContenedorMetas, BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCdp } from "../../Contextos/ContextoCDP";
 
 const ContenedorCdps = styled.form `
@@ -36,31 +36,53 @@ const BtnAgregarTarea = styled.div`
 `;
 
 export const CdpGerente = ({caja}) =>{
-    const {setModalCDPToDo, setCrearDocCdp} = useCdp();
-    
+    const {setModalCDPToDo, setCrearDocCdp, tareasCDP, CrearDocumentoMeta} = useCdp();
+    const [metasDiarias,setMetasDiarias] = useState();
     const handleClickAgregarTarea = () =>{
         setModalCDPToDo(true);
         setCrearDocCdp(true);
         
-        console.log(metaTopping2)
-        console.log(metaTopping1)
+
+        //console.log(metaTopping2)
+        //console.log(metaTopping1)
+
+
     } 
-    const [tareas, setTareas] = useState({tarea: "Limpiar", fecha: new Date() });
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        const data = {tareas: tareas, toppings: metaTopping2, conosDobles: metaTopping1};
+        CrearDocumentoMeta("diarias", "Metas", data);
+        
+    }
+    const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
+
+    useEffect(() =>{
+        
+        const tareasArreglo = Object.values(Object.values(tareasCDP[0].tareas));
+        setTareas(tareasArreglo);
+        
+       
+    }, [tareasCDP]);
+
     const [metaTopping2, setMetaTopping2] = useState('');
     const [metaTopping1, setMetaTopping1] = useState('');
 
-    console.log(caja);
+
     return(
         <ContenedorCdps>
             <Contenedor>
                 <TituloCDP> -- {caja[1].nombre} -- </TituloCDP>
                 <ContenedorMetas>
-                    <MetaExtra input nombre = 'Conos Dobles' setEstado = {setMetaTopping1} />
-                    <MetaExtra input nombre = 'Toppings'  setEstado = {setMetaTopping2} />
+                    <MetaExtra input nombre = 'Conos Dobles' setEstado = {setMetaTopping1} cajaSeleccionada = {caja[0]} setTareas={setTareas} />
+                    <MetaExtra input nombre = 'Toppings'  setEstado = {setMetaTopping2} cajaSeleccionada = {caja[0]} setTareas={setTareas} />
                 </ContenedorMetas>
 
                 <Contenedor>
-                    <ItemToDoList admin  />
+                    {tareas.map((tarea, id)=>(
+                        
+                        <ItemToDoList admin txtTarea={tarea.tarea} cajaSeleccionada = {caja[0]} setTareas={setTareas} />
+                    ))}
+                    
                     <BtnAgregarTarea onClick={() => handleClickAgregarTarea()}> Agregar tarea </BtnAgregarTarea>
                 </Contenedor>
             </Contenedor>
@@ -68,7 +90,7 @@ export const CdpGerente = ({caja}) =>{
 
        
     
-            <BtnStyled type = 'submit' > Actualizar</BtnStyled>
+            <BtnStyled type = 'submit' onClick={handleSubmit} > Actualizar</BtnStyled>
         </ContenedorCdps>
     );
 }

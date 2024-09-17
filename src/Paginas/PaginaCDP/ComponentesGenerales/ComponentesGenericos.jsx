@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { useCdp } from "../../Contextos/ContextoCDP";
 export const TituloCDP = styled.h2`
     margin: 10px 20px;
     display: flex;
@@ -60,10 +61,13 @@ export const ContenedorMetas = styled.div `
     height: 120px;
     gap: 20px;
 `;
-export const MetaExtra = ({ nombre, numero, input, setEstado }) => {
+export const MetaExtra = ({ nombre, numero, input, setEstado, cajaSeleccionada  }) => {
+    const {setCDPSeleccionado} = useCdp();
     const handleChange = (event) => {
-        const newValue = event.target.value; 
-    
+
+        const newValue = {cantidad: event.target.value}; 
+        setCDPSeleccionado(cajaSeleccionada);
+        console.log(newValue);
         setEstado(newValue); 
     }
 

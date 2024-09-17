@@ -9,7 +9,7 @@ import { useCdp } from '../../Contextos/ContextoCDP';
 
 const ContenedorModalStyled = styled.div`
     display: ${props => props.switchModal ? 'flex' : 'none'};
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     
@@ -169,15 +169,15 @@ const Titulo = styled.div`
 
 
 export const ModalAgregarToDo = () => {
-    const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp} = useCdp();
+    const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp, CDPSeleccionado} = useCdp();
     const [txtTarea, setTxtTarea] = useState("");
     const modalContainer = document.querySelector("#modalAgregarToDoCDP");
 
     const handleSubmit = (event) =>{
         event.preventDefault();
-        console.log(event.target.values);
-        console.log(txtTarea);
-        console.log('submit');
+        //CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
+        console.log(CDPSeleccionado);
+       
         if(crearDocCdp){
             CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
             setCrearDocCdp(false);
