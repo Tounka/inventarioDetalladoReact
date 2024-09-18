@@ -65,7 +65,7 @@ export const MetaExtra = ({ nombre, numero, input, setEstado, cajaSeleccionada  
     const {setCDPSeleccionado} = useCdp();
     const handleChange = (event) => {
 
-        const newValue = {cantidad: event.target.value}; 
+        const newValue = event.target.value; 
         setCDPSeleccionado(cajaSeleccionada);
         console.log(newValue);
         setEstado(newValue); 

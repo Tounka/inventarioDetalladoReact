@@ -24,18 +24,50 @@ const ContenedorTareas = styled.div`
 export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
 
     const {cajas} = useEmpleados();
-    const {CDPSeleccionado, tareasCDP} = useCdp();
-
-    
-    
+    const {CDPSeleccionado, tareasCDP, tareasCDPDiarias} = useCdp();
     const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
-    
-    useEffect(() =>{
+
+    const [metaTopping1, setMetaTopping1] = useState(5);
+    const [metaTopping2, setMetaTopping2] = useState(5);
+    const [tareasFijas, setTareasFijas] = useState([]);
+
+
+    const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
+        obj[doc.id] = doc;
+        return obj;
+    }, {});
+    console.log(documentosPorId);
+    console.log(documentosPorId);
+    useEffect(() => {
         
-        const tareasArreglo = Object.values(Object.values(tareasCDP[0].tareas));
-        setTareas(tareasArreglo);
-        
+        if(documentosPorId.CDPSeleccionado){
+
+            setMetaTopping1(documentosPorId.CDPSeleccionado.conosDobles);
+            setMetaTopping2(documentosPorId.CDPSeleccionado.toppings);
+
+            setTareasFijas(documentosPorId.CDPSeleccionado.tareas);
+        }
+        else if (tareasCDP && Array.isArray(tareasCDP)) {
+           
+            const tareasPorId = tareasCDP.reduce((acc, item) => {
+                if (item.id) {
+                    acc[item.id] = item;
+                }
+                return acc;
+            }, {});
+
+
+            console.log(tareasPorId, 'asdasd')
+            setTareas(tareasPorId); // Actualizar el estado con el objeto de objetos
+
        
+            setMetaTopping1(tareasPorId.fijas.conosDobles);
+            setMetaTopping2(tareasPorId.fijas.toppings);
+
+            setTareasFijas(tareasPorId.fijas.tareas);
+        } else {
+            console.log('tareasCDP no está definido o no es un array');
+        }
     }, [tareasCDP]);
     
     return(
@@ -44,12 +76,12 @@ export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
             <TituloCDP> -- {cajas[CDPSeleccionado].nombre}  -- </TituloCDP>
             
             <ContenedorMetas>
-                <MetaExtra nombre = 'Conos Dobles' numero= {5} />
-                <MetaExtra nombre = 'Toppings' numero= {5} />
+                <MetaExtra nombre = 'Conos Dobles' numero= {metaTopping1} />
+                <MetaExtra nombre = 'Toppings' numero= {metaTopping2} />
             </ContenedorMetas>
 
             <ContenedorTareas>
-                {tareas.map((tarea, id)=>(
+                {tareasFijas.map((tarea, id)=>(
                             
                             <ItemToDoList  txtTarea={tarea.tarea} setTareas={setTareas} />
                         ))}

@@ -176,10 +176,10 @@ export const ModalAgregarToDo = () => {
     const handleSubmit = (event) =>{
         event.preventDefault();
         //CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
-        console.log(CDPSeleccionado);
+    
        
         if(crearDocCdp){
-            CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
+            CrearDocumento("fijas","Tareas" , { tarea: txtTarea });
             setCrearDocCdp(false);
         }
     }
