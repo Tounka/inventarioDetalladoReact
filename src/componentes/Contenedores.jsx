@@ -19,12 +19,15 @@ const TarjetaIndividual = styled(Link) `
     font-size:22px;
     
     gap: 10px;
+    padding: 10px;
     text-align:center;
 
     @media (max-width: 480px){
         min-width: 105px;
         min-height: 100px;
         
+
+        font-size:16px;
     }
 
     
@@ -33,14 +36,13 @@ const TarjetaIndividual = styled(Link) `
 const ContenedorIcono = styled.div`
     font-size: 42px;
     display: flex;
-    @media (max-width: 700px) {
-        display: none;
+    @media (max-width: 480px) {
+        font-size: 28px;
     }
     
 `;
 
 export function Tarjeta({nombrePagina, linkPagina, Icon}){
-
     return(
         <TarjetaIndividual to={linkPagina}>
 
@@ -60,11 +62,9 @@ export const ContenedorTarjetasLobby = styled.div`
     gap: 20px;
     width: 100%;
     height: auto;
+
     justify-content: space-evenly;
-    
     padding: 20px 0;
-    
-    
 
 `
 

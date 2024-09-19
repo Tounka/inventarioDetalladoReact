@@ -18,6 +18,7 @@ const ContenedorPaginaCdp = styled(DisplayGenerico)`
 const ContenedorTareas = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 `;
 
@@ -35,7 +36,7 @@ export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
     const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
         obj[doc.id] = doc;
 
-        
+
         return obj;
     }, {});
 

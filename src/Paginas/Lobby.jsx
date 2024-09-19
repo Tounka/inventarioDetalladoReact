@@ -7,7 +7,7 @@ import { FaQuestion, FaUsers } from "react-icons/fa";
 import { CiBacon } from "react-icons/ci";
 import { MdOutlineInventory } from "react-icons/md";
 import { FaPenToSquare } from "react-icons/fa6";
-
+import { IoIosIceCream } from "react-icons/io";
 import Footer from "../componentes/Footer";
 
 function Lobby() {
@@ -21,11 +21,11 @@ function Lobby() {
 
                     <ContenedorTarjetasLobby>
                         
-                        <Tarjeta nombrePagina='McHoot' linkPagina="McHoot" Icon = {FaQuestion} />
-                        <Tarjeta nombrePagina='Inventario Detallado' linkPagina="InventarioDetallado" Icon = {FaPenToSquare} />
                         <Tarjeta nombrePagina='McAuditoria' linkPagina="McAuditoria" Icon = {MdOutlineInventory} />
+                        <Tarjeta nombrePagina='Inventario Detallado' linkPagina="InventarioDetallado" Icon = {FaPenToSquare} /> 
                         <Tarjeta nombrePagina='Usuarios' linkPagina="McBreak" Icon = {FaUsers} />
                         <Tarjeta nombrePagina='Extras' linkPagina="Extras" Icon = {CiBacon} />
+                        <Tarjeta nombrePagina='CDP`s' linkPagina="cdpGerentes" Icon = {IoIosIceCream} />
                         
                     </ContenedorTarjetasLobby>
                 </ContenedorElementosLobby>

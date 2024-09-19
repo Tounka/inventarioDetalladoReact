@@ -7,7 +7,7 @@ import { useCdp } from "../../Contextos/ContextoCDP";
 
 const ContenedorItemToDoStyled = styled.div`
     width: 600px;
-    max-width: 100%;
+    max-width: 90%;
     display: grid;
     grid-template-columns: ${props => props.admin ? "35px auto 35px" : '35px auto'  } ;
     
