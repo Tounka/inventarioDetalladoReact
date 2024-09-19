@@ -36,7 +36,8 @@ const BtnAgregarTarea = styled.div`
 `;
 
 export const CdpGerente = ({caja}) =>{
-    const {setModalCDPToDo, setCrearDocCdp, tareasCDP, CrearDocumentoMeta, CDPSeleccionado} = useCdp();
+    const {setModalCDPToDo, setCrearDocCdp, tareasCDP, CrearDocumentoMeta, CDPSeleccionado, tareasCDPDiarias} = useCdp();
+    
    
     const handleClickAgregarTarea = () =>{
         setModalCDPToDo(true);
@@ -57,19 +58,41 @@ export const CdpGerente = ({caja}) =>{
     const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
     const [tareasFijas, setTareasFijas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
 
+  
+    const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
+        obj[doc.id] = doc;
+
+        
+        return obj;
+    }, {});
+
+
+    const [dataPorCaja, setDataPorCaja] = useState(documentosPorId);
+
+
     const [metaTopping1, setMetaTopping1] = useState('');
     const [metaTopping2, setMetaTopping2] = useState('');
 
-    useEffect(() => {
-        if (tareasCDP && Array.isArray(tareasCDP)) {
+    useEffect(() => { 
+        
+        if(dataPorCaja[caja[0]]){
+
+            setMetaTopping1(dataPorCaja[caja[0]].conosDobles);
+            setMetaTopping2(dataPorCaja[caja[0]].toppings);
+
+            setTareasFijas(dataPorCaja[caja[0]].tareas);
+        }
+        else if (tareasCDP && Array.isArray(tareasCDP)) {
            
             const tareasPorId = tareasCDP.reduce((acc, item) => {
-                if (item.id) { // Asegúrate de que `item.id` existe
+                if (item.id) {
                     acc[item.id] = item;
                 }
                 return acc;
             }, {});
 
+
+            console.log(tareasPorId, 'asdasd')
             setTareas(tareasPorId); // Actualizar el estado con el objeto de objetos
 
        

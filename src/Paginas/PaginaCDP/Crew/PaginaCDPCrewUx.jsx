@@ -34,18 +34,25 @@ export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
 
     const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
         obj[doc.id] = doc;
+
+        
         return obj;
     }, {});
-    console.log(documentosPorId);
-    console.log(documentosPorId);
+
+
+    const [dataPorCaja, setDataPorCaja] = useState(documentosPorId);
+
+
+    
+
     useEffect(() => {
         
-        if(documentosPorId.CDPSeleccionado){
+        if(dataPorCaja[CDPSeleccionado]){
 
-            setMetaTopping1(documentosPorId.CDPSeleccionado.conosDobles);
-            setMetaTopping2(documentosPorId.CDPSeleccionado.toppings);
+            setMetaTopping1(dataPorCaja[CDPSeleccionado].conosDobles);
+            setMetaTopping2(dataPorCaja[CDPSeleccionado].toppings);
 
-            setTareasFijas(documentosPorId.CDPSeleccionado.tareas);
+            setTareasFijas(dataPorCaja[CDPSeleccionado].tareas);
         }
         else if (tareasCDP && Array.isArray(tareasCDP)) {
            
