@@ -135,3 +135,22 @@ export const CdpGerente = ({caja}) =>{
         </ContenedorCdps>
     );
 }
+
+export const BtnAgregarTareaGenetica = () =>{
+    const {setModalCDPToDo, setCrearDocCdp} = useCdp();
+    
+   
+    const handleClickAgregarTarea = () =>{
+        setModalCDPToDo(true);
+        setCrearDocCdp(true);
+        
+
+  
+    } 
+
+    return(
+        <BtnAgregarTarea onClick={() => handleClickAgregarTarea()} >
+            Agregar tarea genérica
+        </BtnAgregarTarea>
+    )
+}

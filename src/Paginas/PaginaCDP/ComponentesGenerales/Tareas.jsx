@@ -69,7 +69,8 @@ const TxtTarea = styled.label`
     font-size: 18px;
     text-decoration: ${props => props.estadoTarea ? 'line-through' : ''};
     background-color: var(--RojoPrincipal);
-
+    padding: 5px 0;
+    
     color:  white ;
     user-select: none;
     padding-left: 10px;

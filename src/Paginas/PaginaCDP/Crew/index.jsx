@@ -21,6 +21,7 @@ const CardCDP = styled.div`
     width: 100%;
     height: 160px;
     font-size: 42px;
+    border-radius: 20px;
     background-color: var(--RojoPrincipal);
     color: white;
 
@@ -29,6 +30,11 @@ const CardCDP = styled.div`
     align-items: center;
 
     cursor: pointer;
+
+    @media (max-width: 600px){
+        font-size: 36px;
+        height: 140px;
+    }
 `;
 
 

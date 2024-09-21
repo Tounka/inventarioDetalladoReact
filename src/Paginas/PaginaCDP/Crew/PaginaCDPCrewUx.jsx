@@ -20,9 +20,10 @@ const ContenedorTareas = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 100%;
 `;
 
-export const PaginaCDPCrewUx = ({ meta = '1'}) =>{
+export const PaginaCDPCrewUx = () =>{
 
     const {cajas} = useEmpleados();
     const {CDPSeleccionado, tareasCDP, tareasCDPDiarias} = useCdp();

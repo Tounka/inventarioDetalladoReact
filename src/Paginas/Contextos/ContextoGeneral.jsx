@@ -57,6 +57,7 @@ export const EmpleadosProvider = ({ children }) => {
                     id: documento.id,
                     ...documento.data()
                 }));
+                lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
                 setListaEmpleados(lista);
                 console.log(listaEmpleados);
             } else {

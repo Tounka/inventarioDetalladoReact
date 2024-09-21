@@ -103,7 +103,7 @@ const ContenedorInputToDoStyled = styled.div`
 
     @media (max-width: 380px){
         grid-template-columns: 1fr ;
-        height: 100px;
+        height: 80px;
     }
 `;
 
@@ -167,22 +167,81 @@ const Titulo = styled.div`
 
 
 
+const ContenedorSwitchStyled = styled.div `
+    display: grid;
+    grid-template-columns: ${props => props.bool ? "1fr 2fr" : "2fr 1fr"};
+    transition: .2s ease;
+    width: 100%;
+    height: 80px;
+    position: relative;
+
+    justify-content:center;
+    align-items: center;
+
+    border-radius: 25px;
+    overflow: hidden;
+
+
+`;
+
+const ButtonSwitch = styled.button`
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    background-color: ${props => props.bg ? props.bg : ''};
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+
+    transition: transform .2s ease;
+  
+`;
+
+const InputToDoSelectorBool = ({ vertical, bool, setBoolTarea}) =>{
+    const handleClick = (valor) =>{
+        setBoolTarea(valor);
+    }
+    return(
+        <ContenedorInputToDoStyled vertical= {vertical}  >
+            <LabelInputToDoStyled vertical= {vertical} > Tipo de tarea </LabelInputToDoStyled>
+                <ContenedorSwitchStyled bool = {bool} >
+                    <ButtonSwitch type='button' bg= "var(--RojoPrincipal)" onClick={() => handleClick(0)} > Fija </ButtonSwitch >
+                    
+                    <ButtonSwitch type='button' bg= "#296965" onClick={() => handleClick(1)} > Especial </ButtonSwitch >
+                </ContenedorSwitchStyled>
+        </ContenedorInputToDoStyled>
+    )
+};
+
+
+
+
 
 export const ModalAgregarToDo = () => {
     const {modalCDPToDo, setModalCDPToDo, CrearDocumento, crearDocCdp, setCrearDocCdp, CDPSeleccionado} = useCdp();
     const [txtTarea, setTxtTarea] = useState("");
     const modalContainer = document.querySelector("#modalAgregarToDoCDP");
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        //CrearDocumento("diarias","Tareas" , { tarea: txtTarea });
-    
-       
-        if(crearDocCdp){
-            CrearDocumento("fijas","Tareas" , { tarea: txtTarea });
-            setCrearDocCdp(false);
+    const [tipoDeTarea, setTipoDeTarea] = useState(0);
+
+    const handleSubmit = (event) => {
+        let tarea;
+        if(tipoDeTarea){
+             tarea = 'especiales';
+        }else{
+             tarea = 'fijas';
         }
-    }
+        event.preventDefault();
+        
+        
+        if (crearDocCdp) {
+            CrearDocumento(tarea, "Tareas", { tarea: txtTarea });
+            setCrearDocCdp(false);
+            setModalCDPToDo(false);
+            setTxtTarea(""); 
+        }
+    };
     
     const handleBtnCerrar = () =>{
  
@@ -202,7 +261,8 @@ export const ModalAgregarToDo = () => {
                     <Titulo>Ingresa una Tarea</Titulo>
 
                     <InputToDoGenerico id='Descripción' txt = 'Descripción' type='text' setEstado = {setTxtTarea} estado = {txtTarea} />
-                    
+
+                    <InputToDoSelectorBool vertical={"vertical"}  bool = {tipoDeTarea} setBoolTarea = {setTipoDeTarea} />
                 </ContenedorInputs>
 
                 <BtnSubmit type='submit' > Agregar </BtnSubmit>
