@@ -11,12 +11,13 @@ const ContenedorCardCajas = styled.div`
 export const PaginaExtrasUx = () =>{
     return(
         <ContenedorCardCajas>
-            <CardCaja numeroCaja="1" />
+            <CardCaja numeroCaja="2" />
             <CardCaja numeroCaja="76" />
             <CardCaja numeroCaja="41" />
             <CardCaja numeroCaja="44" />
+            <CardCaja numeroCaja="46" />
 
-            <CardCaja numeroCaja="2" />
+            <CardCaja numeroCaja="1" />
             <CardNavigate />
         </ContenedorCardCajas>
            
