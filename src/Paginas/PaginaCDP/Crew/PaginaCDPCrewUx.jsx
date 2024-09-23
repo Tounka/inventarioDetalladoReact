@@ -2,12 +2,13 @@
 import { DisplayGenerico } from "../../../componentes/Displays"
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
-import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
+import { MetaExtra, BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
 import styled from "styled-components"
 import { useCdp } from "../../Contextos/ContextoCDP";
 import { useEffect, useState } from "react";
+
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
     justify-content: start;
@@ -33,7 +34,9 @@ export const PaginaCDPCrewUx = () =>{
     const [metaTopping2, setMetaTopping2] = useState(5);
     const [tareasFijas, setTareasFijas] = useState([]);
 
-
+    const handleClickSubirTicket = () => { 
+        console.log('hola');
+    }
     const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
         obj[doc.id] = doc;
 
@@ -96,7 +99,7 @@ export const PaginaCDPCrewUx = () =>{
                         ))}
             </ContenedorTareas>
 
-            
+            <BtnStyled onClick={() => handleClickSubirTicket()}> Subir Ticket </BtnStyled>
         </ContenedorPaginaCdp>
     )
 }
