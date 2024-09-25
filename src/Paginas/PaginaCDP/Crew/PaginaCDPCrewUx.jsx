@@ -23,11 +23,13 @@ const ContenedorTareas = styled.div`
     gap: 10px;
     width: 100%;
 `;
-
+const BtnModal = styled(BtnStyled)`
+    height: 60px;
+`
 export const PaginaCDPCrewUx = () =>{
 
     const {cajas} = useEmpleados();
-    const {CDPSeleccionado, tareasCDP, tareasCDPDiarias} = useCdp();
+    const {CDPSeleccionado, tareasCDP, tareasCDPDiarias, setModalCDPTicket} = useCdp();
     const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
 
     const [metaTopping1, setMetaTopping1] = useState(5);
@@ -35,6 +37,7 @@ export const PaginaCDPCrewUx = () =>{
     const [tareasFijas, setTareasFijas] = useState([]);
 
     const handleClickSubirTicket = () => { 
+        setModalCDPTicket(true);
         console.log('hola');
     }
     const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
@@ -99,7 +102,7 @@ export const PaginaCDPCrewUx = () =>{
                         ))}
             </ContenedorTareas>
 
-            <BtnStyled onClick={() => handleClickSubirTicket()}> Subir Ticket </BtnStyled>
+            <BtnModal onClick={() => handleClickSubirTicket()}> Subir Ticket </BtnModal>
         </ContenedorPaginaCdp>
     )
 }
