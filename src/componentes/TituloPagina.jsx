@@ -33,6 +33,10 @@ const BtnHome = styled.div`
 
 
 `
+const H1 = styled.h1`
+    margin: 0;
+    padding: 0;  
+`;
 function TituloPrincipal({textoTitulo, display}){
     const {privilegios} = useEmpleados();
     const navigate = useNavigate();
@@ -51,7 +55,7 @@ function TituloPrincipal({textoTitulo, display}){
             <BtnHome onClick={handleClick} >
                 <FaHome display={display} />
             </BtnHome>
-            <h1 > {textoTitulo} </h1>
+            <H1 > {textoTitulo} </H1>
         </ContenedorTitulo>
     );
 }

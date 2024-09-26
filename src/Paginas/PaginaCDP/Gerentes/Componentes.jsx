@@ -8,7 +8,8 @@ import { useCdp } from "../../Contextos/ContextoCDP";
 const ContenedorCdps = styled.form `
     width: 600px;
     max-width: 100%;
-    height: 700px;
+    min-height: 700px;
+   
     display: flex;
     flex-direction: column;
     justify-content: space-between;

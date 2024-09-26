@@ -59,13 +59,11 @@ export const SelectorCdp = () =>{
             <TituloPrincipal textoTitulo="Selecciona el CDP"  />
                 <DisplayGenerico >
                     <ContenedorCdp>
-                    {cajasFiltradas.map(
-                        (caja) => (
-                            <CardCDP key={caja[0]} onClick={() => handleClick(caja[0])} >{caja[1].nombre}  </CardCDP>
-                        )
-                    )}
-                        
-                        
+                        {cajasFiltradas.map(
+                            (caja) => (
+                                <CardCDP key={caja[0]} onClick={() => handleClick(caja[0])} >{caja[1].nombre}  </CardCDP>
+                            )
+                        )}
                     </ContenedorCdp>
                 </DisplayGenerico>
             <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 

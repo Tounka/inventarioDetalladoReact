@@ -18,6 +18,7 @@ import { BrowserRouter , Route, Routes} from 'react-router-dom';
 import { EmpleadosProvider } from './Paginas/Contextos/ContextoGeneral';
 import { ModalAgregarToDo } from './Paginas/PaginaCDP/Gerentes/ModalAgregarToDo';
 import { CdpProvider } from './Paginas/Contextos/ContextoCDP';
+import { ModalAgregarTicket } from './Paginas/PaginaCDP/Crew/ModalEnviarTickets';
 
 
 
@@ -54,6 +55,7 @@ function App() {
       </BrowserRouter>
 
       <ModalAgregarToDo  />
+      <ModalAgregarTicket  />
         
       </CdpProvider>  
       </EmpleadosProvider>

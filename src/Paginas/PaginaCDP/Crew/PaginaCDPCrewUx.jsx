@@ -2,12 +2,13 @@
 import { DisplayGenerico } from "../../../componentes/Displays"
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
-import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
+import { MetaExtra, BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
 import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
 import styled from "styled-components"
 import { useCdp } from "../../Contextos/ContextoCDP";
 import { useEffect, useState } from "react";
+
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
     justify-content: start;
@@ -22,18 +23,23 @@ const ContenedorTareas = styled.div`
     gap: 10px;
     width: 100%;
 `;
-
+const BtnModal = styled(BtnStyled)`
+    height: 60px;
+`
 export const PaginaCDPCrewUx = () =>{
 
     const {cajas} = useEmpleados();
-    const {CDPSeleccionado, tareasCDP, tareasCDPDiarias} = useCdp();
+    const {CDPSeleccionado, tareasCDP, tareasCDPDiarias, setModalCDPTicket} = useCdp();
     const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
 
     const [metaTopping1, setMetaTopping1] = useState(5);
     const [metaTopping2, setMetaTopping2] = useState(5);
     const [tareasFijas, setTareasFijas] = useState([]);
 
-
+    const handleClickSubirTicket = () => { 
+        setModalCDPTicket(true);
+        console.log('hola');
+    }
     const documentosPorId = tareasCDPDiarias.reduce((obj, doc) => {
         obj[doc.id] = doc;
 
@@ -96,7 +102,7 @@ export const PaginaCDPCrewUx = () =>{
                         ))}
             </ContenedorTareas>
 
-            
+            <BtnModal onClick={() => handleClickSubirTicket()}> Subir Ticket </BtnModal>
         </ContenedorPaginaCdp>
     )
 }

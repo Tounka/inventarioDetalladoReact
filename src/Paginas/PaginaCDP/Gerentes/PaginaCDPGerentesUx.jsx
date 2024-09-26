@@ -1,9 +1,6 @@
 
 import { DisplayGenerico } from "../../../componentes/Displays"
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
-import { TituloCDP } from "../ComponentesGenerales/ComponentesGenericos";
-import { MetaExtra } from "../ComponentesGenerales/ComponentesGenericos";
-import { ItemToDoList } from "../ComponentesGenerales/Tareas";
 
 import styled from "styled-components"
 import { CdpGerente } from "./Componentes";

@@ -205,11 +205,7 @@ const TituloExtras = styled.p`
     text-align: center;
 `;
 
-const InputCantidad = styled.input`
-    height: 50px;
-    width: 100%;
-    border: none;
-`;
+
 
 const ContenedorInput = styled.div`
     display: grid;
@@ -237,8 +233,12 @@ const ContenedorTexto = styled.label`
         font-size: 20px;
     }
 `;
-
-const InputExtras = ({ id, txt, agregarExtra, valueExtra = 0, minValue=0 }) => {
+const InputCantidad = styled.input`
+    height: 50px;
+    width: 100%;
+    border: none;
+`;
+export const InputExtras = ({ id, txt, agregarExtra, valueExtra = 0, minValue=0 }) => {
     const handleOnChange = (event) => {
         const value = event.target.value;
         agregarExtra(id, value);

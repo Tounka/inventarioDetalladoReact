@@ -14,8 +14,10 @@ export const CdpProvider = ({ children }) => {
     const [tareasCDP, setTareasCDP] = useState([]);
     const [tareasCDPDiarias, setTareasCDPDiarias] = useState();
     const [crearDocCdp, setCrearDocCdp] = useState();
-    const [CDPSeleccionado, setCDPSeleccionado] = useState();
+    const [CDPSeleccionado, setCDPSeleccionado] = useState('');
     const [modalCDPToDo, setModalCDPToDo] = useState(false);
+    const [modalCDPTicket, setModalCDPTicket] = useState(false);
+    
 
 
     const CrearDocumento = async (idDocumento, documento , nuevaTarea) => {
@@ -125,7 +127,7 @@ export const CdpProvider = ({ children }) => {
 
     return (
         <CdpContext.Provider value={{ CrearDocumento, ObtenerDocumento,crearDocCdp, setCrearDocCdp,CDPSeleccionado, setCDPSeleccionado, 
-            setModalCDPToDo, modalCDPToDo, tareasCDP,CrearDocumentoMeta, tareasCDPDiarias }}>
+            setModalCDPToDo, modalCDPToDo, tareasCDP,CrearDocumentoMeta, tareasCDPDiarias,modalCDPTicket,setModalCDPTicket }}>
             {children}
         </CdpContext.Provider>
     );
