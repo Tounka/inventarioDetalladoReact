@@ -19,6 +19,7 @@ import { EmpleadosProvider } from './Paginas/Contextos/ContextoGeneral';
 import { ModalAgregarToDo } from './Paginas/PaginaCDP/Gerentes/ModalAgregarToDo';
 import { CdpProvider } from './Paginas/Contextos/ContextoCDP';
 import { ModalAgregarTicket } from './Paginas/PaginaCDP/Crew/ModalEnviarTickets';
+import { ModalEnviarFoto } from './Paginas/PaginaCDP/Crew/ModalEnviarFoto';
 
 
 
@@ -56,6 +57,8 @@ function App() {
 
       <ModalAgregarToDo  />
       <ModalAgregarTicket  />
+      <ModalEnviarFoto  />
+      
         
       </CdpProvider>  
       </EmpleadosProvider>

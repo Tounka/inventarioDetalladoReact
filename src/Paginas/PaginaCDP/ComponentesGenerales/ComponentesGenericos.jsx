@@ -122,7 +122,7 @@ export const ContenedorEnviarTicket = styled.div`
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
     background-color: var(--BlancoPrincipal) ;
     border-radius: 20px;
@@ -150,7 +150,7 @@ const ContenedorInput = styled.div`
     }
 `;
 
-const ContenedorTexto = styled.label`
+export const ContenedorTexto = styled.label`
     background-color: var(--RojoPrincipal);
     width: 100%;
     height: 100%;

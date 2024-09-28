@@ -98,11 +98,11 @@ export const PaginaCDPCrewUx = () =>{
             <ContenedorTareas>
                 {tareasFijas.map((tarea, id)=>(
                             
-                            <ItemToDoList  txtTarea={tarea.tarea} setTareas={setTareas} />
+                            <ItemToDoList  txtTarea={tarea.tarea} setTareas={setTareas}  />
                         ))}
             </ContenedorTareas>
 
-            <BtnModal onClick={() => handleClickSubirTicket()}> Subir Ticket </BtnModal>
+            <BtnModal onClick={() => handleClickSubirTicket()}> Cerrar Turno </BtnModal>
         </ContenedorPaginaCdp>
     )
 }

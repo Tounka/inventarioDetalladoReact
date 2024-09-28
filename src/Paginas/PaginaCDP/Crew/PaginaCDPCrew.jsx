@@ -8,7 +8,7 @@ export const PaginaCDPCrew = () =>{
    
     return(
         <>
-            <TituloPrincipal textoTitulo="Seleccion CDP"  />
+            <TituloPrincipal textoTitulo="CDP"  />
                 <PaginaCDPCrewUx />
             <Footer textoPrincipalFooter='No Se Trata De Un Software Desarrollado Por ARCOS DORADOS.'  textoSecundarioFooter='Desarrollado por Ramon Castillo'  /> 
         </>
