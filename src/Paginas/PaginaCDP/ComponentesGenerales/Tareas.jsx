@@ -4,12 +4,13 @@ import { IoMdCheckmark } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { useCdp } from "../../Contextos/ContextoCDP";
+import { FaCamera } from "react-icons/fa";
 
 const ContenedorItemToDoStyled = styled.div`
     width: 600px;
     max-width: 90%;
     display: grid;
-    grid-template-columns: ${props => props.admin ? "35px auto 35px" : '35px auto'  } ;
+    grid-template-columns:  35px auto 35px ;
     
     
     gap: 15px;
@@ -115,7 +116,10 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
         setCDPSeleccionado(cajaSeleccionada);
 
     }
-    
+    const handleClickBtnFoto = (txtTarea) => {
+       console.log(txtTarea);
+
+    }
 
 
     return (
@@ -134,7 +138,10 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
             <ContenedoresBtnStyled onClick={() => handleClickBtnEspecial() }>
                 <BtnEspecial icon = {<MdEdit />} />
             </ContenedoresBtnStyled>) 
-            : (<></>)}
+            : (   
+                <ContenedoresBtnStyled onClick={() => handleClickBtnFoto(txtTarea) }>
+                    <BtnEspecial icon = {<FaCamera />} />
+                </ContenedoresBtnStyled>) }
          
 
         </ContenedorItemToDoStyled>
