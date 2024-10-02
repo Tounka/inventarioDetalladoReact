@@ -247,7 +247,7 @@ export const ModalAgregarToDo = () => {
  
 
             setCrearDocCdp(false);
-            setModalCDPToDo(false)
+            setModalCDPToDo(false);
       
     }
     if (!modalContainer) return null;

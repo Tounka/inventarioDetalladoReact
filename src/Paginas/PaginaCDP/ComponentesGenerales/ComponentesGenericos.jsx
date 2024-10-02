@@ -118,11 +118,14 @@ export const BtnStyled = styled.button`
 export const ContenedorEnviarTicket = styled.div`
     min-height: 600px;
     width: 80%;
+    height: fit-content;
     padding: 20px;
-
+    margin: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
+    
 
     background-color: var(--BlancoPrincipal) ;
     border-radius: 20px;
@@ -166,6 +169,7 @@ export const ContenedorTexto = styled.label`
 `;
 const InputCantidad = styled.input`
     height: 50px;
+    text-align: center;
     background-color: var(--RojoPrincipal);
     color: var(--BlancoPrincipal);
     width: 100%;

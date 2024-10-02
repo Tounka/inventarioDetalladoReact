@@ -82,7 +82,7 @@ const TxtTarea = styled.label`
     align-items: center;
 `;
 
-const BtnEspecial = ({icon, fn}) =>{
+export const BtnEspecial = ({icon, fn}) =>{
 
     return(
         <BtnEspecialStyled>
