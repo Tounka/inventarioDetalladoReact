@@ -46,13 +46,10 @@ const ContenedorBtns = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+   
 `;
 
-const ContenedorInputs = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-`;
+
 
 export const ModalEnviarFoto = ({}) => {
     const modalContainer = document.querySelector("#modalAgregarFoto");

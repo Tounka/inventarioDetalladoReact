@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
     justify-content: start;
+    padding: 10px 0;
     gap: 20px;
 `;
 
@@ -50,15 +51,41 @@ export const PaginaCDPCrewUx = () =>{
 
     const [dataPorCaja, setDataPorCaja] = useState(documentosPorId);
 
-
-    
-
+    const date = new Date();
+    let ModificadorConosDobles = 5;
+    const dayIndex = date.getDay(); 
+    switch (dayIndex) {
+        case 0:
+            ModificadorConosDobles = 15;
+            break;
+        case 1:
+            ModificadorConosDobles = -2;
+            break;
+        case 2:
+            ModificadorConosDobles = 7;
+            break;
+        case 3:
+            ModificadorConosDobles = 3;
+            break;
+        case 4:
+            ModificadorConosDobles = 5;
+            break;
+        case 5:
+            ModificadorConosDobles = 10;
+            break;
+        case 6:
+            ModificadorConosDobles = 12;
+            break;
+        default:
+            ModificadorConosDobles = 0;
+    }
     useEffect(() => {
+        
         
         if(dataPorCaja[CDPSeleccionado]){
 
-            setMetaTopping1(dataPorCaja[CDPSeleccionado].conosDobles);
-            setMetaTopping2(dataPorCaja[CDPSeleccionado].toppings);
+            setMetaTopping1(dataPorCaja[CDPSeleccionado].conosDobles );
+            setMetaTopping2(dataPorCaja[CDPSeleccionado].toppings );
 
             setTareasFijas(dataPorCaja[CDPSeleccionado].tareas);
         }
@@ -74,9 +101,9 @@ export const PaginaCDPCrewUx = () =>{
 
             console.log(tareasPorId, 'asdasd')
             setTareas(tareasPorId); // Actualizar el estado con el objeto de objetos
-
+     
        
-            setMetaTopping1(tareasPorId.fijas.conosDobles);
+            setMetaTopping1(Number(tareasPorId.fijas.conosDobles) + ModificadorConosDobles);
             setMetaTopping2(tareasPorId.fijas.toppings);
 
             setTareasFijas(tareasPorId.fijas.tareas);

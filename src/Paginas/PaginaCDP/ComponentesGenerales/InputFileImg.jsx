@@ -8,6 +8,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  gap: 10px;
 `;
 
 const Input = styled.input`
@@ -20,6 +21,7 @@ const Label = styled.label`
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
+  margin: 0;
   cursor: pointer;
   transition: opacity 0.3s;
 
@@ -52,7 +54,7 @@ const Label = styled.label`
     
     `;
         const PreviewNoImgCrew = styled.label`
-        margin-top: 20px;
+        
         width: 100%;
         height:  100%;
         border: 2px solid #ccc;
@@ -118,8 +120,9 @@ const LabelEspecial = ({icon, fn, link}) =>{
       </BtnEspecialStyled>
   )
 }
-export const InputImgCrew = ({ tipoImagen, id, setFieldValue }) => {
-  const [image, setImage] = useState(null);
+
+export const InputImgCrew = ({ tipoImagen, id, setFieldValue, initialImage }) => {
+  const [image, setImage] = useState(initialImage || null); // Usa initialImage para establecer el estado inicial.
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

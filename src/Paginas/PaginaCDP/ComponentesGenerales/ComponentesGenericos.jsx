@@ -118,14 +118,15 @@ export const BtnStyled = styled.button`
 export const ContenedorEnviarTicket = styled.div`
     min-height: 600px;
     width: 80%;
+    max-width: 800px;
     height: fit-content;
     padding: 20px;
-    margin: 20px;
+    margin: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    
+    overflow: hidden;
 
     background-color: var(--BlancoPrincipal) ;
     border-radius: 20px;

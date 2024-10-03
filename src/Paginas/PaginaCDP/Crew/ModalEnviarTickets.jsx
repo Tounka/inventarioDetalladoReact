@@ -7,6 +7,7 @@ import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { InputImgCrew } from "../ComponentesGenerales/InputFileImg";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { TicketVenta } from './TicketsCrew'; // Importamos el componente TicketVenta
 
 const ContenedorModalStyled = styled.div`
     display: ${(props) => (props.switchModal ? 'flex' : 'none')};
@@ -17,10 +18,10 @@ const ContenedorModalStyled = styled.div`
     height: 100dvh;
     background-color: rgba(0, 0, 0, 0.28);
     justify-content: center;
-    overflow-y: scroll;
+    overflow-y: auto;
 `;
 
-const BtnModalTickets = styled(BtnStyled)`
+export const BtnModalTickets = styled(BtnStyled)`
     height: 60px;
     max-width: 100px;
 `;
@@ -33,7 +34,9 @@ const ContenedorBtns = styled.div`
 
 const ContenedorInputs = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => props.horizontal ? 'row' : 'column'};
+    justify-content: ${props => props.horizontal ? 'center' : ''};
+    flex-wrap: wrap;
     gap: 5px;
 `;
 
@@ -44,46 +47,100 @@ const Titulo = styled.p`
     justify-content: center;
     font-size: 36px;
     font-weight: bold;
-    color: var(--RojoPrincipal);
+    color: white;
+    padding: 10px;
+    margin: -20px -20px 10px -20px;
+    background-color: var(--RojoPrincipal);
 `;
 
 const InputVenta = styled(Field)`
     width: 100%;
     padding: 10px;
     font-size: 16px;
+    border-radius: 20px;
+    text-align: center;
+
 `;
 
 const LabelInputVenta = styled.label`
     font-size: 24px;
     font-weight: bold;
+    text-align: center;
+    height: 100%;
+    display: flex;
+
+    justify-content:center;
+    align-items:center;
     color: var(--RojoPrincipal);
+    cursor: pointer;
 `;
 
 const ContenedorInputVenta = styled.div`
     width: 200px;
     gap: 10px;
+    margin: 10px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
-// Esquema de validación con Yup
+const ContenedorInput = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+`;
+
 const validationSchema = Yup.object().shape({
+    conos: Yup.number()
+        .required('Este campo es obligatorio')
+        .min(0, 'El número de conos debe ser al menos 0')
+        .test('conos-vs-conosDobles', 'Conos no puede ser menor que Conos Dobles', function (value) {
+            return value >= this.parent.conosDobles;
+        }),
     conosDobles: Yup.number().required('Este campo es obligatorio'),
     toppings: Yup.number().required('Este campo es obligatorio'),
     venta: Yup.number().required('Este campo es obligatorio').min(1, 'La venta debe ser mayor a 0'),
     cierre: Yup.mixed().required('La imagen de cierre es obligatoria'),
     productMix: Yup.mixed().required('La imagen de Product Mix es obligatoria'),
     ticketPromedio: Yup.mixed().required('La imagen de Ticket Promedio es obligatoria'),
+    turno: Yup.number().required('Este campo es obligatorio').min(1, 'Turno inválido'),
 });
+
+const FormTicket = styled(Form)`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
 
 export const ModalAgregarTicket = () => {
     const modalContainer = document.querySelector("#modalAgregarTicket");
     const { modalCDPTicket, setModalCDPTicket, CDPSeleccionado } = useCdp();
     const { cajas } = useEmpleados();
     const [extras, setExtras] = useState({});
+    const [mostrarTicket, setMostrarTicket] = useState(false); 
+    const [formValues, setFormValues ] = useState();
+
+    let turnoDefault = 1;
+
+    // Obtén la hora actual
+    const hora = new Date().getHours();
     
+    if (hora > 17) {
+        turnoDefault = 2;
+    } else if (hora > 22 || hora < 6) {
+        turnoDefault = 3;
+    }
+    const noCero = (e) => {
+        const { value } = e.target;
+        const newValue = value.startsWith('0') && value.length > 1 ? value.slice(1) : value;
+        e.target.value = newValue;
+        e.target.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
     useEffect(() => {
         if (cajas && cajas[CDPSeleccionado] && cajas[CDPSeleccionado].extras) {
             setExtras(cajas[CDPSeleccionado].extras);
@@ -92,204 +149,105 @@ export const ModalAgregarTicket = () => {
 
     if (!modalContainer) return null;
 
-    const generateImageFromData = (data, images) => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 600;
-    
-        const ctx = canvas.getContext('2d');
-    
-        // Fondo
-        ctx.fillStyle = '#f0f0f0'; // Light gray background
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-        // Estilo de borde
-        ctx.strokeStyle = '#ccc'; // Light border color
-        ctx.lineWidth = 5;
-        ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20); // Draw a border
-    
-        // Título
-        ctx.fillStyle = '#2c3e50'; // Dark blue
-        ctx.font = 'bold 30px Arial';
-        ctx.textAlign = 'center'; // Center align text
-        ctx.fillText('Ticket de Venta', canvas.width / 2, 50);
-    
-        // Conos Dobles y Toppings en la segunda línea
-        ctx.font = 'bold 20px Arial';
-    
-        // Conos Dobles - Centered in left half
-        ctx.fillText('Conos Dobles', canvas.width / 4, 120);
-        // Toppings - Centered in right half
-        ctx.fillText('Toppings', (canvas.width / 4) * 3, 120);
-    
-        // Cantidades centradas
-        ctx.font = '16px Arial';
-        ctx.fillStyle = '#34495e'; // Dark gray
-        ctx.textAlign = 'center'; // Center align quantities
-        ctx.fillText(data.conosDobles, canvas.width / 4, 160); // Conos Dobles cantidad
-        ctx.fillText(data.toppings, (canvas.width / 4) * 3, 160); // Toppings cantidad
-    
-        // Venta
-        ctx.fillStyle = '#e74c3c'; // Red for sale amount
-        ctx.font = 'bold 20px Arial';
-        ctx.fillText(`Venta: $${data.venta}`, canvas.width / 2, 220);
-    
-        // Función para cargar una imagen y devolver una promesa
-        const loadImage = (src) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = reject;
-                img.src = src;
-            });
-        };
-    
-        // Cargar todas las imágenes y luego dibujarlas en el canvas
-        Promise.all(images.map(image => loadImage(image))).then(loadedImages => {
-            const imageWidth = canvas.width * 0.8; // 80% del ancho del canvas
-            
-            let yPosition = 250; // Posición inicial para las imágenes
-            let totalHeight = yPosition; // Sumar la altura total para ajustar el canvas
-    
-            loadedImages.forEach((img) => {
-                // Calcular la altura para mantener la proporción
-                const aspectRatio = img.width / img.height; // Relación de aspecto
-                const imageHeight = imageWidth / aspectRatio; // Ajustar la altura manteniendo la proporción
-                
-                ctx.drawImage(img, (canvas.width - imageWidth) / 2, yPosition, imageWidth, imageHeight);
-                yPosition += imageHeight + 20; // Espacio entre imágenes
-                totalHeight += imageHeight + 20; // Incrementar la altura total
-            });
-    
-            // Ajustar la altura del canvas para que se ajuste al contenido
-            canvas.height = totalHeight + 50; // Agregar un poco de margen
-    
-            // Redibujar todo el contenido en el nuevo tamaño de canvas
-            ctx.fillStyle = '#f0f0f0';
-            ctx.fillRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
-    
-            // Volver a dibujar el contenido
-            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20); // Redraw the border
-            ctx.fillStyle = '#2c3e50';
-            ctx.font = 'bold 30px Arial';
-            ctx.fillText('Ticket de Venta', canvas.width / 2, 50);
-    
-            ctx.font = 'bold 20px Arial';
-            ctx.fillText('Conos Dobles', canvas.width / 4, 120);
-            ctx.fillText('Toppings', (canvas.width / 4) * 3, 120);
-    
-            ctx.font = '16px Arial';
-            ctx.fillStyle = '#34495e';
-            ctx.textAlign = 'center'; // Center align quantities
-            ctx.fillText(data.conosDobles, canvas.width / 4, 160);
-            ctx.fillText(data.toppings, (canvas.width / 4) * 3, 160);
-    
-            ctx.fillStyle = '#e74c3c';
-            ctx.font = 'bold 20px Arial';
-            ctx.fillText(`Venta: $${data.venta}`, canvas.width / 2, 220);
-    
-            // Redibujar las imágenes en la nueva posición
-            yPosition = 250; // Reiniciar la posición
-            loadedImages.forEach((img) => {
-                const aspectRatio = img.width / img.height; // Relación de aspecto
-                const imageHeight = imageWidth / aspectRatio; // Ajustar la altura manteniendo la proporción
-    
-                ctx.drawImage(img, (canvas.width - imageWidth) / 2, yPosition, imageWidth, imageHeight);
-                yPosition += imageHeight + 20; // Espacio entre imágenes
-            });
-    
-            // Descargar la imagen
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = 'ticket_venta.png';
-            link.click();
-        }).catch(err => {
-            console.error("Error al cargar las imágenes: ", err);
-        });
+    const generateImageFromData = () => {
+        console.log(`Generando imagen con los datos...`);
     };
-    
-    
-    
-    
-    
-    
 
     return ReactDOM.createPortal(
         <ContenedorModalStyled switchModal={modalCDPTicket}>
             <Formik
                 initialValues={{
+                    conos: 0,
                     conosDobles: extras.conosDobles || 0,
                     toppings: extras.toppings || 0,
-                    venta: '',
+                    venta: 0,
                     cierre: '',
                     productMix: '',
                     ticketPromedio: '',
+                    turno: turnoDefault,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
-                    const images = [
-                        URL.createObjectURL(values.cierre),
-                        URL.createObjectURL(values.productMix),
-                        URL.createObjectURL(values.ticketPromedio),
-                    ];
-
-                    generateImageFromData(values, images); // Generar la imagen personalizada con los valores e imágenes
-                    setModalCDPTicket(false);
+                    console.log(values)
+                    setFormValues(values);
+                    setMostrarTicket(true); 
                 }}
             >
-                {({ setFieldValue }) => (
-                    <Form>
-                        <ContenedorEnviarTicket>
-                            <ContenedorInputs>
+                {({ setFieldValue, resetForm  }) => (
+                    <ContenedorEnviarTicket>
+                        {!mostrarTicket ? (
+                            <FormTicket>
                                 <Titulo>{cajas[CDPSeleccionado]?.nombre ?? ''}</Titulo>
 
-                                {/* Campos de Formik para los ítems vendidos */}
-                                <div>
-                                    <LabelInputVenta htmlFor='conosDobles'>Conos Dobles</LabelInputVenta>
-                                    <InputVenta id='conosDobles' name='conosDobles' type='number' />
-                                    <ErrorMessage name="conosDobles" component="div" style={{ color: 'red' }} />
-                                </div>
+                                <ContenedorInputs horizontal>
+                                    
+                                    <ContenedorInput>
+                                        <LabelInputVenta htmlFor='conos'>Conos</LabelInputVenta>
+                                        <InputVenta id='conos' name='conos' type='number'  onChange={(e) => { noCero(e); setFieldValue('conos', e.target.value); }}  />
+                                        <ErrorMessage name="conos" component="div" style={{ color: 'red' }} />
+                                    </ContenedorInput>
 
-                                <div>
-                                    <LabelInputVenta htmlFor='toppings'>Toppings</LabelInputVenta>
-                                    <InputVenta id='toppings' name='toppings' type='number' />
-                                    <ErrorMessage name="toppings" component="div" style={{ color: 'red' }} />
-                                </div>
-                            </ContenedorInputs>
+                                    <ContenedorInput>
+                                        <LabelInputVenta htmlFor='conosDobles'>Conos Dobles</LabelInputVenta>
+                                        <InputVenta id='conosDobles' name='conosDobles' type='number'  onChange={(e) => { noCero(e); setFieldValue('conosDobles', e.target.value); }}  />
+                                        <ErrorMessage name="conosDobles" component="div" style={{ color: 'red' }} />
+                                    </ContenedorInput>
 
-                            {/* Inputs de imágenes */}
-                            <InputImgCrew
-                                id="cierre"
-                                tipoImagen='Ticket Cierre'
-                                setFieldValue={setFieldValue}
-                            />
-                            <ErrorMessage name="cierre" component="div" style={{ color: 'red' }} />
+                                    <ContenedorInput>
+                                        <LabelInputVenta htmlFor='toppings'>Toppings</LabelInputVenta>
+                                        <InputVenta id='toppings' name='toppings' type='number'  onChange={(e) => { noCero(e); setFieldValue('toppings', e.target.value); }}  />
+                                        <ErrorMessage name="toppings" component="div" style={{ color: 'red' }} />
+                                    </ContenedorInput>
 
-                            <InputImgCrew
-                                id="productMix"
-                                tipoImagen='Product Mix'
-                                setFieldValue={setFieldValue}
-                            />
-                            <ErrorMessage name="productMix" component="div" style={{ color: 'red' }} />
+                                </ContenedorInputs>
 
-                            <InputImgCrew
-                                id="ticketPromedio"
-                                tipoImagen='Ticket Promedio'
-                                setFieldValue={setFieldValue}
-                            />
-                            <ErrorMessage name="ticketPromedio" component="div" style={{ color: 'red' }} />
+                                <ContenedorInput>
+                                    <InputImgCrew 
+                                    id="cierre" 
+                                    tipoImagen='Ticket Cierre' 
+                                    setFieldValue={setFieldValue} 
+                                    initialImage={formValues?.cierre ? URL.createObjectURL(formValues.cierre) : null} 
+                                    />
+                                    <InputImgCrew 
+                                    id="productMix" 
+                                    tipoImagen='Product Mix' 
+                                    setFieldValue={setFieldValue} 
+                                    initialImage={formValues?.productMix ? URL.createObjectURL(formValues.productMix) : null} 
+                                    />
+                                    <InputImgCrew 
+                                    id="ticketPromedio" 
+                                    tipoImagen='Ticket Promedio' 
+                                    setFieldValue={setFieldValue} 
+                                    initialImage={formValues?.ticketPromedio ? URL.createObjectURL(formValues.ticketPromedio) : null} 
+                                    />
+                                </ContenedorInput>
 
-                            <ContenedorInputVenta>
-                                <LabelInputVenta htmlFor='venta'>VENTA</LabelInputVenta>
-                                <InputVenta id='venta' name='venta' type='number' />
-                                <ErrorMessage name="venta" component="div" style={{ color: 'red' }} />
-                            </ContenedorInputVenta>
+                                <ContenedorInputs horizontal>
+                                    <ContenedorInputVenta>
+                                        <LabelInputVenta htmlFor='venta'>VENTA</LabelInputVenta>
+                                        <InputVenta id='venta' name='venta' type='number' onChange={(e) => { noCero(e); setFieldValue('venta', e.target.value);}}  />
+                                        <ErrorMessage name="venta" component="div" style={{ color: 'red' }} />
+                                    </ContenedorInputVenta>
+                                    
+                                    <ContenedorInputVenta>
+                                        <LabelInputVenta htmlFor='turno'>TURNO</LabelInputVenta>
+                                        <InputVenta id='turno' name='turno' type='number' />
+                                        <ErrorMessage name="turno" component="div" style={{ color: 'red' }} />
+                                    </ContenedorInputVenta>
+                                </ContenedorInputs>
 
-                            <ContenedorBtns>
-                                <BtnModalTickets type="button" onClick={() => setModalCDPTicket(false)}>Cerrar</BtnModalTickets>
-                                <BtnModalTickets type="submit">Enviar</BtnModalTickets>
-                            </ContenedorBtns>
-                        </ContenedorEnviarTicket>
-                    </Form>
+                                <ContenedorBtns>
+                                    <BtnModalTickets type="button" onClick={() => setModalCDPTicket(false)}>Cerrar</BtnModalTickets>
+                                    <BtnModalTickets type="submit">Enviar</BtnModalTickets>
+                                </ContenedorBtns>
+                            </FormTicket>
+                        ) : (
+                            <>
+                                <TicketVenta values = {formValues} setFormValues={setFormValues} resetForm={resetForm}  setMostrarTicket={setMostrarTicket} cdp={cajas[CDPSeleccionado]?.nombre ?? 'Desconocido'} />
+                                
+                            </>
+                        )}
+                    </ContenedorEnviarTicket>
                 )}
             </Formik>
         </ContenedorModalStyled>,

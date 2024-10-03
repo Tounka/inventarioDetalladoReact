@@ -37,7 +37,8 @@ const RolloTermico= new Item('RolloTermico', 'Rollo Térmico' ,0,0,   0,5);
 const PapelCafe= new Item('PapelCafe', 'Papel Cafe' ,0,0,   0,1);
 const SobresDeposito= new Item('SobresDeposito', 'Sobres Deposito' ,0,0,   0,20);
 const Trapos= new Item('Trapos', 'Trapos' ,0,0,   0,3);
-const JabonParaManos= new Item('JabonParaManos', 'Jabón Para Manos' ,0,0,   0,1);
+const JabonParaManos= new Item('Cloro', 'Cloro' ,0,0,   0,1);
+const Cloro= new Item('JabonParaManos', 'Jabón Para Manos' ,0,0,   0,1);
 const GelAntibacterial= new Item('GelAntibacterial', 'Gel Antibacterial' ,0,0,   0,1);
 const BolsaBasura= new Item('BolsaBasura', 'Bolsa Basura' ,0,0,   0,8);
 const Pluma= new Item('Pluma', 'Pluma' ,0,0,   0,1);
@@ -50,7 +51,7 @@ const Bascula= new Item('Bascula', 'Bascula' ,0,0,   0,1);
 const Cuchillo= new Item('Cuchillo', 'Cuchillo' ,0,0,   0,1);
 
 const arregloOperacional = [
-  RolloTermico, PapelCafe, SobresDeposito, Trapos, JabonParaManos,
+  RolloTermico, PapelCafe, SobresDeposito, Trapos, JabonParaManos,Cloro,
   GelAntibacterial, BolsaBasura, Pluma, Engrapadora, Grapas,
   Escoba, Trapeador, OverRun, Bascula, Cuchillo
 ];
