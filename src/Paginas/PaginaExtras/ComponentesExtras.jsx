@@ -62,6 +62,7 @@ const traductor = {
     76: 'Auto',
     41: 'Mega',
     44: 'Centro',
+    46: 'Interno',
 };
 
 export const CardCaja = ({ nombre = 'Selecciona Empleado', numeroCaja = '1', empleado = '1' }) => {
@@ -82,7 +83,7 @@ export const CardCaja = ({ nombre = 'Selecciona Empleado', numeroCaja = '1', emp
     return (
         <CardCajaStyled onClick={handleClick}>
             <TxtCardCajas>{cajaNombre}</TxtCardCajas>
-            {empleadoImg ? (
+            {empleadoImg  ? (
                 <ContenedorImgPicture>
                     <ImgPicture 
                         src={empleadoImg} 

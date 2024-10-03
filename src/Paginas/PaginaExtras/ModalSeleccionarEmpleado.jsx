@@ -105,7 +105,7 @@ const CardEmpleado = ({ empleado = {} }) => {
 };
 
 
-export const ModalEmpleados = () => {
+export const ModalEmpleados = ({soloSeleccionar}) => {
     const { listaEmpleados, modalExtras, cajas, cajaSeleccionada, setModalExtras } = useEmpleados();
     let selectorModal;
     if (cajas[cajaSeleccionada]) {
@@ -113,7 +113,7 @@ export const ModalEmpleados = () => {
     }
     return (
         <ContenedorModal modalExtras={modalExtras}  >
-            {selectorModal ? <InternoModalExtras /> : <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />}
+            {selectorModal && !soloSeleccionar ?  <InternoModalExtras /> : <InternoModalSeleccionarEmpleado listaEmpleados={listaEmpleados} />}
         </ContenedorModal>
     );
 };

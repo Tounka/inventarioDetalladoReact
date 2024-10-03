@@ -100,9 +100,9 @@ const validationSchema = Yup.object().shape({
         .test('conos-vs-conosDobles', 'Conos no puede ser menor que Conos Dobles', function (value) {
             return value >= this.parent.conosDobles;
         }),
-    conosDobles: Yup.number().required('Este campo es obligatorio'),
-    toppings: Yup.number().required('Este campo es obligatorio'),
-    venta: Yup.number().required('Este campo es obligatorio').min(1, 'La venta debe ser mayor a 0'),
+    conosDobles: Yup.number().required('Este campo es obligatorio').min(0, 'Debe ser mayor a 0'),
+    toppings: Yup.number().required('Este campo es obligatorio').min(0, 'Debe ser mayor a 0'),
+    venta: Yup.number().required('Este campo es obligatorio').min(0, 'La venta debe ser mayor a 0'),
     cierre: Yup.mixed().required('La imagen de cierre es obligatoria'),
     productMix: Yup.mixed().required('La imagen de Product Mix es obligatoria'),
     ticketPromedio: Yup.mixed().required('La imagen de Ticket Promedio es obligatoria'),
@@ -208,18 +208,21 @@ export const ModalAgregarTicket = () => {
                                     setFieldValue={setFieldValue} 
                                     initialImage={formValues?.cierre ? URL.createObjectURL(formValues.cierre) : null} 
                                     />
+                                    <ErrorMessage name="cierre" component="div" style={{ color: 'red' }} />
                                     <InputImgCrew 
                                     id="productMix" 
                                     tipoImagen='Product Mix' 
                                     setFieldValue={setFieldValue} 
                                     initialImage={formValues?.productMix ? URL.createObjectURL(formValues.productMix) : null} 
                                     />
+                                    <ErrorMessage name="productMix" component="div" style={{ color: 'red' }} />
                                     <InputImgCrew 
                                     id="ticketPromedio" 
                                     tipoImagen='Ticket Promedio' 
                                     setFieldValue={setFieldValue} 
                                     initialImage={formValues?.ticketPromedio ? URL.createObjectURL(formValues.ticketPromedio) : null} 
                                     />
+                                    <ErrorMessage name="ticketPromedio" component="div" style={{ color: 'red' }} />
                                 </ContenedorInput>
 
                                 <ContenedorInputs horizontal>

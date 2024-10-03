@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import html2canvas from "html2canvas"; 
-import { useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BtnModalTickets } from "./ModalEnviarTickets";
+import { useEmpleados } from "../../Contextos/ContextoGeneral";
+import { useCdp } from "../../Contextos/ContextoCDP";
+import { useNavigate } from "react-router-dom";
 const ContenedorTicketVenta = styled.div`
     display: flex;
     flex-direction: column;
@@ -17,6 +20,7 @@ const TituloCdp = styled.p`
     font-size: ${(props) => (props.size ? props.size + "px" : "12px")};
     margin: 0;
     text-align: center;
+
     color: white;
     font-weight: bold;
 `;
@@ -115,6 +119,23 @@ const CentradoTexto = styled.div`
     display: flex;
     justify-content: center;
 `
+const ContenedorCentrado = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; 
+    align-items: center; 
+    gap: 10px;
+    justify-items: center; 
+
+    & > :first-child {
+        justify-self: end; 
+    }
+
+    & > :last-child {
+        justify-self: start; 
+    }
+`;
+
+
 const ContenedorImg = ({ src, alt }) => {
     return(
         <ContenedorImgStyled>
@@ -131,9 +152,20 @@ const ContenedorPrincipalImgStyled = styled.div`
 
     justify-content: start;
 ` 
+const Span = styled(TituloCdp)`
+    font-weight: normal;
+`
 
 export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,setFormValues }) => {
-   
+    const {  actualizarContenidoCajas, actualizarCaja, enviarTicket, cajas } = useEmpleados();
+    const {CDPSeleccionado} = useCdp()
+    const [extras, setExtras] = useState({conosDobles: values.conosDobles, toppings: values.toppings});
+    const navigate = useNavigate()
+    
+
+    const empleado = cajas[CDPSeleccionado]?.empleado.nombre;
+    console.log(empleado);
+
     const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
     const hoy = new Date();
@@ -155,8 +187,33 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
     // useRef para referenciar el ticket
     const ticketRef = useRef(null);
 
+    const enviarInfo = async () => {
+        const ticket = {
+            pos: CDPSeleccionado,
+            empleado: cajas[CDPSeleccionado].empleado.id,
+            extras: extras,
+            fechaInicio: cajas[CDPSeleccionado].fecha,
+            fechaFinal: new Date(),
+        };
+            
+            try {
+               
+                await actualizarContenidoCajas(CDPSeleccionado, '', extras);
+                await actualizarCaja(CDPSeleccionado, '');
+                
+                enviarTicket(ticket);
+                setExtras((prevExtras) => {
+                    const { [CDPSeleccionado]: _, ...rest } = prevExtras;
+                    return rest;
+                });
+                console.log(extras);
+            } catch (error) {
+                console.error("Error al actualizar la caja o el contenido:", error);
+            }
+ 
+    };
     // Función para generar imagen con html2canvas
-    const handleGenerateImage = () => {
+    const GenerateImage = () => {
         const ticketElement = ticketRef.current;
 
         if (ticketElement) {
@@ -179,13 +236,21 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
         resetForm();
         setFormValues();
     };
+    const handleImprimir = () =>{
+        enviarInfo();
+        GenerateImage()
+        navigate('SeleccionaTuCDP');
+
+    }
+
 
     return (
         <>
             <div>
                 <ContenedorTicketVenta ref={ticketRef}>
                     <ContenedorTitulo>
-                        <TituloCdp size="30">{cdp} - Turno {values.turno} </TituloCdp>
+                    <ContenedorCentrado> <Span size="28"> {empleado} - </Span> <TituloCdp size="30">     {cdp}   </TituloCdp>  <Span size="28">- Turno {values.turno} </Span> </ContenedorCentrado>
+                         
                         <TituloCdp size="14">{fechaFormateada}</TituloCdp>
                     </ContenedorTitulo>
 
@@ -210,7 +275,7 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
             </div>
             <ContenedorBtnEspeciales>
                 <BtnModalTickets onClick={() => setMostrarTicket(false)}>Regresar</BtnModalTickets>
-                <BtnModalTickets onClick={handleGenerateImage}>Imprimir</BtnModalTickets> 
+                <BtnModalTickets onClick={() => handleImprimir()}>Imprimir</BtnModalTickets> 
             </ContenedorBtnEspeciales>
         </>
     );
