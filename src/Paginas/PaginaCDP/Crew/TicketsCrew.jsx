@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { BtnModalTickets } from "./ModalEnviarTickets";
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { useCdp } from "../../Contextos/ContextoCDP";
-import { useNavigate } from "react-router-dom";
+
 const ContenedorTicketVenta = styled.div`
     display: flex;
     flex-direction: column;
@@ -160,7 +160,7 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
     const {  actualizarContenidoCajas, actualizarCaja, enviarTicket, cajas } = useEmpleados();
     const {CDPSeleccionado} = useCdp()
     const [extras, setExtras] = useState({conosDobles: values.conosDobles, toppings: values.toppings});
-    const navigate = useNavigate()
+
     
 
     const empleado = cajas[CDPSeleccionado]?.empleado.nombre;
@@ -239,7 +239,8 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
     const handleImprimir = () =>{
         enviarInfo();
         GenerateImage()
-        navigate('SeleccionaTuCDP');
+    
+   
 
     }
 

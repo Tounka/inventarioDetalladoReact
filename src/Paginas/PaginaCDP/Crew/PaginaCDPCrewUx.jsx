@@ -8,6 +8,7 @@ import { ContenedorMetas } from "../ComponentesGenerales/ComponentesGenericos";
 import styled from "styled-components"
 import { useCdp } from "../../Contextos/ContextoCDP";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
@@ -33,6 +34,7 @@ export const PaginaCDPCrewUx = () =>{
     const {CDPSeleccionado, tareasCDP, tareasCDPDiarias, setModalCDPTicket} = useCdp();
     const [tareas, setTareas] = useState([{tarea: "Limpiar", fecha: new Date() }]);
 
+    const navigate = useNavigate();
     const [metaTopping1, setMetaTopping1] = useState(5);
     const [metaTopping2, setMetaTopping2] = useState(5);
     const [tareasFijas, setTareasFijas] = useState([]);
@@ -111,6 +113,13 @@ export const PaginaCDPCrewUx = () =>{
             console.log('tareasCDP no está definido o no es un array');
         }
     }, [tareasCDP]);
+
+    useEffect(() =>{
+        if(cajas[CDPSeleccionado]?.empleado == ''){
+            navigate("/SeleccionaTuCDP");
+        }
+        
+    },[cajas])
     
     return(
         <ContenedorPaginaCdp>

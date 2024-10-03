@@ -68,7 +68,7 @@ export const SelectorCdp = () =>{
     const {setCDPSeleccionado, CDPSeleccionado} = useCdp();
     const [boolSeleccionarEmpleado, setBoolSeleccionarEmpleado] = useState(false);
     const [boolEmpleado, setBoolEmpleado] = useState();
-
+    
 
     const  cajasFiltradas = Object.entries(cajas).filter( caja => caja[1].cdp );
 
