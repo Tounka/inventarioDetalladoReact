@@ -15,6 +15,7 @@ const ContenedorItemToDoStyled = styled.div`
     
     gap: 15px;
     align-items: center;
+    height: auto;
     
     
 `;
@@ -64,7 +65,6 @@ const TxtTarea = styled.label`
     width: 100%;
     
     text-wrap: prety;
-    height: 100%;
     font-size: 16px;
     line-height: 1.5;
     font-size: 18px;

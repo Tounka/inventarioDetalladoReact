@@ -149,9 +149,6 @@ export const ModalAgregarTicket = () => {
 
     if (!modalContainer) return null;
 
-    const generateImageFromData = () => {
-        console.log(`Generando imagen con los datos...`);
-    };
 
     return ReactDOM.createPortal(
         <ContenedorModalStyled switchModal={modalCDPTicket}>

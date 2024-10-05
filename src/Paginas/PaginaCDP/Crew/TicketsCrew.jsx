@@ -13,6 +13,12 @@ const ContenedorTicketVenta = styled.div`
     width: 100%;
     height: auto;  
     margin: 0 auto; 
+
+    &.large-ticket {
+        width: 1200px; 
+        
+    }
+    
 `;
 
 const TituloCdp = styled.p`
@@ -23,6 +29,11 @@ const TituloCdp = styled.p`
 
     color: white;
     font-weight: bold;
+
+    @media (max-width: 500px) {
+        font-size: 14px;
+    }
+  
 `;
 
 const ContenedorTitulo = styled.div`
@@ -61,7 +72,12 @@ const ContenedorInformacion = styled.div`
     background-color: var(--RojoPrincipal);
     border: 1px solid var(--RojoPrincipal);
     @media (max-width: 450px) {
-        width: 130px;
+        width: 100px;
+        font-size: 14px;
+        text-align:center;
+    }
+    &.large-ticket {
+        width: 200px; 
     }
 `;
 
@@ -118,6 +134,16 @@ const ImagenStyled = styled.img`
 const CentradoTexto = styled.div`
     display: flex;
     justify-content: center;
+    text-align:center;
+    width:100%;
+    background-color: var(--RojoPrincipal);
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    @media (max-width: 500px) {
+        font-size: 12px;
+    }
+   
 `
 const ContenedorCentrado = styled.div`
     display: grid;
@@ -158,9 +184,8 @@ const Span = styled(TituloCdp)`
 
 export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,setFormValues }) => {
     const {  actualizarContenidoCajas, actualizarCaja, enviarTicket, cajas } = useEmpleados();
-    const {CDPSeleccionado} = useCdp()
+    const {CDPSeleccionado, setModalCDPTicket} = useCdp()
     const [extras, setExtras] = useState({conosDobles: values.conosDobles, toppings: values.toppings});
-
     
 
     const empleado = cajas[CDPSeleccionado]?.empleado.nombre;
@@ -217,29 +242,38 @@ export const TicketVenta = ({ cdp = "mega", setMostrarTicket, values, resetForm,
         const ticketElement = ticketRef.current;
 
         if (ticketElement) {
-          
-            ticketElement.style.width = "1200px";
+            // Agregamos la clase para forzar ancho de 1200px
+            ticketElement.classList.add('large-ticket');
 
-            html2canvas(ticketElement, {
-                scale: 2,
-            }).then((canvas) => {
-                const link = document.createElement("a");
-                link.download = `${cdp}_${diaSemana}_${dia}_${mes}_${anio}.png`; 
-                link.href = canvas.toDataURL("image/png");
-                link.click();
+            // Esperamos a que el DOM se actualice
+            window.requestAnimationFrame(() => {
+                html2canvas(ticketElement, {
+                    scale: 2.5, // Ajusta la escala para mayor resolución
+                }).then((canvas) => {
+                    const link = document.createElement("a");
+                    link.download = `${cdp}_${diaSemana}_${dia}_${mes}_${anio}.jpg`; // Nombre del archivo
+                    link.href = canvas.toDataURL("image/jpeg", 0.8); // Convertir a imagen JPEG
+                    link.click();
 
-         
-                ticketElement.style.width = "100%";
+                    // Quitamos la clase después de generar la imagen
+                    ticketElement.classList.remove('large-ticket');
+                
+                resetForm();
+                setFormValues();
+                setMostrarTicket(false);
+                setModalCDPTicket(false)
+                });
             });
+            
         }
-        setMostrarTicket(false);
-        resetForm();
-        setFormValues();
+        
     };
+    
     const handleImprimir = () =>{
         enviarInfo();
-        GenerateImage()
-    
+        GenerateImage();
+
+        
    
 
     }
