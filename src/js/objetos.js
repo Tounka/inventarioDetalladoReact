@@ -5,6 +5,9 @@ function Item(id, nombre,cantidadPorCajas,cantidadPorBolsa, cantidad ,cantidadCr
     this.cantidadPorBolsa = cantidadPorBolsa;
     this.cantidad = cantidad;
     this.cantidadCritica = cantidadCritica;
+    this.cantidadPorCajasActual = 0;
+    this.cantidadPorBolsaActual = 0;
+    this.cantidadPorUnidadActual = 0;
   }
   const CucharasSundae= new Item('CucharaS', 'Cuchara Sundae' ,0,200,   0,75);
   const CucharasMcFlurry= new Item('CucharasMcF', 'Cuchara Mcflurry' ,0,75,   0,75);

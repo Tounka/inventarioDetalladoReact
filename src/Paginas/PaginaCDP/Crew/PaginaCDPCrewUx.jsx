@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 
 const ContenedorPaginaCdp = styled(DisplayGenerico)`
+    display: flex;
+    flex-direction: column;
     justify-content: start;
     padding: 10px 0;
     gap: 20px;

@@ -27,7 +27,7 @@ export const DisplayPaginaBreaks = styled.div`
 export const DisplayGenerico = styled.div`
     background: #EDEBEB;
     min-height: calc(100dvh - 80px);
-
+    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;

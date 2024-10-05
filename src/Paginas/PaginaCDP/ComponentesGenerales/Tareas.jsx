@@ -63,11 +63,13 @@ const CheckboxStyled = styled.div`
 `;
 const TxtTarea = styled.label`
     width: 100%;
+    max-height:  80px; 
+    overflow-y: auto;
     
     text-wrap: prety;
     font-size: 16px;
-    line-height: 1.5;
-    font-size: 18px;
+  
+
     text-decoration: ${props => props.estadoTarea ? 'line-through' : ''};
     background-color: var(--RojoPrincipal);
     padding: 5px 0;

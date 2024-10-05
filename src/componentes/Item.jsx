@@ -15,6 +15,7 @@ function Item ({objetoProducto}){
         const idUnidades = document.getElementById(`unidades${objetoProducto.id}`);
         
         const arregloCantidades = [0,0,0];
+        const arregloCantidadesSinMultiplicar = [0,0,0];
 
         const eliminarCerosALaIzquierda = (valor) => {
             // Si el valor es "0", devolverlo tal cual
@@ -31,21 +32,27 @@ function Item ({objetoProducto}){
           let cantidadCajas = objetoProducto.cantidadPorCajas * parseFloat(idCajas.value);
          
           arregloCantidades[0] = cantidadCajas;
+          arregloCantidadesSinMultiplicar[0] = parseFloat(idCajas.value);
         }
         if (idBolsas) {
             setBolsaValue(eliminarCerosALaIzquierda(idBolsas.value));
             let cantidadBolsas = objetoProducto.cantidadPorBolsa * parseFloat(idBolsas.value);
             
             arregloCantidades[1] = cantidadBolsas;
+            arregloCantidadesSinMultiplicar[1] = parseFloat(idBolsas.value);
           }
         setUnidadesValue(eliminarCerosALaIzquierda(idUnidades.value))
 
         const cantidadUnidades = parseFloat(idUnidades.value);
         arregloCantidades[2] = cantidadUnidades;
+        arregloCantidadesSinMultiplicar[2] = cantidadUnidades;
 
         const cantidadTotal = arregloCantidades[0] + arregloCantidades[1]+ arregloCantidades[2];
         
         objetoProducto.cantidad = cantidadTotal;
+        objetoProducto.cantidadPorCajasActual = arregloCantidadesSinMultiplicar[0];
+        objetoProducto.cantidadPorBolsaActual = arregloCantidadesSinMultiplicar[1];
+        objetoProducto.cantidadPorUnidadActual = arregloCantidadesSinMultiplicar[2];
         
         
         

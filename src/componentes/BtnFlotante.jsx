@@ -10,9 +10,13 @@ function BtnImprimir(props) {
         const pdfDoc = new jsPDF();
         const totalWidth = pdfDoc.internal.pageSize.getWidth();
         const columnWidths = [
-            totalWidth * 0.6 - 10,
-            totalWidth * 0.20 - 10,
-            totalWidth * 0.20 - 10,
+            totalWidth * 0.4 - 10,
+            totalWidth * 0.12 - 10,
+            totalWidth * 0.12 - 10,
+            totalWidth * 0.12 - 10,
+          
+            totalWidth * 0.14 - 10,
+       
         ];
 
         const tableRows = [];
@@ -20,26 +24,42 @@ function BtnImprimir(props) {
         const arregloListasItems = [arregloContenedoresProducto, arregloProducto, arregloDesechablesProducto, arregloOperacional];
         
         arregloListasItems.forEach(arreglo => {
-            tableRows.push(['', '', '']);
+            tableRows.push(['', '', '', '' , '', '']);
             
             arreglo.forEach(itemArreglo => {
                 let textoRecomendacion = ""
                 if (itemArreglo.cantidadCritica > itemArreglo.cantidad ){
                     textoRecomendacion = "Critico";
                 }
-                tableRows.push([itemArreglo.nombre, itemArreglo.cantidad, textoRecomendacion]);
+                const cantidadPorCajasActual = itemArreglo.cantidadPorCajasActual === 0 ? "" : itemArreglo.cantidadPorCajasActual;
+                const cantidadPorBolsaActual = itemArreglo.cantidadPorBolsaActual === 0 ? "" : itemArreglo.cantidadPorBolsaActual;
+                const cantidadPorUnidadActual = itemArreglo.cantidadPorUnidadActual === 0 ? "" : itemArreglo.cantidadPorUnidadActual;
+                tableRows.push([itemArreglo.nombre, cantidadPorCajasActual, cantidadPorBolsaActual, cantidadPorUnidadActual , itemArreglo.cantidad, textoRecomendacion]);
             });
          
         });
 
         pdfDoc.autoTable({
-            head: [['Producto', 'Cantidad Actual', 'Recomendación']],
+            head: [['Producto', 'Caj.', 'Paq.', 'Uni.' ,  'Total', 'Recomendación']],
             body: tableRows,
             columnStyles: {
-                0: { cellWidth: columnWidths[0] },
+                0: { cellWidth: columnWidths[0]},
                 1: { cellWidth: columnWidths[1], halign: 'center' },
                 2: { cellWidth: columnWidths[2], halign: 'center' },
+                3: { cellWidth: columnWidths[3], halign: 'center' },
+                4: { cellWidth: columnWidths[4], halign: 'center' },
+                5: { cellWidth: columnWidths[5], halign: 'center' },
+                
+               
             },
+            headStyles: { // Ajuste aquí con 'headStyles' en lugar de 'headstyles'
+                halign: 'center',  // Centrado horizontal
+                valign: 'middle',  // Centrado vertical
+               
+           
+                fontStyle: 'bold', // Negrita (opcional)
+            }
+            ,
             styles: {
                 cellPadding: 1,
                 lineWidth: .3, // Ancho del borde

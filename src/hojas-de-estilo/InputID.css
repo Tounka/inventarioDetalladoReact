@@ -16,6 +16,7 @@
     text-align: center;
 }
 .txtLabelInput{
-    color: #009FB5;
+    color: var(--RojoPrincipal);
+    font-size: 24px;
     font-weight: bold;
 }
