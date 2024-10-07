@@ -5,7 +5,7 @@ export const TituloCDP = styled.h2`
     display: flex;
     justify-content: center;
     color: var(--RojoPrincipal);
-    font-size: 48px;
+    font-size: ${props => props.small ? '28px' : '48px'};
     font-weight: bold;
 
 `

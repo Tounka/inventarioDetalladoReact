@@ -30,6 +30,48 @@ const ContenedorTareas = styled.div`
 const BtnModal = styled(BtnStyled)`
     height: 60px;
 `
+const Titulo = styled.div`
+    background-color: var(--RojoPrincipal);
+    color: white;
+    padding: 5px;
+    width: 100%;
+`
+
+const ContenedorReporteStyled  = styled.div`
+    width: 250px;
+    height: 250px;
+    max-width: 100%; /* Se aplica un max-width para dispositivos móviles */
+    height: auto; /* Asegura que la altura se ajuste al contenido */
+
+    color: white;
+    background-color: var(--RojoPrincipal);
+
+    font-size: 28px;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    cursor: pointer;
+
+    padding: 10px;
+    border-radius: 10px;
+`
+const BtnReporte = ({txt, tipoReporte}) =>{
+    const {setModalCDPFotos,setReporteSeleccionado} = useCdp();
+    const handleClick = () =>{
+        
+        setModalCDPFotos(true);
+        setReporteSeleccionado(tipoReporte)
+    }  
+    return(
+        <ContenedorReporteStyled onClick={() => handleClick()}>
+            {txt}
+        </ContenedorReporteStyled>
+    )
+}
 export const PaginaCDPCrewUx = () =>{
 
     const {cajas} = useEmpleados();
@@ -134,11 +176,13 @@ export const PaginaCDPCrewUx = () =>{
             </ContenedorMetas>
 
             <ContenedorTareas>
-                {tareasFijas.map((tarea, id)=>(
-                            
-                            <ItemToDoList  txtTarea={tarea.tarea} setTareas={setTareas}  />
-                        ))}
+                <TituloCDP small> - Reportes  - </TituloCDP>
+
+                <BtnReporte txt='Inicial' tipoReporte='inicial' />
+                <BtnReporte txt='Medio Turno' tipoReporte='intermedio' />
+                <BtnReporte txt='Final' tipoReporte='final' />
             </ContenedorTareas>
+  
 
             <BtnModal onClick={() => handleClickSubirTicket()}> Cerrar Turno </BtnModal>
         </ContenedorPaginaCdp>

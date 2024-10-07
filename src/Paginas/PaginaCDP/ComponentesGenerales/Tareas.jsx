@@ -8,9 +8,9 @@ import { FaCamera } from "react-icons/fa";
 
 const ContenedorItemToDoStyled = styled.div`
     width: 600px;
-    max-width: 90%;
+    max-width: 100%;
     display: grid;
-    grid-template-columns:  35px auto 35px ;
+    grid-template-columns:  35px auto  ;
     
     
     gap: 15px;
@@ -98,7 +98,7 @@ export const BtnEspecial = ({icon, fn}) =>{
 
 export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1, admin, cajaSeleccionada, setTareas }) => {
     const [estadoTarea, setEstadoTarea] = useState(estado);
-    const {setModalCDPToDo, setCrearDocCdp, setCDPSeleccionado, setModalCDPFotos, modalCDPFotos,setTareaCDPSeleccionada} = useCdp();
+    const {setModalCDPToDo, setCrearDocCdp, setCDPSeleccionado } = useCdp();
 
     
     const handleCheckbox = () => {
@@ -120,8 +120,8 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
     }
     const handleClickBtnFoto = (txtTarea) => {
 
-       setModalCDPFotos(true);
-       setTareaCDPSeleccionada(txtTarea)
+       
+       
     
     }
 
@@ -129,16 +129,7 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
     return (
         <ContenedorItemToDoStyled admin={admin} >
 
-            <CheckboxStyled id={id} checked={estadoTarea} onClick={() => handleCheckbox()} >
-                {estadoTarea ? <IoMdCheckmark /> : null}
-                
-            </CheckboxStyled>
-
-            <TxtTarea htmlFor={id} estadoTarea={estadoTarea} color={color} onClick={() => handleCheckbox()} >
-                {txtTarea}
-            </TxtTarea>
-
-            {admin ? (   
+         {admin ? (   
             <ContenedoresBtnStyled onClick={() => handleClickBtnEspecial() }>
                 <BtnEspecial icon = {<MdEdit />} />
             </ContenedoresBtnStyled>) 
@@ -146,6 +137,13 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
                 <ContenedoresBtnStyled onClick={() => handleClickBtnFoto(txtTarea) }>
                     <BtnEspecial icon = {<FaCamera />} />
                 </ContenedoresBtnStyled>) }
+       
+
+            <TxtTarea htmlFor={id} estadoTarea={estadoTarea} color={color} onClick={() => handleCheckbox()} >
+                {txtTarea}
+            </TxtTarea>
+
+   
          
 
         </ContenedorItemToDoStyled>
