@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
@@ -99,7 +99,7 @@ export const BtnEspecial = ({icon, fn}) =>{
 export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', id= 1, admin, cajaSeleccionada, setTareas }) => {
     const [estadoTarea, setEstadoTarea] = useState(estado);
     const {setModalCDPToDo, setCrearDocCdp, setCDPSeleccionado } = useCdp();
-
+    const [image, setImage] = useState(null);
     
     const handleCheckbox = () => {
         
@@ -124,27 +124,100 @@ export const ItemToDoList = ({ estado = false, color, txtTarea = 'Limpiar CDP', 
        
     
     }
+    const triggerFileInput = () => {
+        document.getElementById(`file-input-${id}`).click();
+    };
 
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result); // Store the image in state
+                console.log("Image uploaded:", reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     return (
-        <ContenedorItemToDoStyled admin={admin} >
+        <ContenedorItemToDoStyled>
+            {admin ? (
+                <ContenedoresBtnStyled onClick={handleClickBtnEspecial}>
+                    <BtnEspecial icon={<MdEdit />} />
+                </ContenedoresBtnStyled>
+            ) : (
+                <>
+                    <ContenedoresBtnStyled onClick={triggerFileInput}>
+                        <BtnEspecial icon={<FaCamera />} />
+                        <input 
+                            id={`file-input-${id}`} 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageChange} 
+                            style={{ display: 'none' }} 
+                        />
+                    </ContenedoresBtnStyled>
+                </>
+            )}
 
-         {admin ? (   
-            <ContenedoresBtnStyled onClick={() => handleClickBtnEspecial() }>
-                <BtnEspecial icon = {<MdEdit />} />
-            </ContenedoresBtnStyled>) 
-            : (   
-                <ContenedoresBtnStyled onClick={() => handleClickBtnFoto(txtTarea) }>
-                    <BtnEspecial icon = {<FaCamera />} />
-                </ContenedoresBtnStyled>) }
-       
-
-            <TxtTarea htmlFor={id} estadoTarea={estadoTarea} color={color} onClick={() => handleCheckbox()} >
+            <TxtTarea htmlFor={id} estadoTarea={estadoTarea} color={color} onClick={handleCheckbox}>
                 {txtTarea}
             </TxtTarea>
+        </ContenedorItemToDoStyled>
+    );
+};
 
-   
-         
+
+export const ItemToDoListReporte = ({  color, txtTarea = 'Limpiar CDP', id= 1, cajaSeleccionada, setFieldValue, index }) => {
+    const [estadoTarea, setEstadoTarea] = useState(false);
+    const {setModalCDPToDo, setCrearDocCdp, setCDPSeleccionado } = useCdp();
+    const [image, setImage] = useState(null);
+    useEffect(() =>{
+        if(image){
+            setEstadoTarea(true);
+            setFieldValue(`tareas[${index}][1]`, image);
+        }else{
+            setEstadoTarea(false);
+        }
+    }, [image])
+    const handleCheckbox = () => {
+        setCrearDocCdp(false);
+    };
+
+    const handleClickBtnFoto = (txtTarea) => {
+
+       
+       
+    
+    }
+    const triggerFileInput = () => {
+        document.getElementById(`file-input-${id}`).click();
+    };
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImage(file);
+        }
+    };
+
+    return (
+        <ContenedorItemToDoStyled >
+            <ContenedoresBtnStyled onClick={triggerFileInput}>
+                <BtnEspecial icon={<FaCamera />} />
+                <input 
+                    id={`file-input-${id}`} 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleImageChange} 
+                    style={{ display: 'none' }} 
+                />
+            </ContenedoresBtnStyled>
+
+            <TxtTarea htmlFor={id} estadoTarea={estadoTarea} color={color} onClick={handleCheckbox}>
+                {txtTarea}
+            </TxtTarea>
 
         </ContenedorItemToDoStyled>
     );

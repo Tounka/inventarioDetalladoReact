@@ -6,9 +6,10 @@ import { BtnStyled } from "../ComponentesGenerales/ComponentesGenericos";
 import { useEffect, useState } from "react";
 import { useEmpleados } from "../../Contextos/ContextoGeneral";
 //import { InputImg } from "../ComponentesGenerales/InputFileImg";
-import { ItemToDoList } from "../ComponentesGenerales/Tareas";
+import { ItemToDoListReporte } from "../ComponentesGenerales/Tareas";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { TicketReporte } from "./TicketReporte";
 
 const ContenedorModalStyled = styled.div`
     display: ${(props) => (props.switchModal ? 'flex' : 'none')};
@@ -35,7 +36,7 @@ const TxtModal = styled.p`
     text-align: center;
     color: var(--RojoPrincipal);
     @media (max-width: 350px) {
-        font-size: 20px;
+        font-size: 26px;
     }
 `
 
@@ -52,36 +53,9 @@ const ContenedorBtns = styled.div`
    
 `;
 
-const reportes = {
-    inicial: {
-        tareas: [
-            "Verificar POS online, tomar foto de la apertura de caja.",
-            "Verificar Combo (temperatura y OverRun).",
-            "Revisar y registrar desperdicio, desechar productos caducados.",
-            "Actualizar tiempos de vida",
-            "Pisos",
-            "Limpieza general (superficies y pisos y mantener el área organizada)."
-        ]
-    },
-    intermedio: {
-        tareas: [
-            "Limpiar pisos",
-            "Limpiar paredes - vinilos" ,
-            "Contornos de combo sin base seca, toppings o suciedad.",
-            "Limpiar empaques de refrigerador.",
-            "Organizar repisas - muebles.",
-            "Parte superior de refrigerador sin equipo.",
-        ]
-    },
-    final: {
-        tareas: [
-            "Pisos.",
-            "Paredes.",
-            "Combo.",
-            "Limpieza general (superficies y pisos y mantener el área organizada)."
-        ]
-    }
-};
+
+
+
 const ContenedorTareasJsx = styled.div`
     display: flex;
     flex-direction: column;
@@ -109,7 +83,7 @@ export const ContenedorEnviarReporte = styled(Form)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     overflow: hidden;
 
     background-color: var(--BlancoPrincipal) ;
@@ -117,18 +91,29 @@ export const ContenedorEnviarReporte = styled(Form)`
     gap: 10px;
     overflow-y: auto;
 
-    @media (max-width: 360px){
-        width: 90%;
-    }
+  
     
 `
 export const ModalEnviarFoto = () => {
     const modalContainer = document.querySelector("#modalAgregarFoto");
     const { modalCDPFotos, setModalCDPFotos, reporteSeleccionado } = useCdp();
+    const [mostrarReporte, setMostrarReporte] = useState(false);
+    const [tareasReporte, setTareasReporte] = useState(reporteSeleccionado);
+
+    
 
     const handleCerrar = () => {
         setModalCDPFotos(false);
     };
+
+    // useEffect para actualizar las tareas cuando cambie el reporteSeleccionado
+        useEffect(() => {
+       
+                setTareasReporte(reporteSeleccionado);
+          
+        }, [reporteSeleccionado]);
+        console.log(reporteSeleccionado)
+
 
     if (!modalContainer) return null;
 
@@ -136,32 +121,50 @@ export const ModalEnviarFoto = () => {
         <ContenedorModalStyled switchModal={modalCDPFotos}>
             <Formik
                 initialValues={{
-                    tareas: [], // Adjust as necessary
+                    ...reporteSeleccionado, // Usamos el estado de tareas aquí
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { resetForm }) => {
-                    console.log(values);
                     
-                    resetForm();
+                    setTareasReporte(values);
+                    console.log(values, 'values');
+                    console.log(tareasReporte)
+                    setMostrarReporte(true);
                 }}
+                enableReinitialize // Permite que Formik reinicie los valores cuando cambian
             >
-                {({ resetForm }) => (
+                {({ resetForm, setFieldValue }) => ( // Asegúrate de capturar setFieldValue aquí
                     <ContenedorEnviarReporte>
-                        <TxtModal>Reporte {reporteSeleccionado}</TxtModal>
-                        <ContenedorTareasJsx>
-                            {reportes[reporteSeleccionado]?.tareas.map((tarea, index) => (
-                                <ItemToDoList key={index} txtTarea={tarea} />
-                            ))}
-                        </ContenedorTareasJsx>
-                        <ContenedorBtns>
-                            <BtnModalTickets type="button" onClick={handleCerrar}>Cerrar</BtnModalTickets>
-                            <BtnModalTickets type="submit">Enviar</BtnModalTickets>
-                        </ContenedorBtns>
-                    </ContenedorEnviarReporte>
+                        {!mostrarReporte ? (
+                            <>
+                                <TxtModal>Reporte {reporteSeleccionado.tipoReporte}</TxtModal>
+                                <ContenedorTareasJsx>
+                                {tareasReporte.tareas.map((tarea, index) => (
+                                        <ItemToDoListReporte 
+                                            key={reporteSeleccionado.tareas + index} 
+                                            id={reporteSeleccionado.tareas + index} 
+                                            index={index}
+                                            txtTarea={tarea[0]} 
+                                            setFieldValue={setFieldValue} // Usamos setFieldValue aquí
+                                        />
+                                    ))}
+                                </ContenedorTareasJsx>
+                                <ContenedorBtns>
+                                    <BtnModalTickets type="button" onClick={handleCerrar}>Cerrar</BtnModalTickets>
+                                    <BtnModalTickets type="submit">Enviar</BtnModalTickets>
+                                </ContenedorBtns>
+                            </>
+                        ) : (
+                           
+                            <TicketReporte setMostrarReporte={setMostrarReporte} tareas={tareasReporte} resetForm={resetForm} />
+                        )}
+                    </ContenedorEnviarReporte  >
                 )}
             </Formik>
         </ContenedorModalStyled>,
         modalContainer
     );
 };
+
+
 

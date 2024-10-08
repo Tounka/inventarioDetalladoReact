@@ -4,7 +4,36 @@ import { useEmpleados } from './ContextoGeneral';
 
 
 
-
+const reportes = {
+    inicial: {
+        tareas: [
+            ["Verificar POS online, tomar foto de la apertura de caja."],
+            ["Verificar Combo (temperatura y OverRun)."],
+            ["Revisar y registrar desperdicio, desechar productos caducados."],
+            ["Actualizar tiempos de vida"],
+            ["Pisos"],
+            ["Limpieza general (superficies y pisos y mantener el área organizada)."]
+        ]
+    },
+    intermedio: {
+        tareas: [
+            ["Limpiar pisos"],
+            ["Limpiar paredes - vinilos"],
+            ["Contornos de combo sin base seca, toppings o suciedad."],
+            ["Limpiar empaques de refrigerador."],
+            ["Organizar repisas - muebles."],
+            ["Parte superior de refrigerador sin equipo."]
+        ]
+    },
+    final: {
+        tareas: [
+            ["Pisos."],
+            ["Paredes."],
+            ["Combo."],
+            ["Limpieza general (superficies y pisos y mantener el área organizada)."]
+        ]
+    }
+};
 
 // Crear el contexto
 const CdpContext = createContext();
@@ -15,7 +44,7 @@ export const CdpProvider = ({ children }) => {
     const [tareasCDPDiarias, setTareasCDPDiarias] = useState();
     const [crearDocCdp, setCrearDocCdp] = useState();
     const [CDPSeleccionado, setCDPSeleccionado] = useState('');
-    const [reporteSeleccionado, setReporteSeleccionado] = useState('');
+    const [reporteSeleccionado, setReporteSeleccionado] = useState(reportes.inicial);
 
     const [modalCDPToDo, setModalCDPToDo] = useState(false);
     const [modalCDPTicket, setModalCDPTicket] = useState(false);
@@ -124,14 +153,17 @@ export const CdpProvider = ({ children }) => {
         fetchTareasDiarias();
     }, [db]);
 
-      
+    const seleccionarTareasReporte = (reporte) =>{
+        setReporteSeleccionado({tareas: reportes[reporte].tareas, tipoReporte:reporte})
+        console.log(reporteSeleccionado);
+    } 
     
     
 
     return (
         <CdpContext.Provider value={{ CrearDocumento, ObtenerDocumento,crearDocCdp, setCrearDocCdp,CDPSeleccionado, setCDPSeleccionado, 
             setModalCDPToDo, modalCDPToDo, tareasCDP,CrearDocumentoMeta, tareasCDPDiarias,modalCDPTicket,setModalCDPTicket, modalCDPFotos, setModalCDPFotos,
-            reporteSeleccionado,setReporteSeleccionado }}>
+            reporteSeleccionado,setReporteSeleccionado, seleccionarTareasReporte }}>
             {children}
         </CdpContext.Provider>
     );

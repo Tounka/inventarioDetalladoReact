@@ -60,11 +60,12 @@ const ContenedorReporteStyled  = styled.div`
     border-radius: 10px;
 `
 const BtnReporte = ({txt, tipoReporte}) =>{
-    const {setModalCDPFotos,setReporteSeleccionado} = useCdp();
+    const {setModalCDPFotos, seleccionarTareasReporte} = useCdp();
     const handleClick = () =>{
         
         setModalCDPFotos(true);
-        setReporteSeleccionado(tipoReporte)
+        seleccionarTareasReporte(tipoReporte);
+        
     }  
     return(
         <ContenedorReporteStyled onClick={() => handleClick()}>
@@ -81,7 +82,7 @@ export const PaginaCDPCrewUx = () =>{
     const navigate = useNavigate();
     const [metaTopping1, setMetaTopping1] = useState(5);
     const [metaTopping2, setMetaTopping2] = useState(5);
-    const [tareasFijas, setTareasFijas] = useState([]);
+   
 
     const handleClickSubirTicket = () => { 
         setModalCDPTicket(true);
@@ -133,7 +134,7 @@ export const PaginaCDPCrewUx = () =>{
             setMetaTopping1(dataPorCaja[CDPSeleccionado].conosDobles );
             setMetaTopping2(dataPorCaja[CDPSeleccionado].toppings );
 
-            setTareasFijas(dataPorCaja[CDPSeleccionado].tareas);
+           
         }
         else if (tareasCDP && Array.isArray(tareasCDP)) {
            
@@ -152,7 +153,7 @@ export const PaginaCDPCrewUx = () =>{
             setMetaTopping1(Number(tareasPorId.fijas.conosDobles) + ModificadorConosDobles);
             setMetaTopping2(tareasPorId.fijas.toppings);
 
-            setTareasFijas(tareasPorId.fijas.tareas);
+            
         } else {
             console.log('tareasCDP no está definido o no es un array');
         }
