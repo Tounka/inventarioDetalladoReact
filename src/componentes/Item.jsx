@@ -72,7 +72,7 @@ function Item ({objetoProducto}){
 
                     {objetoProducto.cantidadPorCajas !== 0 ? (
                         <div className="col">
-                          <label htmlFor="caja" className="form-label lblInput">Caja</label>
+                          <label htmlFor={`caja${objetoProducto.id}`} className="form-label lblInput">Caja</label>
                           <input type="number" className="form-control" id={`caja${objetoProducto.id}`} placeholder="Caja" onChange={modificarCantidad} value={cajaValue} min={0} />
 
                         </div>
@@ -80,14 +80,14 @@ function Item ({objetoProducto}){
                       
                     {objetoProducto.cantidadPorBolsa !== 0 ?(
                     <div className="col ">
-                        <label htmlFor="bolsa" className="form-label lblInput">Paquetes</label>
+                        <label htmlFor={`bolsa${objetoProducto.id}`} className="form-label lblInput">Paquetes</label>
                         <input type="number" className="form-control" id={`bolsa${objetoProducto.id}`} placeholder="Bolsas" onChange={modificarCantidad} value={bolsaValue} min={0} />
                     </div>
                     )
                     :null}
 
                     <div className="col ">
-                        <label htmlFor="unidades" className="form-label lblInput">Unidades</label>
+                        <label htmlFor={`unidades${objetoProducto.id}`} className="form-label lblInput">Unidades</label>
                         <input type="number" className="form-control" id={`unidades${objetoProducto.id}`} placeholder="Unidades" onChange={modificarCantidad} value={unidadesValue} min={0} />
                     </div>
                 </div>

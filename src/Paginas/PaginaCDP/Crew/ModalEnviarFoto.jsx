@@ -66,10 +66,20 @@ const ContenedorTareasJsx = styled.div`
 
 `
 const validationSchema = Yup.object().shape({
-
-    
-
+    tareas: Yup.array()
+        .of(
+            Yup.array()
+                .min(2, "Cada tarea debe tener al menos 2 elementos") // Aseguramos que tenga al menos 2 elementos
+                .test(
+                    'check-position-1',
+                    'La posición [1] de todas las tareas debe contener un archivo',
+                    (arr) => arr[1] instanceof File // Verificamos que arr[1] sea un archivo
+                )
+        )
+        .required('Debe haber tareas')
+        .min(1, 'Debe haber al menos una tarea'),
 });
+
 
 export const ContenedorEnviarReporte = styled(Form)`
     
