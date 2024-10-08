@@ -121,7 +121,7 @@ export const ModalEnviarFoto = () => {
         <ContenedorModalStyled switchModal={modalCDPFotos}>
             <Formik
                 initialValues={{
-                    ...reporteSeleccionado, // Usamos el estado de tareas aquí
+                    ...reporteSeleccionado,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { resetForm }) => {
@@ -131,9 +131,9 @@ export const ModalEnviarFoto = () => {
                     console.log(tareasReporte)
                     setMostrarReporte(true);
                 }}
-                enableReinitialize // Permite que Formik reinicie los valores cuando cambian
+                enableReinitialize 
             >
-                {({ resetForm, setFieldValue }) => ( // Asegúrate de capturar setFieldValue aquí
+                {({ resetForm, setFieldValue }) => ( 
                     <ContenedorEnviarReporte>
                         {!mostrarReporte ? (
                             <>

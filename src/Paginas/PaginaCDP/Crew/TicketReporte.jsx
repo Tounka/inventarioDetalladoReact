@@ -16,10 +16,10 @@ const ContenedorTicketVenta = styled.div`
     margin: 0 auto; 
 
     @media print {
-        width: 100%; /* Usar el 100% del ancho disponible al imprimir */
+        width: 100%; 
         height: auto;  
-        padding: 10mm; /* Ajuste para la impresión */
-        box-sizing: border-box; /* Asegurarse de que el padding no afecte el tamaño total */
+        padding: 10mm; 
+        box-sizing: border-box; 
     }
 `;
 
@@ -28,7 +28,7 @@ const TituloCdp = styled.p`
     font-size: ${(props) => (props.size ? `${props.size}px` : "12px")};
     margin: 0;
     text-align: center;
-    color: ${(props) => (props.isPdf ? "red" : "white")}; // Cambiar color basado en props
+    color: ${(props) => (props.isPdf ? "red" : "white")}; 
     font-weight: bold;
     
     @media (max-width: 500px) {
@@ -70,7 +70,7 @@ const ContenedorCentrado = styled.div`
 const Span = styled(TituloCdp)`
     font-weight: normal;
     @media print {
-        font-size: 28px; /* Tamaño original para impresión */
+        font-size: 28px; 
     }
 `;
 
@@ -112,16 +112,16 @@ const CentradoTexto = styled.div`
 
 const ItemReporte = ({ txt = 'nombreReporte', hola = 'Lunes', fileImg , img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_lMN8noBKaljHKZsqVwBsDalTQNRv4Lk76Q&s' }) => {
     const [imgURL, setImgURL] = useState(img);
-   
+
     useEffect(() => {
         if (fileImg) {
             const objectURL = URL.createObjectURL(fileImg);
             setImgURL(objectURL);
 
-            // Limpia la URL creada cuando el componente se desmonte
             return () => URL.revokeObjectURL(objectURL);
         }
     }, [fileImg]);
+
     return (
         <ContenedorImgStyled>
             <CentradoTexto>{txt} - {hola}</CentradoTexto>
@@ -137,7 +137,6 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
     const [isPrint, setIsPrint] = useState(false);
     const empleado = cajas[CDPSeleccionado]?.empleado.nombre || "Empleado no encontrado";
     const { reporteSeleccionado } = useCdp();
-    // Fecha formateada
     const hoy = new Date();
     const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     const diaSemana = diasSemana[hoy.getDay()];
@@ -148,14 +147,30 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
     const minutos = String(hoy.getMinutes()).padStart(2, '0');
     const fechaFormateada = `${diaSemana} - ${dia}-${mes}-${anio} - ${hora}:${minutos}`;
 
-    const handleImprimir = () => {
-        setIsPrint(true);
-        resetForm();
-        setModalCDPFotos(false);
-       
+    const loadImage = (img) => {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.src = img.src;
+            image.onload = resolve;
+            image.onerror = reject;
+        });
     };
 
-    
+    const handleImprimir = () => {
+        const images = document.querySelectorAll("img");
+        const promises = Array.from(images).map((img) => loadImage(img));
+
+        Promise.all(promises)
+            .then(() => {
+                setIsPrint(true);
+                resetForm();
+                setModalCDPFotos(false);
+            })
+            .catch((error) => {
+                console.error("Error al cargar imágenes: ", error);
+            });
+    };
+
     useEffect(() => {
         if (isPrint) {
             const element = document.getElementById('ticketReporte');
@@ -163,16 +178,14 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
                 margin: 0,
                 filename: 'reporte.pdf',
                 image: { type: 'jpeg', quality: 0.85 },
-                html2canvas: { scale: 3, useCORS: true }, // Escalar el contenido
+                html2canvas: { scale: 3, useCORS: true }, 
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Generar el PDF
             html2pdf().from(element).set(opt).save().then(() => {
                 setIsPrint(false); 
                 setMostrarReporte(false);
             });
-            
         }
     }, [isPrint, setMostrarReporte]);
 
@@ -192,10 +205,6 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
                 {tareas.tareas.map((tarea, index) => (
                     <ItemReporte key={index} txt={tarea[0]} fileImg={tarea[1]} />
                 ))}
-
-                
-
-                    
                 </ContenedorItemReporteStyled>
             </ContenedorTicketVenta>
 
