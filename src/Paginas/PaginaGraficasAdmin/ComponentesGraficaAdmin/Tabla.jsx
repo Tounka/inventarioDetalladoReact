@@ -70,6 +70,9 @@ const ContenedorIcons = styled(ContTxt)`
 
 export const TablaResumen = () => {
     const {dataOrdenada, OrdenarData, OrdenarDataConDias} = useDataOrdenada();
+    console.log(dataOrdenada, '1')
+ 
+    
   return (
     <Table>
       <thead>
@@ -87,10 +90,11 @@ export const TablaResumen = () => {
           <TrTable key={index}>
             <TdTable>{index + 1}</TdTable>
             <TdTable>{persona.name}</TdTable>
-            <TdTable><ContTxt> {(persona.value).toFixed(1)  } </ContTxt></TdTable>
-            <TdTable><ContTxt> {((persona.value) / persona.cantidadTickets).toFixed(1)} </ContTxt></TdTable>
-            <TdTable><ContTxt> ${(persona.valueMonetario).toFixed(1)} </ContTxt></TdTable>
-            <TdTable><ContTxt> ${((persona.valueMonetario) / persona.cantidadTickets).toFixed(1)} </ContTxt></TdTable>
+            <TdTable><ContTxt> {isNaN(persona.value) ? '-' : Number(persona.value).toFixed(1)} </ContTxt></TdTable>
+            <TdTable><ContTxt> {isNaN(persona.value / persona.cantidadTickets) ? '-' : (persona.value / persona.cantidadTickets).toFixed(1)} </ContTxt></TdTable>
+            <TdTable><ContTxt> {isNaN(persona.valueMonetario) ? '-' : `$${Number(persona.valueMonetario).toFixed(1)}`} </ContTxt></TdTable>
+            <TdTable><ContTxt> {isNaN(persona.valueMonetario / persona.cantidadTickets) ? '-' : `$${(persona.valueMonetario / persona.cantidadTickets).toFixed(1)}`} </ContTxt></TdTable>
+
           </TrTable>
         ))}
       </tbody>

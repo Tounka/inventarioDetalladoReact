@@ -29,7 +29,7 @@ export const DataOrdenadaProvider = ({ children, dataBruta }) => {
                 if (foundItem) {
                     return {
                         ...item1,
-                        valueMonetario: item1.value + foundItem.value // Agregar el nuevo valor como valueMonetario
+                        valueMonetario: Number(item1.value) + Number( foundItem.value) // Agregar el nuevo valor como valueMonetario
                     };
                 }
                 return item1;

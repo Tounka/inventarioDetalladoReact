@@ -33,17 +33,31 @@ export const procesarTickets = (dias) => {
                     .slice(0, ticketIndex)
                     .reverse()
                     .find(t => t.pos === ticket.pos);
-
+    
                 const diferenciaExtras = ticketAnterior
                     ? calcularDiferenciaExtras(ticket.extras, ticketAnterior.extras)
                     : ticket.extras;
-
+    
+                // Convertir todos los extras a números
+                const extrasNumericos = {};
+                Object.keys(ticket.extras).forEach(key => {
+                    extrasNumericos[key] = Number(ticket.extras[key]);
+                });
+    
+                // Convertir también diferenciaExtras a números
+                const diferenciaExtrasNumericos = {};
+                Object.keys(diferenciaExtras).forEach(key => {
+                    diferenciaExtrasNumericos[key] = Number(diferenciaExtras[key]);
+                });
+    
                 return {
                     ...ticket,
-                    diferenciaExtras
+                    extras: extrasNumericos,
+                    diferenciaExtras: diferenciaExtrasNumericos
                 };
             });
     };
+    
 
     const agruparTicketsPorEmpleado = (tickets) => {
         const agrupados = {};

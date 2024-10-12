@@ -94,12 +94,7 @@ const ContenedorInput = styled.div`
 `;
 
 const validationSchema = Yup.object().shape({
-    conos: Yup.number()
-        .required('Este campo es obligatorio')
-        .min(0, 'El número de conos debe ser al menos 0')
-        .test('conos-vs-conosDobles', 'Conos no puede ser menor que Conos Dobles', function (value) {
-            return value >= this.parent.conosDobles;
-        }),
+    conos: Yup.number().required('Este campo es obligatorio').min(0, 'Debe ser mayor a 0'),
     conosDobles: Yup.number().required('Este campo es obligatorio').min(0, 'Debe ser mayor a 0'),
     toppings: Yup.number().required('Este campo es obligatorio').min(0, 'Debe ser mayor a 0'),
     venta: Yup.number().required('Este campo es obligatorio').min(0, 'La venta debe ser mayor a 0'),
@@ -180,19 +175,19 @@ export const ModalAgregarTicket = () => {
                                     
                                     <ContenedorInput>
                                         <LabelInputVenta htmlFor='conos'>Conos</LabelInputVenta>
-                                        <InputVenta id='conos' name='conos' type='number'  onChange={(e) => { noCero(e); setFieldValue('conos', e.target.value); }}  />
+                                        <InputVenta id='conos' name='conos' type='number'  onChange={(e) => { noCero(e); setFieldValue('conos', Number(e.target.value)); }}  />
                                         <ErrorMessage name="conos" component="div" style={{ color: 'red' }} />
                                     </ContenedorInput>
 
                                     <ContenedorInput>
                                         <LabelInputVenta htmlFor='conosDobles'>Conos Dobles</LabelInputVenta>
-                                        <InputVenta id='conosDobles' name='conosDobles' type='number'  onChange={(e) => { noCero(e); setFieldValue('conosDobles', e.target.value); }}  />
+                                        <InputVenta id='conosDobles' name='conosDobles' type='number'  onChange={(e) => { noCero(e); setFieldValue('conosDobles', Number(e.target.value)); }}  />
                                         <ErrorMessage name="conosDobles" component="div" style={{ color: 'red' }} />
                                     </ContenedorInput>
 
                                     <ContenedorInput>
                                         <LabelInputVenta htmlFor='toppings'>Toppings</LabelInputVenta>
-                                        <InputVenta id='toppings' name='toppings' type='number'  onChange={(e) => { noCero(e); setFieldValue('toppings', e.target.value); }}  />
+                                        <InputVenta id='toppings' name='toppings' type='number'  onChange={(e) => { noCero(e); setFieldValue('toppings', Number(e.target.value)); }}  />
                                         <ErrorMessage name="toppings" component="div" style={{ color: 'red' }} />
                                     </ContenedorInput>
 

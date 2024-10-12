@@ -5,6 +5,8 @@ import { useEmpleados } from "../../Contextos/ContextoGeneral";
 import { useCdp } from "../../Contextos/ContextoCDP";
 import html2pdf from "html2pdf.js";
 import { useState, useEffect } from "react";
+import imageCompression from 'browser-image-compression';
+
 
 const ContenedorTicketVenta = styled.div`
     display: flex;
@@ -75,7 +77,8 @@ const Span = styled(TituloCdp)`
 `;
 
 const ContenedorItemReporteStyled = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     flex-direction: column;
     gap: 10px;
     width: 100%;
@@ -110,21 +113,58 @@ const CentradoTexto = styled.div`
     }
 `;
 
-const ItemReporte = ({ txt = 'nombreReporte', hola = 'Lunes', fileImg , img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_lMN8noBKaljHKZsqVwBsDalTQNRv4Lk76Q&s' }) => {
+const ItemReporte = ({ txt = 'nombreReporte', hola = 'Lunes', fileImg, img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_lMN8noBKaljHKZsqVwBsDalTQNRv4Lk76Q&s' }) => {
     const [imgURL, setImgURL] = useState(img);
-
+    const [fecha, setFecha] = useState('N/A');
+    console.log();
     useEffect(() => {
-        if (fileImg) {
-            const objectURL = URL.createObjectURL(fileImg);
-            setImgURL(objectURL);
+        const compressImage = async (file) => {
+            if (file.size > 1024 * 1024) { // 1MB = 1024 * 1024 bytes
+                const options = {
+                    maxSizeMB: 1,
+                    maxWidthOrHeight: 1920,
+                    useWebWorker: true,
+                };
+                try {
+                    const compressedFile = await imageCompression(file, options);
+                    const objectURL = URL.createObjectURL(compressedFile);
+                    setImgURL(objectURL);
+                    return () => URL.revokeObjectURL(objectURL);
+                } catch (error) {
+                    console.error('Error al comprimir la imagen:', error);
+                }
+            } else {
+                const objectURL = URL.createObjectURL(file);
+                setImgURL(objectURL);
+                return () => URL.revokeObjectURL(objectURL);
+            }
+        };
 
-            return () => URL.revokeObjectURL(objectURL);
+        const obtenerFoto = async (fileImg) => {
+            if (fileImg.lastModifiedDate) {
+                let day = fileImg.lastModifiedDate.getDate();
+                let month = fileImg.lastModifiedDate.getMonth() + 1; // Los meses van de 0 a 11
+                let year = fileImg.lastModifiedDate.getFullYear();
+                let hours = fileImg.lastModifiedDate.getHours();
+                let minutes = fileImg.lastModifiedDate.getMinutes();
+
+                let formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                let formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                setFecha(`${formattedDate} : ${formattedTime}`)
+              
+            } else {
+                
+            }
+        }
+
+        if (fileImg) {
+            compressImage(fileImg);
+            obtenerFoto(fileImg); // Aquí deberías manejar el resultado de esta función si es necesario
         }
     }, [fileImg]);
-
     return (
         <ContenedorImgStyled>
-            <CentradoTexto>{txt} - {hola}</CentradoTexto>
+            <CentradoTexto>{txt} - {fecha}</CentradoTexto>
             <ImagenStyled src={imgURL} alt={txt} />
         </ContenedorImgStyled>
     );
@@ -146,7 +186,7 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
     const hora = hoy.getHours();
     const minutos = String(hoy.getMinutes()).padStart(2, '0');
     const fechaFormateada = `${diaSemana} - ${dia}-${mes}-${anio} - ${hora}:${minutos}`;
-
+    
     const loadImage = (img) => {
         return new Promise((resolve, reject) => {
             const image = new Image();
@@ -176,18 +216,22 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
             const element = document.getElementById('ticketReporte');
             const opt = {
                 margin: 0,
-                filename: 'reporte.pdf',
-                image: { type: 'jpeg', quality: 0.85 },
+                filename: `${cdp}_${empleado}_Reporte_${reporteSeleccionado.tipoReporte}_${diaSemana}_${dia}_${mes}_${anio}`,
+                image: { type: 'jpeg', quality: 0.70 },
                 html2canvas: { scale: 3, useCORS: true }, 
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().from(element).set(opt).save().then(() => {
                 setIsPrint(false); 
-                setMostrarReporte(false);
+                //setMostrarReporte(false);
             });
         }
     }, [isPrint, setMostrarReporte]);
+
+    const capitalizeFirstLetter = (str) => { {
+        return str.replace(/\b\w/g, char => char.toUpperCase());
+    }}
 
     return (
         <>
@@ -195,8 +239,8 @@ export const TicketReporte = ({ cdp = "mega", setMostrarReporte, tareas=[], rese
                 <ContenedorTitulo>
                     <ContenedorCentrado>
                         <Span size="28" isPrint={isPrint}>{empleado} -</Span>
-                        <TituloCdp size="30" isPrint={isPrint}>{cdp}</TituloCdp>
-                        <Span size="28" isPrint={isPrint}>- {Object.keys(reporteSeleccionado)}</Span>
+                        <TituloCdp size="30" isPrint={isPrint}>{capitalizeFirstLetter(cdp)}</TituloCdp>
+                        <Span size="28" isPrint={isPrint}>- {capitalizeFirstLetter(reporteSeleccionado.tipoReporte)}</Span>
                     </ContenedorCentrado>
                     <TituloCdp size="14">{fechaFormateada}</TituloCdp>
                 </ContenedorTitulo>

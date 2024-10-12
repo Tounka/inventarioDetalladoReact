@@ -145,11 +145,9 @@ export const PaginaCDPCrewUx = () =>{
                 return acc;
             }, {});
 
-
             console.log(tareasPorId, 'asdasd')
             setTareas(tareasPorId); // Actualizar el estado con el objeto de objetos
      
-       
             setMetaTopping1(Number(tareasPorId.fijas.conosDobles) + ModificadorConosDobles);
             setMetaTopping2(tareasPorId.fijas.toppings);
 

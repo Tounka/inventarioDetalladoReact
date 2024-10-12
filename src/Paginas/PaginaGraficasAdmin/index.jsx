@@ -23,8 +23,8 @@ export const PaginaGraficasAdmin = () => {
 
   
     useEffect(() => {
-        actualizarTickets();  // Asegúrate de que esta función esté actualizando correctamente el estado de `tickets`.
-    }, []); // Aquí podrías considerar agregar `actualizarTickets` como dependencia.
+        actualizarTickets();  
+    }, []); 
 
     const arregloTickets = Object.values(tickets); // Asegúrate de que `tickets` sea un objeto como se espera.
     const dataBruta = procesarTickets(arregloTickets);
